@@ -22,5 +22,83 @@
 
 noexcept:优化速度，告诉编译器不发生异常
 
+模板非类型参数不能是double类型，而且不能是类类型，可以有默认参数；
 
+模板需要注意解释的二异性：
+    在用到类中申明的类型时，编译器有可能将它设为静态成员，导致程序错误；需要加上typename消除二异性：
+        template<typename T> typename test<T>::iterate test<T>::begin();
+        typename的作用是通知编译器，修饰的内容是类型。
+
+
+typedef int(*funtype)(int, int);
+
+
+共享模板操作：
+    在一个文件中显示创建一个模板，如果其他的文件用则extern声明调用；
+    template object<type>; extern template object<type>;
+
+
+用using结合template使用，可以根据模板定义别名：
+    template<typename T> using type = map<T,T>;
+    type<int> m;
+    或者用typedef代替：
+    template<typename T> struct map_{
+        typedef map<T,T> type;
+    }
+    map_<int>::type m;
+
+
+模板特化：
+    定义内容和以前一样：
+    template<> void method(type,type){};
+
+
+可变参模板：
+    函数：
+    template<typename ...T> returnType method(T&... args){}; 省略号在定义和使用中相反。
+        在使用中，一般用递归的方法递归每一个参数，还需要一个无参的同名调用函数用来终止递归。
+    类：
+    1.递归继承：
+    template<typename ...T> class object{};
+    template<typename first, typename ...others> object<first, others...>:object<others...>{};
+        通过继承实现类递归实例化，当继承到没有参数的类时，创建这个类并停止创建。
+
+    2.递归组合：
+    template<typename first, typename ...others> object{
+    //构造
+    object(first f,others...):my(f),others(others...){};
+    object<others...> others;
+    first my;
+    }
+
+    3.通过类的静态方法，递归调用，然后生成不同的类，传递参数的方法可以用元组的方式：
+
+
+
+operator new() 和operator delete():
+    是用来申请内存和释放内存的，new关键字会调用。
+    补充：
+        new关键字申请内存时，会记录申请的大小和位置等信息，等delete删除时会利用这段信息。
+        一个什么都没有的类占用1字节，保存地址？
+        创建数组会使用额外内存保存数组，大概是四字节。
+
+
+share_ptr:
+    1.没有隐式转换；
+    2.创建：1.(); 2.make_shared()
+    3.创建之后，只使用ptr进行操作，交换(swap)，赋值；
+    4.use_count(),unique();
+    5.reset(),去掉本身，引用减一,nullptr；
+    6.get(),不建议使用;
+    7.指定删除器(参数是指针)，一般初始化中可以制定；
+    8.数组类管理，注意指定配套删除器。
+
+weak_ptr:
+    1.share_ptr的助手，主要起到监视作用；
+    2.创建：1.由share_ptr通过构造函数；2.由share_ptr等号赋值；3.由weak_ptr等号赋值；
+    3.lock(),资源还在不在，在就返回share_ptr指针,否则返回nullptr;
+    4.use_count(),返回share_ptr数量；
+    5.expired(),返回bool;
+    6.reset(),置空weak_ptr;
+    7.
 
