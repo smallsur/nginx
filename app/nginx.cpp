@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
-#include "ngx_signal.h"
+#include <ctime>
+#include "memory_pool.h"
+
 using namespace std;
 
 class test{
@@ -15,13 +17,9 @@ public:
 
 
 int main(){
-    shared_ptr<int> p = make_shared<int>(100);
-    shared_ptr<int> p1 = p;
-    cout<<p.use_count()<<endl;
-    int *q = p1.get();
-    cout<<p.use_count()<<endl;
-//    shared_ptr<int> p2(q);
-    p1 = nullptr;
-    cout<<p.use_count()<<endl;
+    Memory_Pool *s =new Memory_Pool();
+    cout<<s<<endl;
+    ::clock_t start,end;
+
     return 0;
 }

@@ -3,6 +3,6 @@
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/nginx.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/edit_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/rebuild_cache.dir
-/home/awen/workstation/nginx/cmake-build-debug/signal/CMakeFiles/signal.dir
-/home/awen/workstation/nginx/cmake-build-debug/signal/CMakeFiles/edit_cache.dir
-/home/awen/workstation/nginx/cmake-build-debug/signal/CMakeFiles/rebuild_cache.dir
+/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/memory_pool.dir
+/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/edit_cache.dir
+/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/rebuild_cache.dir
