@@ -14,6 +14,10 @@ Memory_Pool* Memory_Pool::pos = nullptr;
 
 
 void *Memory_Pool::operator new(size_t size) {
+#ifdef OPEN_MEMORY_POOL
+    Memory_Pool *tmpLink = reinterpret_cast<Memory_Pool*>(malloc(size));
+    return tmpLink;
+#else
     Memory_Pool *tmpLink = nullptr;
     if(pos== nullptr){
         Memory_Pool* newBlock = reinterpret_cast<Memory_Pool*>(std::malloc(size * m_sChunkCount));
@@ -28,11 +32,17 @@ void *Memory_Pool::operator new(size_t size) {
     tmpLink = pos;
     pos = pos->next;
     ++n_Count;
-    std::cout<<tmpLink<<std::endl;
+//    std::cout<<tmpLink<<std::endl;
     return reinterpret_cast<void *>(tmpLink);
+#endif
 }
 
 void Memory_Pool::operator delete(void *p)  {
+#ifdef OPEN_MEMORY_POOL
+    free(p);
+    return;
+#else
     reinterpret_cast<Memory_Pool*>(p)->next = pos;
     pos = reinterpret_cast<Memory_Pool*>(p);
+#endif
 }

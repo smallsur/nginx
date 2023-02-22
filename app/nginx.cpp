@@ -17,9 +17,12 @@ public:
 
 
 int main(){
-    Memory_Pool *s =new Memory_Pool();
-    cout<<s<<endl;
     ::clock_t start,end;
-
+    start = ::clock();
+    for (int i = 0; i < 10000; ++i) {
+        Memory_Pool *s = new Memory_Pool();
+    }
+    end = ::clock();
+    cout<<end-start<<endl;
     return 0;
 }

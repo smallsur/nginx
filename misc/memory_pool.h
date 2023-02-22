@@ -7,6 +7,8 @@
 
 #include <cstddef>
 
+#define OPEN_MEMORY_POOL 1
+
 class Memory_Pool{
 public:
     static void *operator new(size_t size);
