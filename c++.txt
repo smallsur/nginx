@@ -1,3 +1,92 @@
+#pragma warning(disable:4996)
+
+强制转换：
+	枚举类：enum color color1 = (enum color)1000
+
+
+typedef的使用方法：
+	在常规的定义方法上，将变量名替换成类型名字，在前面添加typedef就行了,俩个例子
+	1.int n[100] --->int NUM[100] --->typedef int NUM[100] --->NUM n;
+	2.int m --->int NUM --->typedef int NUM --->NUM m;
+
+
+
+关于位运算的简单记忆：
+	& 全1为1
+	| 全0为0
+	^ 相同为0,不同为1
+	应用：&和|用于提取1或0，例如：1000000可以&提取一个数的第7位是1或者0,另外，用|运算的0111111也可以。
+
+
+文件打开和关闭：
+	FILE *p = fopen() 失败返回NULL
+	fclose(p) 关闭
+	文件读写主要有一个缓冲区，close会自动刷新缓冲区。
+文件读取：
+	fputc，fgetc
+
+命名空间：
+	1.using使用注意函数同名
+
+c++初始化设置：
+	一般变量可以用{}进行初始化，int m{0};
+	一般变量可以用()进行初始化, int m(0);
+	数组初始化也可以用{},int m[]{1,2,3,4};
+
+auto关键字：
+	类型推断发生在编译期；
+
+
+const关键字：
+	编译器会检查常量是否会变化；
+	实际情况下可以修改的， const int m = 10; int &n = (int &)m; n = 100;
+	在成员函数后面加上const,表示函数不改变类的值，但是mutable修饰的可以更改；
+	const成员初始化在初始化列表中进行。
+
+constexpr关键字：
+	告诉编译器可以在编译时求值；
+	constexpr int var2 = func(),func()需要声明成constexpr,未定义的变量，代码过长，函数参数不是变量，printf函数调用，等等，都不能通过编译。
+	自带inline属性。
+
+for语句：
+	for(auto x:a),进行的是复制操作，可以采用引用操作代替复制；
+
+
+c++内存布局：
+	有堆，栈，静态存储区（全局变量，静态变量，类静态变量，const修饰），动态存储区，代码存放区
+
+NULL和nullptr:
+	默认情况下，类型不同，int和std::nullptr(void);
+
+c++函数：
+	一般声明的时候不需要形参名，定义的时候需要；
+	新增了后置返回类型：
+		auto func()->int{
+		return 1;
+		}
+	inline函数：
+		修饰之后，编译期间在代码处展开，具体展不展开取决于编译器本身。
+		内联函数源代码定义在头文件中，
+	特殊写法总结：
+		1.返回值为void的函数，可以返回一个(返回值为void的函数)
+		2.重载函数，参数类型不同，数量不同。(const int 和  int is same)
+string:
+	1.initialization: string a="qwert",b("qwert"),b(a),b=a,b(num,'a');
+	2.string[n] return the ref of the string;
+	3.c_str return the address of characters in the string;
+
+
+类型转换：
+	static_cast<>():编译时期进行，类型转换，类转换
+	dynamic_cast<>():运行时期进行，类转换（有类型检查，安全性较高，但代价也高）。
+	const_cast:编译时期进行，去掉const属性（只有这个值原来就是变量才安全）。
+	reinterpert_cast:编译时期进行。
+
+类中static成员：
+	可以用类名引用，变量引用使用静态变量；
+
+构造函数：
+	1.编译器不一定就会生成默认构造函数，看条件，而且如果编译器没有为其生成构造函数，用户没有定义，在构造对象时，也能执行成功。
 继承：
 	方法： 同名函数子类会覆盖父类，object.class::method(),或者用using在类中声明重载。
 	虚函数：在函数名后面加override表示虚继承，final修饰表示不继承了。
@@ -135,5 +224,24 @@ unique_ptr:
     3.release(),释放指针；
     4.不使用控制快；
     5.删除器有所不同。
+
+
+new 和 malloc函数：
+    1.new会调用构造函数，malloc不会；
+    2.new是关键字，malloc是函数；
+int *A = new A;
+int *A = new A();
+int *A = new A(100);
+
+new在分配内存时，会额外分配字节(40?),返回的指针是中间的数据起始地址。
+内存分布：
+    记录大小；
+    DEBUG调试信息；
+    分配的数据；
+    字节填充等操作，提高效率；
+    尾标记，回收内存时用到的；
+
+数组内存分布：
+    
 
 
