@@ -293,6 +293,14 @@ list分配器默认没有内存池
     inference(k); int const; int const&;
 
 
+std::forward:将左值转成左值，右值转成右值；
+
+
+auto在编译期间推倒并替换变量；
+
+
+auto会抛弃一些推断，但是decltype不会抛弃。
+
 
 
 
