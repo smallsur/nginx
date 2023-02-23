@@ -263,6 +263,36 @@ STL:
     分配器
     其他
 
-    
+vector会频繁的拷贝和析构对象，因此最好提前确定大小。
+如果大小不便，插入删除对象也会析构并创建对象。
+
+list分配器默认没有内存池
+
+迭代器：
+    输出型迭代器 ostream
+    输入型迭代器 istream
+    前向迭代器   forward_list,unordered容器
+    双向迭代器   list,set,multiset,map,multimap
+    随机访问迭代器（最后四个是继承关系）array,string,vector,deque
+
+函数对象：function<int(int)> = k; k如果是对象的话，会调用拷贝构造函数。
+
+万能引用：
+    在模板中适用，T&&，可以推断左值，也可以推断右值；
+    注意，如果前面有const修饰，那么这个万能引用会变为右值引用；
+    同时，在类模板推板上要注意区分成员函数的万能引用T不能是类模板提供的，否则变成了普通的万能引用；
+
+万能引用其实是编译器在内部进行引用折叠。
+
+模板推断：
+    int i = 10;
+    const int j = i;
+    const int &k = i;
+    inference(i); int int&;
+    inference(j); int const; int const&;
+    inference(k); int const; int const&;
+
+
+
 
 
