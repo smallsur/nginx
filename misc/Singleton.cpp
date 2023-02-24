@@ -1,21 +1,22 @@
 //
 // Created by awen on 23-2-23.
 //
-
+#include <iostream>
 #include "Singleton.h"
 
-Singleton* Singleton::instance = nullptr;
 
-Singleton* Singleton::getInstance() {
+std::shared_ptr<Singleton> Singleton::instance = nullptr;
+std::mutex Singleton::mutex;
 
-    if(instance==nullptr){
-        instance = new Singleton();
+std::shared_ptr<Singleton> Singleton::getInstance() {
+    if(instance== nullptr) {
+        mutex.lock();
+        if (instance == nullptr) {
+            instance = std::shared_ptr<Singleton>(new Singleton());
+        }
+        mutex.unlock();
     }
     return instance;
 }
 
-Singleton::resource_release::~resource_release() {
-    if(instance!= nullptr){
-        free(instance);
-    }
-}
+

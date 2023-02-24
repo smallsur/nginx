@@ -303,4 +303,10 @@ auto会抛弃一些推断，但是decltype不会抛弃。
 
 
 
+多线程：
+    lock_guard<std::mutex> obj(mutex);
+        自动加锁，如果有std::adopt_lock
+
+
+
 

@@ -5,21 +5,18 @@
 #ifndef NGINX_SINGLETON_H
 #define NGINX_SINGLETON_H
 
-#include <cstdlib>
-#include <thread>
+#include <mutex>
+#include <memory>
+
 class Singleton {
 private:
     Singleton()=default;
-    static Singleton* instance;
-    class resource_release {
-    public:
-        resource_release() = default;
-        ~resource_release();
-    };
-    static resource_release tmp;
+    Singleton(const Singleton& singleton);
+    const Singleton &operator=(const Singleton& singleton);
+    static std::shared_ptr<Singleton> instance;
+    static std::mutex mutex;
 public:
-    static Singleton* getInstance();
+    static std::shared_ptr<Singleton> getInstance();
 };
-
 
 #endif //NGINX_SINGLETON_H
