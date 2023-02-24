@@ -75,7 +75,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Order-only phony target for nginx
 
-build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_memory_pool
+build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_singleton
 
 build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen/workstation/nginx/app/nginx.cpp || cmake_object_order_depends_target_nginx
   DEP_FILE = app/CMakeFiles/nginx.dir/nginx.cpp.o.d
@@ -94,9 +94,9 @@ build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen
 #############################################
 # Link the executable app/nginx
 
-build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libmemory_pool.a || misc/libmemory_pool.a
+build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libsingleton.a || misc/libsingleton.a
   FLAGS = -g
-  LINK_LIBRARIES = misc/libmemory_pool.a
+  LINK_LIBRARIES = misc/libsingleton.a
   OBJECT_DIR = app/CMakeFiles/nginx.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -166,6 +166,40 @@ build misc/libmemory_pool.a: CXX_STATIC_LIBRARY_LINKER__memory_pool_Debug misc/C
   TARGET_FILE = misc/libmemory_pool.a
   TARGET_PDB = misc/libmemory_pool.pdb
 
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target singleton
+
+
+#############################################
+# Order-only phony target for singleton
+
+build cmake_object_order_depends_target_singleton: phony || misc/CMakeFiles/singleton.dir
+
+build misc/CMakeFiles/singleton.dir/Singleton.cpp.o: CXX_COMPILER__singleton_Debug /home/awen/workstation/nginx/misc/Singleton.cpp || cmake_object_order_depends_target_singleton
+  DEP_FILE = misc/CMakeFiles/singleton.dir/Singleton.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  OBJECT_DIR = misc/CMakeFiles/singleton.dir
+  OBJECT_FILE_DIR = misc/CMakeFiles/singleton.dir
+  TARGET_COMPILE_PDB = misc/CMakeFiles/singleton.dir/singleton.pdb
+  TARGET_PDB = misc/libsingleton.pdb
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target singleton
+
+
+#############################################
+# Link the static library misc/libsingleton.a
+
+build misc/libsingleton.a: CXX_STATIC_LIBRARY_LINKER__singleton_Debug misc/CMakeFiles/singleton.dir/Singleton.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = misc/CMakeFiles/singleton.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_COMPILE_PDB = misc/CMakeFiles/singleton.dir/singleton.pdb
+  TARGET_FILE = misc/libsingleton.a
+  TARGET_PDB = misc/libsingleton.pdb
+
 
 #############################################
 # Utility command for edit_cache
@@ -194,9 +228,13 @@ build misc/rebuild_cache: phony misc/CMakeFiles/rebuild_cache.util
 
 build libmemory_pool.a: phony misc/libmemory_pool.a
 
+build libsingleton.a: phony misc/libsingleton.a
+
 build memory_pool: phony misc/libmemory_pool.a
 
 build nginx: phony app/nginx
+
+build singleton: phony misc/libsingleton.a
 
 # =============================================================================
 # Folder targets.
@@ -220,7 +258,7 @@ build app/all: phony app/nginx
 #############################################
 # Folder: /home/awen/workstation/nginx/cmake-build-debug/misc
 
-build misc/all: phony misc/libmemory_pool.a
+build misc/all: phony misc/libmemory_pool.a misc/libsingleton.a
 
 # =============================================================================
 # Built-in targets
