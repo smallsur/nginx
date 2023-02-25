@@ -9,6 +9,6 @@ target_include_directories(nginx PUBLIC ${INCLUDE_DIR}/misc)
 
 
 #target_link_libraries(nginx PUBLIC memory_pool)
-target_link_libraries(nginx PUBLIC singleton)
-
+#target_link_libraries(nginx PUBLIC singleton)
+target_link_libraries(nginx PUBLIC ngx_c_conf)
 

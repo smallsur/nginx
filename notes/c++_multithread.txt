@@ -7,6 +7,8 @@
 2. 资源销毁时一般由子线程进行销毁.
 
 多线程：
+    std::this_thread::get_id();
+
     lock_guard<std::mutex> obj(mutex);
         自动加锁，如果第二个参数有std::adopt_lock,则加过锁之后，就不再枷锁了；
 
@@ -27,3 +29,39 @@
 
     std::async,std::future:
         std::future<int> re= std::async(method,参数)
+        re.get();调用一次,返回结果。
+        re.wait();等待执行完成，不返回结果,可以返回状态，用;
+        std::launch::deferred,参数，推迟返回时间；
+        std::launch::deferred，参数，执行
+        std::launch::deferred | std::launch::deferred，由系统决定是否立即执行；
+
+    std::packaged_task<>,打包任务；
+
+    std::atomic,原子操作。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

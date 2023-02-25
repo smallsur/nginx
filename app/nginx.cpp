@@ -8,12 +8,9 @@
 //}
 #include <iostream>
 #include <memory>
-#include "Singleton.h"
+#include "ngx_c_conf.h"
 int main(){
-    std::shared_ptr<Singleton> singleton= Singleton::getInstance();
-    std::shared_ptr<Singleton> singleton1 = Singleton::getInstance();
-    std::cout<<(singleton==singleton1)<<std::endl;
-    std::cout<<singleton.use_count()<<std::endl;
+    std::shared_ptr<Config_Nginx> config = Config_Nginx::getInstance();
     return 0;
 }
 
