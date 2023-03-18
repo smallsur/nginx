@@ -6,11 +6,20 @@
 //    std::cout<<type_id_with_cvr<T>().pretty_name()<<std::endl;
 //    std::cout<<type_id_with_cvr<decltype(tmp)>().pretty_name()<<std::endl;
 //}
+
+
 #include <iostream>
 #include <memory>
-#include "ngx_c_conf.h"
+#include <vector>
+#include "Solution.h"
+
+
 int main(){
-    std::shared_ptr<Config_Nginx> config = Config_Nginx::getInstance();
+
+    string s1("ulacfd");
+    string s2("jizalu");
+    Solution s;
+    s.checkPalindromeFormation(s1,s2);
     return 0;
 }
 
