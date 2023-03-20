@@ -4,7 +4,3 @@
 
 #include "Solution.h"
 
-
-bool Solution::isBadVersion(int version){
-    return true;
-}

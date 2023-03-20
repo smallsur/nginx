@@ -19,7 +19,9 @@ int main(){
     string s1("ulacfd");
     string s2("jizalu");
     Solution s;
-    s.checkPalindromeFormation(s1,s2);
+    int i = 2;
+    vector<int> v={1,1,1,1,1};
+    s.findTargetSumWays(v,3);
     return 0;
 }
 
