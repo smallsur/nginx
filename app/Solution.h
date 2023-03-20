@@ -47,52 +47,40 @@ public:
 
         }
     }
+    int count = 0;
     int findTargetSumWays(vector<int>& nums, int target) {
         int n =nums.size();
         int ans = 0;
         int cnt = 0;
-        map<int,set<int>> dp;
-        function<void(int)> dfs = [&](int i){
-            if(i==n) {
-                if(cnt==target){
-                    ans++;
-                    return ;
-                }
-                return;
-            }
-            cnt -= nums[i];
-            dfs(i+1);
-            cnt += nums[i];
-            
-            cnt += nums[i];
-            dfs(i+1);
-            cnt -= nums[i];
-        };
-        dfs(0);
+        int dp[2001][21];
+//        function<void(int)> dfs = [&](int i){
+//            int tmp = ans;
+//            if(i==n) {
+//                if(cnt==target){
+//                    ans++;
+//                    return ;
+//                }
+//                return;
+//            }
+//            if(dp[cnt+1000][n-i]!=0){
+//                ans += dp[cnt+1000][n-i];
+//                return;
+//            }
+//            cnt -= nums[i];
+//            dfs(i+1);
+//            cnt += nums[i];
+//
+//
+//            cnt += nums[i];
+//            dfs(i+1);
+//            cnt -= nums[i];
+//
+//            dp[cnt+1000][n-i] =ans-tmp;
+//        };
+        dfs(0, target, nums, 0);
         return ans;
     }
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode* left = head;
-        ListNode* right = head;
-        for (int i = 0; i < n-1; ++i) {
-            right = right->next;
-        }
-        while (right!=nullptr&&right->next!= nullptr){
-            left = left->next;
-            right = right->next;
-        }
-        if(left->next==nullptr&&left!=head){
-            delete left;
-            return head;
-        } else if (left->next==nullptr&&left!=head){
-            return nullptr;
-        }
-        ListNode* tmp = left->next;
-         left->val = left->next->val;
-        left->next = left->next->next;
-        delete tmp;
-        return head;
-    }
+
 
 };
 

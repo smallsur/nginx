@@ -20,8 +20,8 @@ int main(){
     string s2("jizalu");
     Solution s;
     int i = 2;
-    vector<int> v={1,1,1,1,1};
-    s.findTargetSumWays(v,3);
+    vector<int> v={1};
+    s.findTargetSumWays(v,2);
     return 0;
 }
 
