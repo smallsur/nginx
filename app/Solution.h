@@ -47,38 +47,28 @@ public:
 
         }
     }
-    int count = 0;
+
+
     int findTargetSumWays(vector<int>& nums, int target) {
         int n =nums.size();
-        int ans = 0;
-        int cnt = 0;
-        int dp[2001][21];
-//        function<void(int)> dfs = [&](int i){
-//            int tmp = ans;
-//            if(i==n) {
-//                if(cnt==target){
-//                    ans++;
-//                    return ;
-//                }
-//                return;
-//            }
-//            if(dp[cnt+1000][n-i]!=0){
-//                ans += dp[cnt+1000][n-i];
-//                return;
-//            }
-//            cnt -= nums[i];
-//            dfs(i+1);
-//            cnt += nums[i];
-//
-//
-//            cnt += nums[i];
-//            dfs(i+1);
-//            cnt -= nums[i];
-//
-//            dp[cnt+1000][n-i] =ans-tmp;
-//        };
-        dfs(0, target, nums, 0);
-        return ans;
+        int dp[2001][21]{};
+        for (int i = 1; i < n+1; ++i) {
+            for (int j = 1; j < n+1; ++j) {
+                dp[nums[i]+1000][j]=1;
+            }
+        }
+        for (int i = 1; i < n + 1; ++i) {
+            int num = nums[i];
+            for (int j = 0; j < 2001; ++j) {
+                if(j-num>0){
+                    dp[j][i] +=  dp[j-num][i-1];
+                }
+                if(j+num<2001){
+                    dp[j][i] +=  dp[j+num][i-1];
+                }
+            }
+        }
+        return dp[target+1000][n];
     }
 
 
