@@ -17,11 +17,9 @@
 int main(){
 
     string s1("ulacfd");
-    string s2("jizalu");
+    string s2("abcabcbb");
     Solution s;
-    int i = 2;
-    vector<int> v={1,1,1,1,1};
-    s.findTargetSumWays(v,3);
+    s.lengthOfLongestSubstring(s2);
     return 0;
 }
 

@@ -71,6 +71,28 @@ public:
         return dp[target+1000][n];
     }
 
+    int lengthOfLongestSubstring(string s) {
+        int left = 0,right = 0;
+        int n = s.size();
+        map<int,int> m;
+        int ans = -1;
+        while (right<n){
+            int num = s[right];
+            if(!m.count(num)){
+                m.insert({num,right});
+            } else if(m[num]!=-1){
+                left = m[num];
+                m[num] = -1;
+                left++;
+            }else{
+                left++;
+            }
+            right++;
+            ans = max(ans, right-left);
+        }
+        return ans;
+    }
+
 
 };
 
