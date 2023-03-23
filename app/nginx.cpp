@@ -16,10 +16,10 @@
 
 int main(){
 
-    string s1("ulacfd");
-    string s2("abcabcbb");
+    string s1("abcabcbb");
+    string s2("abba");
     Solution s;
-    s.lengthOfLongestSubstring(s2);
+    s.lengthOfLongestSubstring(s1);
     return 0;
 }
 
