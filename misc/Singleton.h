@@ -8,15 +8,16 @@
 #include <mutex>
 #include <memory>
 
+template<typename T>
 class Singleton {
 private:
     Singleton()=default;
     Singleton(const Singleton& singleton);
     const Singleton &operator=(const Singleton& singleton);
-    static std::shared_ptr<Singleton> instance;
+    static std::shared_ptr<T> instance;
     static std::mutex mutex;
 public:
-    static std::shared_ptr<Singleton> getInstance();
+    static std::shared_ptr<T> getInstance();
 };
 
 #endif //NGINX_SINGLETON_H

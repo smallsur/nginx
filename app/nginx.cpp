@@ -15,11 +15,9 @@
 
 
 int main(){
-
     string s1("abcabcbb");
     string s2("abba");
     Solution s;
-    s.lengthOfLongestSubstring(s1);
     return 0;
 }
 

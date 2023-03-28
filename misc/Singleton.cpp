@@ -5,14 +5,14 @@
 #include "Singleton.h"
 
 
-std::shared_ptr<Singleton> Singleton::instance = nullptr;
-std::mutex Singleton::mutex;
+template<typename T> std::shared_ptr<T> Singleton<T>::instance = nullptr;
+template<typename T> std::mutex Singleton<T>::mutex;
 
-std::shared_ptr<Singleton> Singleton::getInstance() {
+template<typename T> std::shared_ptr<T> Singleton<T>::getInstance() {
     if(instance== nullptr) {
         mutex.lock();
         if (instance == nullptr) {
-            instance = std::shared_ptr<Singleton>(new Singleton());
+            instance = std::shared_ptr<T>(new Singleton());
         }
         mutex.unlock();
     }

@@ -14,7 +14,7 @@ typedef struct {
     char itemValue[500];
 }Config_Nginx_Item;
 
-class Config_Nginx: public Singleton{
+class Config_Nginx: public Singleton<Config_Nginx>{
 public:
     bool load(const char * file_path);
     const char *getString(const char *name);
