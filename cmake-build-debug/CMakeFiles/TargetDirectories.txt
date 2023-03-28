@@ -1,11 +1,10 @@
 /home/awen/workstation/nginx/cmake-build-debug/CMakeFiles/edit_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/memory_pool.dir
+/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/ngx_c_conf.dir
+/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/edit_cache.dir
+/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/rebuild_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/solution.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/nginx.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/edit_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/rebuild_cache.dir
-/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/memory_pool.dir
-/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/singleton.dir
-/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/ngx_c_conf.dir
-/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/edit_cache.dir
-/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/rebuild_cache.dir

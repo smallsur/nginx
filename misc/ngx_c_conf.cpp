@@ -2,17 +2,16 @@
 // Created by awen on 23-2-23.
 //
 #include <fstream>
-#include <cstring>
 #include <string.h>
+#include <iostream>
+#include <memory>
 #include "ngx_c_conf.h"
 
 void Rtrim(char *string){
     if(string== nullptr) {
         return;
     }
-
     size_t len = 0;
-
     len = strlen(string);
     while(len>0&&string[len-1]==' '){
         string[--len]=0;
@@ -47,6 +46,12 @@ void Ltrim(char *string){
     (*p_tmp2) = '\0';
 }
 
+
+/*
+ * read setting:
+ * max length = 1024;
+ *
+ */
 bool Config_Nginx::load(const char *file_path) {
     if(file_path== nullptr|| strlen(file_path)==0){
         return false;
@@ -54,6 +59,7 @@ bool Config_Nginx::load(const char *file_path) {
     std::ifstream fin;
     fin.open(file_path,std::ios::in);
     if(!fin.is_open()){
+
         return false;
     }
     char buf[1024]={0};
@@ -66,7 +72,7 @@ bool Config_Nginx::load(const char *file_path) {
             continue;
         size_t len = strlen(buf);
         while (len >0){
-            if(buf[len-1]==' '||buf[len-1]==10 ||buf[len-1]==13){
+            if(buf[len-1]==' '||buf[len-1]=='10' ||buf[len-1]==13){//换行和回车
                 buf[len-1]='\0';
             }
             len--;
@@ -104,14 +110,4 @@ const char *Config_Nginx::getString(const char *name) {
         }
     }
     return nullptr;
-}
-
-int Config_Nginx::getInt(const char *name, const int def) {
-    auto begin= configItemList.begin();
-    for (; begin != configItemList.end(); ++begin) {
-        if (strcasecmp(name,(*begin)->itemName)){
-            return atoi((*begin)->itemValue);
-        }
-    }
-    return def;
 }

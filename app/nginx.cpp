@@ -11,14 +11,15 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-#include "Solution.h"
+#include "ngx_c_conf.h"
 
-
-int main(){
-    string s1("abcabcbb");
-    string s2("abba");
-    Solution s;
+int main(int argc, char* argv[]){
+    Config_Nginx& config = Config_Nginx::get_instance();
+    if(!config.load("nginx.conf")){
+        std::cout<<"config load failed"<<std::endl;
+    }
     return 0;
 }
+
 
 

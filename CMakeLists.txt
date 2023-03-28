@@ -10,7 +10,6 @@ set(ROOT_DIR ${PROJECT_SOURCE_DIR})
 message(${ROOT_DIR})
 set_property(GLOBAL PROPERTY INCLUDE_DIR ${ROOT_DIR})
 
-
+add_subdirectory(misc)
 add_subdirectory(app)
 #add_subdirectory(signal)
-add_subdirectory(misc)
