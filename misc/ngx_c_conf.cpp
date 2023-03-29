@@ -56,8 +56,8 @@ bool Config_Nginx::load(const char *file_path) {
     if(file_path== nullptr|| strlen(file_path)==0){
         return false;
     }
-    std::ifstream fin;
-    fin.open(file_path,std::ios::in);
+    std::ifstream fin(file_path,std::ios::in);
+//    fin.open(file_path,std::ios::in);
     if(!fin.is_open()){
 
         return false;
@@ -82,7 +82,7 @@ bool Config_Nginx::load(const char *file_path) {
         }
         if(*buf=='[') //[开头的也不处理
             continue;
-        char *ptmp = strchr(buf,'=');
+        char *ptmp = strchr(buf,61);
         if(ptmp!= nullptr){
             auto item = std::make_shared<Config_Nginx_Item>();
             memset((void *)item->itemName,0,sizeof (*item->itemName));
@@ -111,3 +111,5 @@ const char *Config_Nginx::getString(const char *name) {
     }
     return nullptr;
 }
+
+

@@ -9,13 +9,16 @@
 
 
 #include <iostream>
-#include <memory>
-#include <vector>
+#include <unistd.h>
+
 #include "ngx_c_conf.h"
 
 int main(int argc, char* argv[]){
     Config_Nginx& config = Config_Nginx::get_instance();
-    if(!config.load("nginx.conf")){
+    char buf[1024];
+    getcwd(buf,sizeof(buf));
+    std::cout<<buf<<std::endl;
+    if(!config.load("/home/awen/workstation/nginx/nginx.conf")){
         std::cout<<"config load failed"<<std::endl;
     }
     return 0;

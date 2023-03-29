@@ -5,7 +5,7 @@
 #ifndef NGINX_NGX_C_CONF_H
 #define NGINX_NGX_C_CONF_H
 #include <vector>
-
+#include <memory>
 template<typename T>
 class Singleton{
 public:
