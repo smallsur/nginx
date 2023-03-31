@@ -16,7 +16,6 @@ protected:
         Test::TearDown();
     }
 
-
     Config_Nginx* config;
 
 };

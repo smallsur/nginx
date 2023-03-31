@@ -6,6 +6,7 @@
 #include <iostream>
 #include <memory>
 #include "ngx_c_conf.h"
+#include "ngx_func.h"
 
 void Rtrim(char *string){
     if(string== nullptr) {
@@ -102,14 +103,33 @@ bool Config_Nginx::load(const char *file_path) {
     return true;
 }
 
-const char *Config_Nginx::getString(const char *name) {
+//const char *Config_Nginx::getString(const char *name) {
+//    auto begin= configItemList.begin();
+//    for (; begin != configItemList.end(); ++begin) {
+//        if (strcasecmp(name,(*begin)->itemName)){
+//            return (*begin)->itemValue;
+//        }
+//    }
+//    return nullptr;
+//}
+
+const char *Config_Nginx::GetString(const char *p_itemname){
     auto begin= configItemList.begin();
     for (; begin != configItemList.end(); ++begin) {
-        if (strcasecmp(name,(*begin)->itemName)){
+        if (strcasecmp(p_itemname,(*begin)->itemName)){
             return (*begin)->itemValue;
         }
     }
     return nullptr;
 }
 
+int  Config_Nginx::GetIntDefault(const char *p_itemname, const int def) {
+    auto begin= configItemList.begin();
+    for (; begin != configItemList.end(); ++begin) {
+        if (strcasecmp(p_itemname,(*begin)->itemName)==0){
+            return atoi((*begin)->itemValue);
+        }
+    }
+    return def;
+}
 

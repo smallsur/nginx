@@ -6,6 +6,8 @@
 #define NGINX_NGX_C_CONF_H
 #include <vector>
 #include <memory>
+#include "ngx_global.h"
+
 template<typename T>
 class Singleton{
 public:
@@ -22,11 +24,6 @@ protected:
 };
 
 
-typedef struct {
-    char itemName[50];
-    char itemValue[500];
-}Config_Nginx_Item;
-
 class Config_Nginx: public Singleton<Config_Nginx>{
 public:
     explicit Config_Nginx(Token){
@@ -34,7 +31,8 @@ public:
     Config_Nginx(const Config_Nginx &) =delete;
     Config_Nginx& operator=(const Config_Nginx &) =delete;
     bool load(const char * file_path);
-    const char *getString(const char *name);
+    const char *GetString(const char *p_itemname);
+    int  GetIntDefault(const char *p_itemname,const int def);
 private:
     std::vector<std::shared_ptr<Config_Nginx_Item>> configItemList;
 };
