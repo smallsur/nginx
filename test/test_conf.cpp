@@ -23,5 +23,10 @@ protected:
 
 TEST_F(Test_conf, load){
     EXPECT_EQ(true,config->load("/home/awen/workstation/nginx/nginx.conf"));
+}
 
+
+int main(int argc, char **argv){
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

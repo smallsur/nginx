@@ -13,3 +13,4 @@ target_include_directories(nginx PUBLIC ${INCLUDE_DIR})
 target_link_libraries(nginx PUBLIC ngx_c_conf)
 target_link_libraries(nginx PUBLIC solution)
 
+

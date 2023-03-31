@@ -14,13 +14,15 @@
 #include "ngx_c_conf.h"
 
 int main(int argc, char* argv[]){
+//    char buf[1024];
+//    getcwd(buf,sizeof(buf));
+//    std::cout<<buf<<std::endl;
     Config_Nginx& config = Config_Nginx::get_instance();
-    char buf[1024];
-    getcwd(buf,sizeof(buf));
-    std::cout<<buf<<std::endl;
     if(!config.load("/home/awen/workstation/nginx/nginx.conf")){
         std::cout<<"config load failed"<<std::endl;
     }
+
+
     return 0;
 }
 

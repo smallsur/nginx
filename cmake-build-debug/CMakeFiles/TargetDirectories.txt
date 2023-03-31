@@ -42,7 +42,6 @@
 /home/awen/workstation/nginx/cmake-build-debug/lib/googletest/googletest/CMakeFiles/install.dir
 /home/awen/workstation/nginx/cmake-build-debug/lib/googletest/googletest/CMakeFiles/install/local.dir
 /home/awen/workstation/nginx/cmake-build-debug/lib/googletest/googletest/CMakeFiles/install/strip.dir
-/home/awen/workstation/nginx/cmake-build-debug/test/CMakeFiles/test_main.dir
 /home/awen/workstation/nginx/cmake-build-debug/test/CMakeFiles/test_conf.dir
 /home/awen/workstation/nginx/cmake-build-debug/test/CMakeFiles/edit_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/test/CMakeFiles/rebuild_cache.dir
