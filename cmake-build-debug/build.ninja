@@ -277,13 +277,84 @@ build app/libsolution.a: CXX_STATIC_LIBRARY_LINKER__solution_Debug app/CMakeFile
   TARGET_PDB = solution.a.dbg
 
 # =============================================================================
+# Object build statements for STATIC_LIBRARY target ngx_init_setprotitle
+
+
+#############################################
+# Order-only phony target for ngx_init_setprotitle
+
+build cmake_object_order_depends_target_ngx_init_setprotitle: phony || app/CMakeFiles/ngx_init_setprotitle.dir
+
+build app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o: CXX_COMPILER__ngx_init_setprotitle_Debug /home/awen/workstation/nginx/app/ngx_init_setprotitle.cpp || cmake_object_order_depends_target_ngx_init_setprotitle
+  DEP_FILE = app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
+  OBJECT_FILE_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target ngx_init_setprotitle
+
+
+#############################################
+# Link the static library app/libngx_init_setprotitle.a
+
+build app/libngx_init_setprotitle.a: CXX_STATIC_LIBRARY_LINKER__ngx_init_setprotitle_Debug app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = app/libngx_init_setprotitle.a
+  TARGET_PDB = ngx_init_setprotitle.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target ngx_log
+
+
+#############################################
+# Order-only phony target for ngx_log
+
+build cmake_object_order_depends_target_ngx_log: phony || app/CMakeFiles/ngx_log.dir
+
+build app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o: CXX_COMPILER__ngx_log_Debug /home/awen/workstation/nginx/app/ngx_log.cpp || cmake_object_order_depends_target_ngx_log
+  DEP_FILE = app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = app/CMakeFiles/ngx_log.dir
+  OBJECT_FILE_DIR = app/CMakeFiles/ngx_log.dir
+
+build app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o: CXX_COMPILER__ngx_log_Debug /home/awen/workstation/nginx/app/ngx_printf.cpp || cmake_object_order_depends_target_ngx_log
+  DEP_FILE = app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = app/CMakeFiles/ngx_log.dir
+  OBJECT_FILE_DIR = app/CMakeFiles/ngx_log.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target ngx_log
+
+
+#############################################
+# Link the static library app/libngx_log.a
+
+build app/libngx_log.a: CXX_STATIC_LIBRARY_LINKER__ngx_log_Debug app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = app/CMakeFiles/ngx_log.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = app/libngx_log.a
+  TARGET_PDB = ngx_log.a.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target nginx
 
 
 #############################################
 # Order-only phony target for nginx
 
-build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_ngx_c_conf cmake_object_order_depends_target_solution
+build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_ngx_c_conf cmake_object_order_depends_target_ngx_init_setprotitle cmake_object_order_depends_target_ngx_log cmake_object_order_depends_target_solution
 
 build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen/workstation/nginx/app/nginx.cpp || cmake_object_order_depends_target_nginx
   DEP_FILE = app/CMakeFiles/nginx.dir/nginx.cpp.o.d
@@ -300,9 +371,9 @@ build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen
 #############################################
 # Link the executable app/nginx
 
-build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libngx_c_conf.a app/libsolution.a || app/libsolution.a misc/libngx_c_conf.a
+build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libngx_c_conf.a app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a || app/libngx_init_setprotitle.a app/libngx_log.a app/libsolution.a misc/libngx_c_conf.a
   FLAGS = -g
-  LINK_LIBRARIES = misc/libngx_c_conf.a  app/libsolution.a
+  LINK_LIBRARIES = misc/libngx_c_conf.a  app/libsolution.a  app/libngx_init_setprotitle.a  app/libngx_log.a
   OBJECT_DIR = app/CMakeFiles/nginx.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -838,6 +909,10 @@ build libmemory_pool.a: phony misc/libmemory_pool.a
 
 build libngx_c_conf.a: phony misc/libngx_c_conf.a
 
+build libngx_init_setprotitle.a: phony app/libngx_init_setprotitle.a
+
+build libngx_log.a: phony app/libngx_log.a
+
 build libsolution.a: phony app/libsolution.a
 
 build memory_pool: phony misc/libmemory_pool.a
@@ -845,6 +920,10 @@ build memory_pool: phony misc/libmemory_pool.a
 build nginx: phony app/nginx
 
 build ngx_c_conf: phony misc/libngx_c_conf.a
+
+build ngx_init_setprotitle: phony app/libngx_init_setprotitle.a
+
+build ngx_log: phony app/libngx_log.a
 
 build solution: phony app/libsolution.a
 
@@ -865,7 +944,7 @@ build all: phony misc/all app/all lib/googletest/all test/all
 #############################################
 # Folder: /home/awen/workstation/nginx/cmake-build-debug/app
 
-build app/all: phony app/libsolution.a app/nginx
+build app/all: phony app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a app/nginx
 
 # =============================================================================
 

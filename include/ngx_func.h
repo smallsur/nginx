@@ -4,8 +4,8 @@
 
 #ifndef NGINX_NGX_FUNC_H
 #define NGINX_NGX_FUNC_H
-
-
+#include <sys/types.h>
+#include <stdarg.h>
 void Rtrim(char *string);
 void Ltrim(char *string);
 

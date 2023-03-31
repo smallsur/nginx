@@ -1,0 +1,15 @@
+    struct timeval   tv;
+    memset(&tv,0,sizeof(struct timeval));
+    gettimeofday(&tv, NULL//时区);
+
+    struct timeval {
+        time_t      tv_sec;     // 秒数
+        suseconds_t tv_usec;    // 微秒数
+    };
+    其中，tv_sec 表示从 1970 年 1 月 1 日 00:00:00 开始到当前时间所经过的秒数，tv_usec 表示剩余的微秒数。
+
+
+
+
+
+

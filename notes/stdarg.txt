@@ -1,0 +1,10 @@
+va_list args;
+va_start(args, fmt);
+p = ngx_vslprintf(p,last,fmt,args);
+va_end(args);
+//多形参函数，对args进行遍历，fmt是最后一个有名字的参数
+
+
+
+
+

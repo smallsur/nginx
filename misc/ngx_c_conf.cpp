@@ -116,7 +116,7 @@ bool Config_Nginx::load(const char *file_path) {
 const char *Config_Nginx::GetString(const char *p_itemname){
     auto begin= configItemList.begin();
     for (; begin != configItemList.end(); ++begin) {
-        if (strcasecmp(p_itemname,(*begin)->itemName)){
+        if (strcasecmp(p_itemname,(*begin)->itemName)==0){
             return (*begin)->itemValue;
         }
     }

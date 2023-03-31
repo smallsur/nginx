@@ -1,0 +1,6 @@
+char *strerror(int errnum); 根据错误码返回消息字符串，默认不返回nullptr；
+
+write(STDERR_FILENO,errstr,p - errstr); 写入STDERR_FILENO，STDERR_FILENO是标准错误输出流
+
+
+
