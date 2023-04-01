@@ -1,0 +1,16 @@
+fcntl.h 是 C 语言中的一个头文件，它包含了一些文件操作相关的函数和常量。下面是 fcntl.h 中常用的一些函数和常量：
+int open(const char *pathname, int flags, mode_t mode): 打开一个文件，返回文件描述符。
+int close(int fd): 关闭文件描述符 fd 所指向的文件。
+int fcntl(int fd, int cmd, ... /* arg */ ): 对文件描述符进行各种控制操作，例如设置文件的访问模式、获取文件状态标志等。
+int dup(int oldfd): 复制文件描述符 oldfd，返回新的文件描述符。
+int dup2(int oldfd, int newfd): 将文件描述符 newfd 指向 oldfd 所指向的文件。
+int flock(int fd, int operation): 对文件进行各种类型的锁定操作。
+常用的标志参数有：
+O_RDONLY: 只读打开文件。
+O_WRONLY: 只写打开文件。
+O_RDWR: 可读可写打开文件。
+O_CREAT: 若文件不存在则创建它。
+O_TRUNC: 若文件存在且是写打开，则清空文件内容。
+O_APPEND: 写操作追加到文件末尾。
+O_NONBLOCK: 非阻塞模式打开文件。
+fcntl.h 通常和其他文件操作相关的头文件一起使用，如 stdio.h、stdlib.h、unistd.h 等。

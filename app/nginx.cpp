@@ -6,13 +6,13 @@
 //    std::cout<<type_id_with_cvr<T>().pretty_name()<<std::endl;
 //    std::cout<<type_id_with_cvr<decltype(tmp)>().pretty_name()<<std::endl;
 //}
-
-
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include "unistd.h"
+#include <unistd.h>
+
+
 #include "ngx_c_conf.h"
 #include "ngx_func.h"
 #include "ngx_global.h"
@@ -26,9 +26,15 @@ size_t  g_environlen = 0;       //环境变量所占内存大小
 size_t   g_argvneedmem = 0;
 int      g_os_argc = 0;
 
+int   g_daemonized = 0;
 
 pid_t ngx_pid;
 pid_t ngx_ppid;
+
+int     ngx_process;            //进程类型，比如master,worker进程等
+sig_atomic_t  ngx_reap;
+
+
 int main(int argc, char* argv[]){
 
     int exitcode = 0;
@@ -47,20 +53,24 @@ int main(int argc, char* argv[]){
         g_environlen += strlen(environ[i]) + 1;
     }
 
-    ngx_init_setproctitle();//env环境搬家
+    ngx_log.fd = -1;                  //-1：表示日志文件尚未打开；因为后边ngx_log_stderr要用所以这里先给-1
+    ngx_process = NGX_PROCESS_MASTER; //先标记本进程是master进程
+    ngx_reap = 0;                     //标记子进程没有发生变化
 
     Config_Nginx& config = Config_Nginx::get_instance();
     if(!config.load("/home/awen/workstation/nginx/nginx.conf")){
+        ngx_log_init();
         ngx_log_stderr(0,"配置文件[%s]载入失败，退出!","nginx.conf");
         exitcode = 2;
         goto lblexit;
     }
-
     ngx_log_init();
     if(ngx_init_signals()==-1){
         exitcode = 1;
         goto lblexit;
     }
+
+    ngx_init_setproctitle();//env环境搬家
 //    ngx_setproctitle("nginx: master process");
 //    for (int i = 0; ; ++i) {
 //        sleep(1);
@@ -81,6 +91,19 @@ int main(int argc, char* argv[]){
 //
 //    //测试ngx_log_error_core函数的调用
 //    ngx_log_error_core(5,8,"这个XXX工作的有问题，显示的结果=%s","YYYY");
+    if(config.GetIntDefault("Daemon",0)==1){
+        int cdaemonresult = ngx_daemon();
+        if(cdaemonresult==-1){
+            exitcode = 1;    //标记失败
+            goto lblexit;
+        } else if(cdaemonresult==1){
+            freeresource();   //只有进程退出了才goto到 lblexit，用于提醒用户进程退出了
+            //而我现在这个情况属于正常fork()守护进程后的正常退出，不应该跑到lblexit()去执行，因为那里有一条打印语句标记整个进程的退出，这里不该显示该条打印语句
+            exitcode = 0;
+            return exitcode;  //整个进程直接在这里退出
+        }
+        g_daemonized = 1;
+    }
     ngx_master_process_cycle();
     lblexit:
     //(5)该释放的资源要释放掉

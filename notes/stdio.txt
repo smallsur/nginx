@@ -1,0 +1,10 @@
+setvbuf 是一个 C 标准库函数，用于设置标准 I/O 流的缓冲区类型。函数原型如下：
+int setvbuf(FILE *stream, char *buf, int mode, size_t size);
+其中，stream 表示需要设置缓冲区的流；buf 表示指定的缓冲区，为 NULL 时则动态分配；
+mode 表示缓冲类型，可选值为 _IONBF（无缓冲）、_IOLBF（行缓冲）和 _IOFBF（全缓冲）；size 表示缓冲区大小。
+在使用 setvbuf 函数后，stdout 和 stderr 都会改变其缓冲类型和大小，而 stdin 则不会改变，因为其默认为行缓冲。
+无缓冲（_IONBF）：每次操作都直接与文件或设备交互，没有缓冲，通常用于 stderr。
+行缓冲（_IOLBF）：当输出换行符或缓冲区满时，才与文件或设备交互。
+全缓冲（_IOFBF）：缓冲区满时，才与文件或设备交互。
+setvbuf 函数返回值为 0 表示成功，非 0 表示出错
+

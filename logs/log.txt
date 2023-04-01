@@ -1,0 +1,19 @@
+2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGHUP) succed!
+
+2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGINT) succed!
+
+2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGTERM) succed!
+
+2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGCHLD) succed!
+
+2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGQUIT) succed!
+
+2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGIO) succed!
+
+2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+
+2023/04/01 17:29:38 [stderr] 11519: nginx: -1560418136
+
+2023/04/01 17:29:38 [stderr] 11519: nginx: -1560418136
+
+2023/04/01 17:29:38 [notice] 11520: worker process 11520 启动并开始运行......!

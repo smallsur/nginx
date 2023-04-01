@@ -1,0 +1,23 @@
+waitpid 是一个用于等待进程结束的系统调用。其函数原型为：
+
+#include <sys/wait.h>
+pid_t waitpid(pid_t pid, int *status, int options);
+其中，pid 表示要等待的进程 ID，status 是一个指向整型变量的指针，用于保存子进程的退出状态。
+options 是一个用于指定等待行为的选项标志。
+
+当 pid 取值为 -1 时，表示等待任意一个子进程结束；
+当 pid 取值为 0 时，表示等待和调用进程在同一个进程组中的任意一个子进程结束；
+当 pid 大于 0 时，表示等待进程 ID 为 pid 的子进程结束。
+
+status 指针指向的整型变量中保存的是子进程的退出状态信息。
+它的低 8 位是进程的退出状态，高位包含了其他的信息，例如是否被信号终止等。
+可以使用 WIFEXITED、WEXITSTATUS、WIFSIGNALED、WTERMSIG 等宏来处理这些信息。
+
+options 参数用于指定等待的行为，可以是以下选项：
+
+WNOHANG：如果没有子进程结束，则立即返回 0。
+WUNTRACED：如果子进程处于暂停状态，也会立即返回。
+WCONTINUED：如果子进程在暂停状态下被恢复了，则会返回状态信息。
+waitpid 函数会阻塞当前进程，直到指定的子进程结束或满足指定的条件。
+如果成功，则返回结束进程的 PID；如果失败，则返回 -1，并设置 errno 变量。
+

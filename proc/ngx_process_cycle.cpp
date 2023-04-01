@@ -83,7 +83,6 @@ void  ngx_master_process_cycle(){
 ///        printf("master进程休息1秒\n");
         //sleep(1); //休息1秒
         //以后扩充.......
-
     }
     return;
 };
@@ -102,8 +101,9 @@ static int ngx_spawn_process(int inum,const char *pprocname)
     pid_t  pid;
 
     pid = fork(); //fork()系统调用产生子进程
-    printf("%d",g_os_argc);
+//    printf("%d",g_os_argc);
 
+//    ngx_log_stderr(0,"%d",g_os_argv);
     switch (pid)  //pid判断父子进程，分支处理
     {
         case -1: //产生子进程失败
@@ -112,7 +112,8 @@ static int ngx_spawn_process(int inum,const char *pprocname)
 
         case 0:  //子进程分支
             ngx_ppid = ngx_pid;              //因为是子进程了，所有原来的pid变成了父pid
-            ngx_pid = getpid();                //重新获取pid,即本子进程的pid
+            ngx_pid = getpid();//重新获取pid,即本子进程的pid
+            ngx_process = NGX_PROCESS_WORKER;
             ngx_worker_process_cycle(inum,pprocname);    //我希望所有worker子进程，在这个函数里不断循环着不出来，也就是说，子进程流程不往下边走;
             break;
 
@@ -130,7 +131,7 @@ static void ngx_worker_process_cycle(int inum,const char *pprocname)
     //重新为子进程设置进程名，不要与父进程重复------
     ngx_worker_process_init(inum);
     ngx_setproctitle(pprocname); //设置标题
-
+    ngx_log_error_core(NGX_LOG_NOTICE,0,"%s %P 启动并开始运行......!",pprocname,ngx_pid); //设置标题时顺便记录下来进程名，进程id等信息到日志
     //暂时先放个死循环，我们在这个循环里一直不出来
     //setvbuf(stdout,NULL,_IONBF,0); //这个函数. 直接将printf缓冲区禁止， printf就直接输出了。
     for(;;)
@@ -173,3 +174,4 @@ static void ngx_worker_process_init(int inum)
     //....
     return;
 }
+

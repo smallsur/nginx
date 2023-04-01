@@ -4,3 +4,8 @@
 内存泄漏检查：
    valgrind --tool=memcheck --leak-check=full --show-reachable=yes --trace-children=yes
 
+
+
+gdb:
+    set detach-on-fork off
+    set follow-fork-mode child

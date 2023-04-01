@@ -32,10 +32,14 @@ extern char  *gp_envmem;
 extern size_t   g_environlen;
 extern size_t   g_argvneedmem;
 extern int      g_os_argc;
+extern int           g_daemonized;
 
 extern pid_t       ngx_pid;
 extern pid_t        ngx_ppid;
 extern ngx_log_t   ngx_log;
+
+extern int           ngx_process;
+extern sig_atomic_t  ngx_reap;
 
 
 #endif

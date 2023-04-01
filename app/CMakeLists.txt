@@ -5,7 +5,7 @@ add_library(ngx_init_setprotitle ngx_init_setprotitle.cpp)
 add_library(ngx_log ngx_log.cpp ngx_printf.cpp)
 
 add_executable(nginx nginx.cpp)
-
+add_executable(test test.cpp)
 get_property(INCLUDE_DIR GLOBAL PROPERTY "INCLUDE_DIR")
 target_include_directories(solution PUBLIC ${INCLUDE_DIR})
 target_include_directories(nginx PUBLIC ${INCLUDE_DIR})
@@ -18,5 +18,6 @@ target_link_libraries(nginx PUBLIC ngx_init_setprotitle)
 target_link_libraries(nginx PUBLIC ngx_log)
 target_link_libraries(nginx PUBLIC ngx_signal)
 target_link_libraries(nginx PUBLIC ngx_process_cycle)
+target_link_libraries(nginx PUBLIC ngx_daemon)
 
 

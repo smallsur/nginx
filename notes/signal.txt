@@ -40,3 +40,5 @@ void (*sa_restorer)(void)：一个函数指针，指向恢复信号处理函数�
 在 Linux 中，可以使用 sigemptyset 函数将 sa_mask 设置为空信号集
 
 
+
+

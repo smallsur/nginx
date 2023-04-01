@@ -30,4 +30,7 @@
 
 #define NGX_ERROR_LOG_PATH       "logs/error1.log"   //定义日志存放的路径和文件名
 
+#define NGX_PROCESS_MASTER     0  //master进程，管理进程
+#define NGX_PROCESS_WORKER     1  //worker进程，工作进程
+
 #endif //NGINX_NGX_MACRO_H

@@ -717,6 +717,38 @@ build proc/libngx_process_cycle.a: CXX_STATIC_LIBRARY_LINKER__ngx_process_cycle_
   TARGET_FILE = proc/libngx_process_cycle.a
   TARGET_PDB = ngx_process_cycle.a.dbg
 
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target ngx_daemon
+
+
+#############################################
+# Order-only phony target for ngx_daemon
+
+build cmake_object_order_depends_target_ngx_daemon: phony || proc/CMakeFiles/ngx_daemon.dir
+
+build proc/CMakeFiles/ngx_daemon.dir/ngx_daemon.cpp.o: CXX_COMPILER__ngx_daemon_Debug /home/awen/workstation/nginx/proc/ngx_daemon.cpp || cmake_object_order_depends_target_ngx_daemon
+  DEP_FILE = proc/CMakeFiles/ngx_daemon.dir/ngx_daemon.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = proc/CMakeFiles/ngx_daemon.dir
+  OBJECT_FILE_DIR = proc/CMakeFiles/ngx_daemon.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target ngx_daemon
+
+
+#############################################
+# Link the static library proc/libngx_daemon.a
+
+build proc/libngx_daemon.a: CXX_STATIC_LIBRARY_LINKER__ngx_daemon_Debug proc/CMakeFiles/ngx_daemon.dir/ngx_daemon.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = proc/CMakeFiles/ngx_daemon.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = proc/libngx_daemon.a
+  TARGET_PDB = ngx_daemon.a.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -999,7 +1031,7 @@ build app/libngx_log.a: CXX_STATIC_LIBRARY_LINKER__ngx_log_Debug app/CMakeFiles/
 #############################################
 # Order-only phony target for nginx
 
-build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_ngx_c_conf cmake_object_order_depends_target_ngx_init_setprotitle cmake_object_order_depends_target_ngx_log cmake_object_order_depends_target_ngx_process_cycle cmake_object_order_depends_target_ngx_signal cmake_object_order_depends_target_solution
+build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_ngx_c_conf cmake_object_order_depends_target_ngx_daemon cmake_object_order_depends_target_ngx_init_setprotitle cmake_object_order_depends_target_ngx_log cmake_object_order_depends_target_ngx_process_cycle cmake_object_order_depends_target_ngx_signal cmake_object_order_depends_target_solution
 
 build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen/workstation/nginx/app/nginx.cpp || cmake_object_order_depends_target_nginx
   DEP_FILE = app/CMakeFiles/nginx.dir/nginx.cpp.o.d
@@ -1016,14 +1048,45 @@ build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen
 #############################################
 # Link the executable app/nginx
 
-build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libngx_c_conf.a app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a signal/libngx_signal.a proc/libngx_process_cycle.a || app/libngx_init_setprotitle.a app/libngx_log.a app/libsolution.a misc/libngx_c_conf.a proc/libngx_process_cycle.a signal/libngx_signal.a
+build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libngx_c_conf.a app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a signal/libngx_signal.a proc/libngx_process_cycle.a proc/libngx_daemon.a || app/libngx_init_setprotitle.a app/libngx_log.a app/libsolution.a misc/libngx_c_conf.a proc/libngx_daemon.a proc/libngx_process_cycle.a signal/libngx_signal.a
   FLAGS = -g
-  LINK_LIBRARIES = misc/libngx_c_conf.a  app/libsolution.a  app/libngx_init_setprotitle.a  app/libngx_log.a  signal/libngx_signal.a  proc/libngx_process_cycle.a
+  LINK_LIBRARIES = misc/libngx_c_conf.a  app/libsolution.a  app/libngx_init_setprotitle.a  app/libngx_log.a  signal/libngx_signal.a  proc/libngx_process_cycle.a  proc/libngx_daemon.a
   OBJECT_DIR = app/CMakeFiles/nginx.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = app/nginx
   TARGET_PDB = nginx.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test
+
+
+#############################################
+# Order-only phony target for test
+
+build cmake_object_order_depends_target_test: phony || app/CMakeFiles/test.dir
+
+build app/CMakeFiles/test.dir/test.cpp.o: CXX_COMPILER__test_Debug /home/awen/workstation/nginx/app/test.cpp || cmake_object_order_depends_target_test
+  DEP_FILE = app/CMakeFiles/test.dir/test.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  OBJECT_DIR = app/CMakeFiles/test.dir
+  OBJECT_FILE_DIR = app/CMakeFiles/test.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test
+
+
+#############################################
+# Link the executable app/test
+
+build app/test: CXX_EXECUTABLE_LINKER__test_Debug app/CMakeFiles/test.dir/test.cpp.o
+  FLAGS = -g
+  OBJECT_DIR = app/CMakeFiles/test.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = app/test
+  TARGET_PDB = test.dbg
 
 
 #############################################
@@ -1113,6 +1176,8 @@ build libmemory_pool.a: phony misc/libmemory_pool.a
 
 build libngx_c_conf.a: phony misc/libngx_c_conf.a
 
+build libngx_daemon.a: phony proc/libngx_daemon.a
+
 build libngx_init_setprotitle.a: phony app/libngx_init_setprotitle.a
 
 build libngx_log.a: phony app/libngx_log.a
@@ -1129,6 +1194,8 @@ build nginx: phony app/nginx
 
 build ngx_c_conf: phony misc/libngx_c_conf.a
 
+build ngx_daemon: phony proc/libngx_daemon.a
+
 build ngx_init_setprotitle: phony app/libngx_init_setprotitle.a
 
 build ngx_log: phony app/libngx_log.a
@@ -1138,6 +1205,8 @@ build ngx_process_cycle: phony proc/libngx_process_cycle.a
 build ngx_signal: phony signal/libngx_signal.a
 
 build solution: phony app/libsolution.a
+
+build test: phony app/test
 
 build test_conf: phony test/test_conf
 
@@ -1156,7 +1225,7 @@ build all: phony misc/all lib/googletest/all test/all proc/all signal/all app/al
 #############################################
 # Folder: /home/awen/workstation/nginx/cmake-build-debug/app
 
-build app/all: phony app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a app/nginx
+build app/all: phony app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a app/nginx app/test
 
 # =============================================================================
 
@@ -1191,7 +1260,7 @@ build misc/all: phony misc/libmemory_pool.a misc/libngx_c_conf.a
 #############################################
 # Folder: /home/awen/workstation/nginx/cmake-build-debug/proc
 
-build proc/all: phony proc/libngx_process_cycle.a
+build proc/all: phony proc/libngx_process_cycle.a proc/libngx_daemon.a
 
 # =============================================================================
 
