@@ -244,212 +244,6 @@ build misc/install/strip: phony misc/CMakeFiles/install/strip.util
 # /home/awen/workstation/nginx/CMakeLists.txt
 # =============================================================================
 
-# =============================================================================
-# Object build statements for STATIC_LIBRARY target solution
-
-
-#############################################
-# Order-only phony target for solution
-
-build cmake_object_order_depends_target_solution: phony || app/CMakeFiles/solution.dir
-
-build app/CMakeFiles/solution.dir/Solution.cpp.o: CXX_COMPILER__solution_Debug /home/awen/workstation/nginx/app/Solution.cpp || cmake_object_order_depends_target_solution
-  DEP_FILE = app/CMakeFiles/solution.dir/Solution.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
-  INCLUDES = -I/home/awen/workstation/nginx/include
-  OBJECT_DIR = app/CMakeFiles/solution.dir
-  OBJECT_FILE_DIR = app/CMakeFiles/solution.dir
-
-
-# =============================================================================
-# Link build statements for STATIC_LIBRARY target solution
-
-
-#############################################
-# Link the static library app/libsolution.a
-
-build app/libsolution.a: CXX_STATIC_LIBRARY_LINKER__solution_Debug app/CMakeFiles/solution.dir/Solution.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -g
-  OBJECT_DIR = app/CMakeFiles/solution.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = app/libsolution.a
-  TARGET_PDB = solution.a.dbg
-
-# =============================================================================
-# Object build statements for STATIC_LIBRARY target ngx_init_setprotitle
-
-
-#############################################
-# Order-only phony target for ngx_init_setprotitle
-
-build cmake_object_order_depends_target_ngx_init_setprotitle: phony || app/CMakeFiles/ngx_init_setprotitle.dir
-
-build app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o: CXX_COMPILER__ngx_init_setprotitle_Debug /home/awen/workstation/nginx/app/ngx_init_setprotitle.cpp || cmake_object_order_depends_target_ngx_init_setprotitle
-  DEP_FILE = app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
-  INCLUDES = -I/home/awen/workstation/nginx/include
-  OBJECT_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
-  OBJECT_FILE_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
-
-
-# =============================================================================
-# Link build statements for STATIC_LIBRARY target ngx_init_setprotitle
-
-
-#############################################
-# Link the static library app/libngx_init_setprotitle.a
-
-build app/libngx_init_setprotitle.a: CXX_STATIC_LIBRARY_LINKER__ngx_init_setprotitle_Debug app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -g
-  OBJECT_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = app/libngx_init_setprotitle.a
-  TARGET_PDB = ngx_init_setprotitle.a.dbg
-
-# =============================================================================
-# Object build statements for STATIC_LIBRARY target ngx_log
-
-
-#############################################
-# Order-only phony target for ngx_log
-
-build cmake_object_order_depends_target_ngx_log: phony || app/CMakeFiles/ngx_log.dir
-
-build app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o: CXX_COMPILER__ngx_log_Debug /home/awen/workstation/nginx/app/ngx_log.cpp || cmake_object_order_depends_target_ngx_log
-  DEP_FILE = app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
-  INCLUDES = -I/home/awen/workstation/nginx/include
-  OBJECT_DIR = app/CMakeFiles/ngx_log.dir
-  OBJECT_FILE_DIR = app/CMakeFiles/ngx_log.dir
-
-build app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o: CXX_COMPILER__ngx_log_Debug /home/awen/workstation/nginx/app/ngx_printf.cpp || cmake_object_order_depends_target_ngx_log
-  DEP_FILE = app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
-  INCLUDES = -I/home/awen/workstation/nginx/include
-  OBJECT_DIR = app/CMakeFiles/ngx_log.dir
-  OBJECT_FILE_DIR = app/CMakeFiles/ngx_log.dir
-
-
-# =============================================================================
-# Link build statements for STATIC_LIBRARY target ngx_log
-
-
-#############################################
-# Link the static library app/libngx_log.a
-
-build app/libngx_log.a: CXX_STATIC_LIBRARY_LINKER__ngx_log_Debug app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -g
-  OBJECT_DIR = app/CMakeFiles/ngx_log.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = app/libngx_log.a
-  TARGET_PDB = ngx_log.a.dbg
-
-# =============================================================================
-# Object build statements for EXECUTABLE target nginx
-
-
-#############################################
-# Order-only phony target for nginx
-
-build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_ngx_c_conf cmake_object_order_depends_target_ngx_init_setprotitle cmake_object_order_depends_target_ngx_log cmake_object_order_depends_target_solution
-
-build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen/workstation/nginx/app/nginx.cpp || cmake_object_order_depends_target_nginx
-  DEP_FILE = app/CMakeFiles/nginx.dir/nginx.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
-  INCLUDES = -I/home/awen/workstation/nginx/include
-  OBJECT_DIR = app/CMakeFiles/nginx.dir
-  OBJECT_FILE_DIR = app/CMakeFiles/nginx.dir
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target nginx
-
-
-#############################################
-# Link the executable app/nginx
-
-build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libngx_c_conf.a app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a || app/libngx_init_setprotitle.a app/libngx_log.a app/libsolution.a misc/libngx_c_conf.a
-  FLAGS = -g
-  LINK_LIBRARIES = misc/libngx_c_conf.a  app/libsolution.a  app/libngx_init_setprotitle.a  app/libngx_log.a
-  OBJECT_DIR = app/CMakeFiles/nginx.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = app/nginx
-  TARGET_PDB = nginx.dbg
-
-
-#############################################
-# Utility command for edit_cache
-
-build app/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build app/edit_cache: phony app/CMakeFiles/edit_cache.util
-
-
-#############################################
-# Utility command for rebuild_cache
-
-build app/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/awen/workstation/nginx -B/home/awen/workstation/nginx/cmake-build-debug
-  DESC = Running CMake to regenerate build system...
-  pool = console
-  restat = 1
-
-build app/rebuild_cache: phony app/CMakeFiles/rebuild_cache.util
-
-
-#############################################
-# Utility command for list_install_components
-
-build app/list_install_components: phony
-
-
-#############################################
-# Utility command for install
-
-build app/CMakeFiles/install.util: CUSTOM_COMMAND app/all
-  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -P cmake_install.cmake
-  DESC = Install the project...
-  pool = console
-  restat = 1
-
-build app/install: phony app/CMakeFiles/install.util
-
-
-#############################################
-# Utility command for install/local
-
-build app/CMakeFiles/install/local.util: CUSTOM_COMMAND app/all
-  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-  DESC = Installing only the local directory...
-  pool = console
-  restat = 1
-
-build app/install/local: phony app/CMakeFiles/install/local.util
-
-
-#############################################
-# Utility command for install/strip
-
-build app/CMakeFiles/install/strip.util: CUSTOM_COMMAND app/all
-  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-  DESC = Installing the project stripped...
-  pool = console
-  restat = 1
-
-build app/install/strip: phony app/CMakeFiles/install/strip.util
-
-# =============================================================================
-# Write statements declared in CMakeLists.txt:
-# /home/awen/workstation/nginx/CMakeLists.txt
-# =============================================================================
-
 
 #############################################
 # Utility command for edit_cache
@@ -887,6 +681,416 @@ build test/CMakeFiles/install/strip.util: CUSTOM_COMMAND test/all
 build test/install/strip: phony test/CMakeFiles/install/strip.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/awen/workstation/nginx/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target ngx_process_cycle
+
+
+#############################################
+# Order-only phony target for ngx_process_cycle
+
+build cmake_object_order_depends_target_ngx_process_cycle: phony || proc/CMakeFiles/ngx_process_cycle.dir
+
+build proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o: CXX_COMPILER__ngx_process_cycle_Debug /home/awen/workstation/nginx/proc/ngx_process_cycle.cpp || cmake_object_order_depends_target_ngx_process_cycle
+  DEP_FILE = proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = proc/CMakeFiles/ngx_process_cycle.dir
+  OBJECT_FILE_DIR = proc/CMakeFiles/ngx_process_cycle.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target ngx_process_cycle
+
+
+#############################################
+# Link the static library proc/libngx_process_cycle.a
+
+build proc/libngx_process_cycle.a: CXX_STATIC_LIBRARY_LINKER__ngx_process_cycle_Debug proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = proc/CMakeFiles/ngx_process_cycle.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = proc/libngx_process_cycle.a
+  TARGET_PDB = ngx_process_cycle.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build proc/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/proc && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build proc/edit_cache: phony proc/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build proc/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/proc && /snap/clion/233/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/awen/workstation/nginx -B/home/awen/workstation/nginx/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build proc/rebuild_cache: phony proc/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build proc/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build proc/CMakeFiles/install.util: CUSTOM_COMMAND proc/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/proc && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build proc/install: phony proc/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build proc/CMakeFiles/install/local.util: CUSTOM_COMMAND proc/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/proc && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build proc/install/local: phony proc/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build proc/CMakeFiles/install/strip.util: CUSTOM_COMMAND proc/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/proc && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build proc/install/strip: phony proc/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/awen/workstation/nginx/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target ngx_signal
+
+
+#############################################
+# Order-only phony target for ngx_signal
+
+build cmake_object_order_depends_target_ngx_signal: phony || signal/CMakeFiles/ngx_signal.dir
+
+build signal/CMakeFiles/ngx_signal.dir/ngx_signal.cpp.o: CXX_COMPILER__ngx_signal_Debug /home/awen/workstation/nginx/signal/ngx_signal.cpp || cmake_object_order_depends_target_ngx_signal
+  DEP_FILE = signal/CMakeFiles/ngx_signal.dir/ngx_signal.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = signal/CMakeFiles/ngx_signal.dir
+  OBJECT_FILE_DIR = signal/CMakeFiles/ngx_signal.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target ngx_signal
+
+
+#############################################
+# Link the static library signal/libngx_signal.a
+
+build signal/libngx_signal.a: CXX_STATIC_LIBRARY_LINKER__ngx_signal_Debug signal/CMakeFiles/ngx_signal.dir/ngx_signal.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = signal/CMakeFiles/ngx_signal.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = signal/libngx_signal.a
+  TARGET_PDB = ngx_signal.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build signal/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/signal && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build signal/edit_cache: phony signal/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build signal/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/signal && /snap/clion/233/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/awen/workstation/nginx -B/home/awen/workstation/nginx/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build signal/rebuild_cache: phony signal/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build signal/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build signal/CMakeFiles/install.util: CUSTOM_COMMAND signal/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/signal && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build signal/install: phony signal/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build signal/CMakeFiles/install/local.util: CUSTOM_COMMAND signal/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/signal && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build signal/install/local: phony signal/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build signal/CMakeFiles/install/strip.util: CUSTOM_COMMAND signal/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/signal && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build signal/install/strip: phony signal/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/awen/workstation/nginx/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target solution
+
+
+#############################################
+# Order-only phony target for solution
+
+build cmake_object_order_depends_target_solution: phony || app/CMakeFiles/solution.dir
+
+build app/CMakeFiles/solution.dir/Solution.cpp.o: CXX_COMPILER__solution_Debug /home/awen/workstation/nginx/app/Solution.cpp || cmake_object_order_depends_target_solution
+  DEP_FILE = app/CMakeFiles/solution.dir/Solution.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = app/CMakeFiles/solution.dir
+  OBJECT_FILE_DIR = app/CMakeFiles/solution.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target solution
+
+
+#############################################
+# Link the static library app/libsolution.a
+
+build app/libsolution.a: CXX_STATIC_LIBRARY_LINKER__solution_Debug app/CMakeFiles/solution.dir/Solution.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = app/CMakeFiles/solution.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = app/libsolution.a
+  TARGET_PDB = solution.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target ngx_init_setprotitle
+
+
+#############################################
+# Order-only phony target for ngx_init_setprotitle
+
+build cmake_object_order_depends_target_ngx_init_setprotitle: phony || app/CMakeFiles/ngx_init_setprotitle.dir
+
+build app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o: CXX_COMPILER__ngx_init_setprotitle_Debug /home/awen/workstation/nginx/app/ngx_init_setprotitle.cpp || cmake_object_order_depends_target_ngx_init_setprotitle
+  DEP_FILE = app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
+  OBJECT_FILE_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target ngx_init_setprotitle
+
+
+#############################################
+# Link the static library app/libngx_init_setprotitle.a
+
+build app/libngx_init_setprotitle.a: CXX_STATIC_LIBRARY_LINKER__ngx_init_setprotitle_Debug app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = app/libngx_init_setprotitle.a
+  TARGET_PDB = ngx_init_setprotitle.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target ngx_log
+
+
+#############################################
+# Order-only phony target for ngx_log
+
+build cmake_object_order_depends_target_ngx_log: phony || app/CMakeFiles/ngx_log.dir
+
+build app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o: CXX_COMPILER__ngx_log_Debug /home/awen/workstation/nginx/app/ngx_log.cpp || cmake_object_order_depends_target_ngx_log
+  DEP_FILE = app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = app/CMakeFiles/ngx_log.dir
+  OBJECT_FILE_DIR = app/CMakeFiles/ngx_log.dir
+
+build app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o: CXX_COMPILER__ngx_log_Debug /home/awen/workstation/nginx/app/ngx_printf.cpp || cmake_object_order_depends_target_ngx_log
+  DEP_FILE = app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = app/CMakeFiles/ngx_log.dir
+  OBJECT_FILE_DIR = app/CMakeFiles/ngx_log.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target ngx_log
+
+
+#############################################
+# Link the static library app/libngx_log.a
+
+build app/libngx_log.a: CXX_STATIC_LIBRARY_LINKER__ngx_log_Debug app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = app/CMakeFiles/ngx_log.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = app/libngx_log.a
+  TARGET_PDB = ngx_log.a.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target nginx
+
+
+#############################################
+# Order-only phony target for nginx
+
+build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_ngx_c_conf cmake_object_order_depends_target_ngx_init_setprotitle cmake_object_order_depends_target_ngx_log cmake_object_order_depends_target_ngx_process_cycle cmake_object_order_depends_target_ngx_signal cmake_object_order_depends_target_solution
+
+build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen/workstation/nginx/app/nginx.cpp || cmake_object_order_depends_target_nginx
+  DEP_FILE = app/CMakeFiles/nginx.dir/nginx.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = app/CMakeFiles/nginx.dir
+  OBJECT_FILE_DIR = app/CMakeFiles/nginx.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target nginx
+
+
+#############################################
+# Link the executable app/nginx
+
+build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libngx_c_conf.a app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a signal/libngx_signal.a proc/libngx_process_cycle.a || app/libngx_init_setprotitle.a app/libngx_log.a app/libsolution.a misc/libngx_c_conf.a proc/libngx_process_cycle.a signal/libngx_signal.a
+  FLAGS = -g
+  LINK_LIBRARIES = misc/libngx_c_conf.a  app/libsolution.a  app/libngx_init_setprotitle.a  app/libngx_log.a  signal/libngx_signal.a  proc/libngx_process_cycle.a
+  OBJECT_DIR = app/CMakeFiles/nginx.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = app/nginx
+  TARGET_PDB = nginx.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build app/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build app/edit_cache: phony app/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build app/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/awen/workstation/nginx -B/home/awen/workstation/nginx/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build app/rebuild_cache: phony app/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build app/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build app/CMakeFiles/install.util: CUSTOM_COMMAND app/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build app/install: phony app/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build app/CMakeFiles/install/local.util: CUSTOM_COMMAND app/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build app/install/local: phony app/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build app/CMakeFiles/install/strip.util: CUSTOM_COMMAND app/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/app && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build app/install/strip: phony app/CMakeFiles/install/strip.util
+
+# =============================================================================
 # Target aliases.
 
 build gmock: phony lib/libgmock.a
@@ -913,6 +1117,10 @@ build libngx_init_setprotitle.a: phony app/libngx_init_setprotitle.a
 
 build libngx_log.a: phony app/libngx_log.a
 
+build libngx_process_cycle.a: phony proc/libngx_process_cycle.a
+
+build libngx_signal.a: phony signal/libngx_signal.a
+
 build libsolution.a: phony app/libsolution.a
 
 build memory_pool: phony misc/libmemory_pool.a
@@ -924,6 +1132,10 @@ build ngx_c_conf: phony misc/libngx_c_conf.a
 build ngx_init_setprotitle: phony app/libngx_init_setprotitle.a
 
 build ngx_log: phony app/libngx_log.a
+
+build ngx_process_cycle: phony proc/libngx_process_cycle.a
+
+build ngx_signal: phony signal/libngx_signal.a
 
 build solution: phony app/libsolution.a
 
@@ -937,7 +1149,7 @@ build test_conf: phony test/test_conf
 #############################################
 # Folder: /home/awen/workstation/nginx/cmake-build-debug
 
-build all: phony misc/all app/all lib/googletest/all test/all
+build all: phony misc/all lib/googletest/all test/all proc/all signal/all app/all
 
 # =============================================================================
 
@@ -977,6 +1189,20 @@ build misc/all: phony misc/libmemory_pool.a misc/libngx_c_conf.a
 # =============================================================================
 
 #############################################
+# Folder: /home/awen/workstation/nginx/cmake-build-debug/proc
+
+build proc/all: phony proc/libngx_process_cycle.a
+
+# =============================================================================
+
+#############################################
+# Folder: /home/awen/workstation/nginx/cmake-build-debug/signal
+
+build signal/all: phony signal/libngx_signal.a
+
+# =============================================================================
+
+#############################################
 # Folder: /home/awen/workstation/nginx/cmake-build-debug/test
 
 build test/all: phony test/test_conf
@@ -988,14 +1214,14 @@ build test/all: phony test/test_conf
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
+build /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
 
 
 #############################################

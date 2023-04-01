@@ -143,7 +143,7 @@ u_char *ngx_vslprintf(u_char *buf, u_char *last,const char *fmt,va_list args)
                 case 's': //一般用于显示字符串
                     p = va_arg(args, u_char *); //va_arg():遍历可变参数，var_arg的第二个参数表示遍历的这个可变的参数的类型
 
-                    while (*p && buf < last)  //没遇到字符串结束标记，并且buf值够装得下这个参数
+                    while (p && *p && buf < last)  //没遇到字符串结束标记，并且buf值够装得下这个参数
                     {
                         *buf++ = *p++;  //那就装，比如  "%s"    ，   "abcdefg"，那abcdefg都被装进来
                     }

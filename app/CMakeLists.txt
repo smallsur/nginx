@@ -16,5 +16,7 @@ target_link_libraries(nginx PUBLIC ngx_c_conf)
 target_link_libraries(nginx PUBLIC solution)
 target_link_libraries(nginx PUBLIC ngx_init_setprotitle)
 target_link_libraries(nginx PUBLIC ngx_log)
+target_link_libraries(nginx PUBLIC ngx_signal)
+target_link_libraries(nginx PUBLIC ngx_process_cycle)
 
 

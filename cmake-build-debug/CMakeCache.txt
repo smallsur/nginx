@@ -369,6 +369,24 @@ nginx_IS_TOP_LEVEL:STATIC=ON
 nginx_SOURCE_DIR:STATIC=/home/awen/workstation/nginx
 
 //Value Computed by CMake
+proc_BINARY_DIR:STATIC=/home/awen/workstation/nginx/cmake-build-debug/proc
+
+//Value Computed by CMake
+proc_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+proc_SOURCE_DIR:STATIC=/home/awen/workstation/nginx/proc
+
+//Value Computed by CMake
+signal_BINARY_DIR:STATIC=/home/awen/workstation/nginx/cmake-build-debug/signal
+
+//Value Computed by CMake
+signal_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+signal_SOURCE_DIR:STATIC=/home/awen/workstation/nginx/signal
+
+//Value Computed by CMake
 test_BINARY_DIR:STATIC=/home/awen/workstation/nginx/cmake-build-debug/test
 
 //Value Computed by CMake
@@ -512,7 +530,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

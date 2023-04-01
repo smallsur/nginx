@@ -73,7 +73,7 @@ bool Config_Nginx::load(const char *file_path) {
             continue;
         size_t len = strlen(buf);
         while (len >0){
-            if(buf[len-1]==' '||buf[len-1]=='10' ||buf[len-1]==13){//换行和回车
+            if(buf[len-1]==' '||buf[len-1]==10 ||buf[len-1]==13){//换行和回车
                 buf[len-1]='\0';
             }
             len--;

@@ -13,10 +13,12 @@ message(${ROOT_DIR})
 set_property(GLOBAL PROPERTY INCLUDE_DIR ${ROOT_DIR}/include)
 
 add_subdirectory(misc)
-add_subdirectory(app)
+
 add_subdirectory(lib/googletest)
 add_subdirectory(test)
-#add_subdirectory(signal)
+add_subdirectory(proc)
+add_subdirectory(signal)
+add_subdirectory(app)
 
 
 

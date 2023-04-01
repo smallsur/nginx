@@ -1,0 +1,42 @@
+typedef struct siginfo {
+    int si_signo;        // 信号编号
+    int si_errno;        // 保存错误代码
+    int si_code;         // 信号代码
+    pid_t si_pid;        // 发送信号的进程 ID
+    uid_t si_uid;        // 发送信号的用户 ID
+    int si_status;       // 子进程状态
+    clock_t si_utime;    // 用户态运行时间
+    clock_t si_stime;    // 内核态运行时间
+    sigval_t si_value;   // 传递的附加数据
+    int si_int;          // 传递的整型数据
+    void *si_ptr;        // 传递的指针数据
+    int si_overrun;      // 过载计数器
+    int si_timerid;      // 定时器 ID
+    void *si_addr;       // 导致信号的内存地址
+    int si_band;         // 文件描述符状态
+    int si_fd;           // 文件描述符
+    int si_addr_lsb;     // 地址最低有效位
+    pid_t si_call_addr;  // 系统调用地址
+    int si_syscall;      // 系统调用编号
+    unsigned si_arch;    // 机器类型
+} siginfo_t; //信号的数据结构,一般在信号处理函数中使用，
+由操作系统提供详细信息，具体可以在sigaction中设置标志位让操作系统决定要提供的信息。
+
+struct sigaction{}是一个结构体类型，用于设置信号处理函数。它包含了一些成员变量，具体如下：
+void (*sa_handler)(int)：一个函数指针，指向处理该信号的函数，对应于信号处理函数中的 signal 函数。
+void (*sa_sigaction)(int, siginfo_t *, void *)：一个函数指针，
+指向处理该信号的函数，对应于信号处理函数中的 sigaction 函数。如果在调用 sigaction 函数时，指定了 SA_SIGINFO 标志位，那么将使用这个函数指针作为信号处理函数。
+sigset_t sa_mask：一个信号集，指定在处理当前信号时应该阻塞哪些其他信号。
+int sa_flags：一组标志位，指定信号处理的行为，包括：
+SA_RESTART：在处理信号时，如果系统调用被中断，则自动重新启动系统调用。
+SA_NOCLDSTOP：当子进程停止或继续运行时，不会向父进程发送 SIGCHLD 信号。
+SA_SIGINFO：当处理信号时，同时向信号处理函数传递更多信息。
+SA_ONSTACK：在备用信号栈上运行信号处理函数。
+SA_RESETHAND：在处理完信号后，将信号处理函数重置为默认值。
+SA_NODEFER：不会阻塞当前信号，即可以递归地处理相同的信号。
+void (*sa_restorer)(void)：一个函数指针，指向恢复信号处理函数的函数。
+需要注意的是，当使用 sigaction 函数来注册信号处理函数时，
+必须指定 sa_handler 或 sa_sigaction 中的一个，并且 sa_mask 也必须被初始化。
+在 Linux 中，可以使用 sigemptyset 函数将 sa_mask 设置为空信号集
+
+
