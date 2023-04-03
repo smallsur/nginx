@@ -8,13 +8,14 @@
 188	192	1677076342345284167	misc/libmemory_pool.a	1ca4333569e8f384
 2	11	1680341377637136735	app/libngx_init_setprotitle.a	7d713f921d1920c2
 3433	3592	1680091948101273565	test/test_main	f5e3bc27b54998cd
-0	74	1680346033108735048	build.ninja	140a76baccf67daf
+0	74	1680423648495607341	build.ninja	140a76baccf67daf
 2	195	1680341215255366564	proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o	99c2ccc7a298bf3c
 0	23	1676516102726261024	app/CMakeFiles/nginx.dir/nginx.c.o	fa98d6484643ea98
 2	52	1680341215111360887	signal/CMakeFiles/ngx_signal.dir/ngx_signal.cpp.o	e31a39e8b3df3270
 36	126	1680341377749140323	app/nginx	5338ead4def2fefc
 0	17	1676518737085554130	signal/CMakeFiles/signal.dir/ngx_signal.cpp.o	afb9e04d325d6fc6
 17	20	1676518737089553839	signal/libsignal.a	ea415655ebf032ae
+2	446	1680360245910773663	app/CMakeFiles/test.dir/test.cpp.o	63e438d5b80b6e07
 29	36	1680341377661137504	proc/libngx_daemon.a	15349c13550a1001
 0	911	1680091945421323370	test/CMakeFiles/test_main.dir/main.cpp.o	922374481e56dbcd
 2	10	1680341377637136735	proc/libngx_process_cycle.a	5e3c9b5bdf60ba51
@@ -23,6 +24,7 @@
 2	29	1680341377653137248	proc/CMakeFiles/ngx_daemon.dir/ngx_daemon.cpp.o	85f1bef75fda8aef
 2	879	1680275085433898083	test/CMakeFiles/test_conf.dir/test_conf.cpp.o	24a85f909f31d0d
 1	11	1680341377637136735	misc/libngx_c_conf.a	fa1fd00d68c6c28d
+446	507	1680360245974774866	app/test	4b20230b544c3e58
 0	286	1680014371156623572	misc/CMakeFiles/singleton.dir/Singleton.cpp.o	a2a871446f7a9ff8
 0	3340	1680091947841278396	lib/googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o	b2afc30ca3c1c8aa
 1	421	1680317392365190089	app/CMakeFiles/solution.dir/Solution.cpp.o	fa305e31a6db8ad9
@@ -32,5 +34,3 @@
 3	13	1680341377637136735	app/libngx_log.a	a0f67820a24d370b
 3	51	1680341215111360887	app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o	210a738fe63c5d26
 1	382	1680341215439373817	misc/CMakeFiles/ngx_c_conf.dir/ngx_c_conf.cpp.o	fe8ad05db3f96fa7
-0	29	1680346069264996112	app/CMakeFiles/test.dir/test.cpp.o	a2b91c71d2b9b17e
-29	80	1680346069317001944	app/test	4b20230b544c3e58

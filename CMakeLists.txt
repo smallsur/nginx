@@ -19,6 +19,7 @@ add_subdirectory(test)
 add_subdirectory(proc)
 add_subdirectory(signal)
 add_subdirectory(app)
+add_subdirectory(net)
 
 
 

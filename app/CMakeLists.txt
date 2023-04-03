@@ -21,3 +21,5 @@ target_link_libraries(nginx PUBLIC ngx_process_cycle)
 target_link_libraries(nginx PUBLIC ngx_daemon)
 
 
+target_include_directories(test PUBLIC ${INCLUDE_DIR})
+

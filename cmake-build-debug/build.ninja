@@ -1069,6 +1069,7 @@ build cmake_object_order_depends_target_test: phony || app/CMakeFiles/test.dir
 build app/CMakeFiles/test.dir/test.cpp.o: CXX_COMPILER__test_Debug /home/awen/workstation/nginx/app/test.cpp || cmake_object_order_depends_target_test
   DEP_FILE = app/CMakeFiles/test.dir/test.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = app/CMakeFiles/test.dir
   OBJECT_FILE_DIR = app/CMakeFiles/test.dir
 
@@ -1154,6 +1155,76 @@ build app/CMakeFiles/install/strip.util: CUSTOM_COMMAND app/all
 build app/install/strip: phony app/CMakeFiles/install/strip.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/awen/workstation/nginx/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for edit_cache
+
+build net/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/net && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build net/edit_cache: phony net/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build net/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/net && /snap/clion/233/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/awen/workstation/nginx -B/home/awen/workstation/nginx/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build net/rebuild_cache: phony net/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build net/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build net/CMakeFiles/install.util: CUSTOM_COMMAND net/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/net && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build net/install: phony net/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build net/CMakeFiles/install/local.util: CUSTOM_COMMAND net/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/net && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build net/install/local: phony net/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build net/CMakeFiles/install/strip.util: CUSTOM_COMMAND net/all
+  COMMAND = cd /home/awen/workstation/nginx/cmake-build-debug/net && /snap/clion/233/bin/cmake/linux/x64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build net/install/strip: phony net/CMakeFiles/install/strip.util
+
+# =============================================================================
 # Target aliases.
 
 build gmock: phony lib/libgmock.a
@@ -1218,7 +1289,7 @@ build test_conf: phony test/test_conf
 #############################################
 # Folder: /home/awen/workstation/nginx/cmake-build-debug
 
-build all: phony misc/all lib/googletest/all test/all proc/all signal/all app/all
+build all: phony misc/all lib/googletest/all test/all proc/all signal/all app/all net/all
 
 # =============================================================================
 
@@ -1258,6 +1329,13 @@ build misc/all: phony misc/libmemory_pool.a misc/libngx_c_conf.a
 # =============================================================================
 
 #############################################
+# Folder: /home/awen/workstation/nginx/cmake-build-debug/net
+
+build net/all: phony
+
+# =============================================================================
+
+#############################################
 # Folder: /home/awen/workstation/nginx/cmake-build-debug/proc
 
 build proc/all: phony proc/libngx_process_cycle.a proc/libngx_daemon.a
@@ -1283,14 +1361,14 @@ build test/all: phony test/test_conf
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/net/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
+build /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/net/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/233/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
 
 
 #############################################

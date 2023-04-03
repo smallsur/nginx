@@ -50,6 +50,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/awen/workstation/nginx/cmake-build-debug/proc/cmake_install.cmake")
   include("/home/awen/workstation/nginx/cmake-build-debug/signal/cmake_install.cmake")
   include("/home/awen/workstation/nginx/cmake-build-debug/app/cmake_install.cmake")
+  include("/home/awen/workstation/nginx/cmake-build-debug/net/cmake_install.cmake")
 
 endif()
 

@@ -14,6 +14,7 @@
 #include <functional>
 #include <memory>
 #include <cstring>
+#include <stack>
 using namespace std;
 
 struct ListNode {
@@ -22,6 +23,14 @@ struct ListNode {
     ListNode() : val(0), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+
+  struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
+
 class Solution {
 public:
     int search(vector<int>&nums,int left,int right, int target){
@@ -92,10 +101,8 @@ public:
             if(map_1==map_2){
                 return true;
             }
-            
         }
     }
-
 };
 
 
