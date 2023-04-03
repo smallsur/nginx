@@ -67,6 +67,7 @@
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/install.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/install/local.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/install/strip.dir
+/home/awen/workstation/nginx/cmake-build-debug/net/CMakeFiles/ngx_c_socket.dir
 /home/awen/workstation/nginx/cmake-build-debug/net/CMakeFiles/edit_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/net/CMakeFiles/rebuild_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/net/CMakeFiles/list_install_components.dir

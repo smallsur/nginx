@@ -17,6 +17,7 @@
 #include "ngx_func.h"
 #include "ngx_global.h"
 #include "ngx_macro.h"
+#include "ngx_c_socket.h"
 
 static void freeresource();
 //和设置标题有关的全局量
@@ -34,6 +35,7 @@ pid_t ngx_ppid;
 int     ngx_process;            //进程类型，比如master,worker进程等
 sig_atomic_t  ngx_reap;
 
+CSocekt g_socekt;
 
 int main(int argc, char* argv[]){
 
@@ -69,28 +71,12 @@ int main(int argc, char* argv[]){
         exitcode = 1;
         goto lblexit;
     }
-
+    if(!g_socekt.Initialize()){
+        exitcode = 1;
+        goto lblexit;
+    }
     ngx_init_setproctitle();//env环境搬家
-//    ngx_setproctitle("nginx: master process");
-//    for (int i = 0; ; ++i) {
-//        sleep(1);
-//    }
-//    std::cout<<config.GetIntDefault("listen_port",12)<<std::endl;
-//    std::cout<<config.GetString("wen")<<std::endl;
-//    //ngx_log_stderr调用演示代码：
-//    ngx_log_stderr(0, "invalid option: \"%s\"", argv[0]);  //nginx: invalid option: "./nginx"
-//    ngx_log_stderr(0, "invalid option: %10d", 21);         //nginx: invalid option:         21  ---21前面有8个空格
-//    ngx_log_stderr(0, "invalid option: %.6f", 21.378);     //nginx: invalid option: 21.378000   ---%.这种只跟f配合有效，往末尾填充0
-//    ngx_log_stderr(0, "invalid option: %.6f", 12.999);     //nginx: invalid option: 12.999000
-//    ngx_log_stderr(0, "invalid option: %.2f", 12.999);     //nginx: invalid option: 13.00
-//    ngx_log_stderr(0, "invalid option: %xd", 1678);        //nginx: invalid option: 68e
-//    ngx_log_stderr(0, "invalid option: %Xd", 1678);        //nginx: invalid option: 68E
-//    ngx_log_stderr(15, "invalid option: %s , %d", "testInfo",326);        //nginx: invalid option: testInfo , 326 (15: Block device required)
-//    ngx_log_stderr(0, "invalid option: %d", 1678);         //nginx: invalid option: 1678
-//
-//
-//    //测试ngx_log_error_core函数的调用
-//    ngx_log_error_core(5,8,"这个XXX工作的有问题，显示的结果=%s","YYYY");
+
     if(config.GetIntDefault("Daemon",0)==1){
         int cdaemonresult = ngx_daemon();
         if(cdaemonresult==-1){

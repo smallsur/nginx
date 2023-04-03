@@ -19,7 +19,7 @@ target_link_libraries(nginx PUBLIC ngx_log)
 target_link_libraries(nginx PUBLIC ngx_signal)
 target_link_libraries(nginx PUBLIC ngx_process_cycle)
 target_link_libraries(nginx PUBLIC ngx_daemon)
-
+target_link_libraries(nginx PUBLIC ngx_c_socket)
 
 target_include_directories(test PUBLIC ${INCLUDE_DIR})
 
