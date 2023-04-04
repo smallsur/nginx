@@ -1,0 +1,61 @@
+socket(domain，type, protocol)
+domain:
+    AF_INET：IPv4 协议族，使用 32 位 IP 地址。
+    AF_INET6：IPv6 协议族，使用 128 位 IP 地址。
+    AF_UNIX：Unix 域协议族，用于本地进程间通信
+type:
+    SOCK_STREAM：流式套接字，提供面向连接的可靠传输服务，例如 TCP 协议。
+    SOCK_DGRAM：数据报套接字，提供无连接的不可靠传输服务，例如 UDP 协议。
+protocol:
+    指定协议，通常默认为 0.
+return：成功时返回一个套接字描述符（整型数），用于后续操作该套接字；失败时返回 -1，并设置 errno 错误码.
+
+setsockopt()
+通用套接字选项（SOL_SOCKET 协议层）：
+    SO_BROADCAST：允许广播。
+    SO_DEBUG：启用调试信息记录。
+    SO_ERROR：获取和清除套接字错误状态。
+    SO_KEEPALIVE：开启心跳检测。
+    SO_LINGER：控制连接关闭时的行为。
+    SO_OOBINLINE：接收带外数据，与 recv() 函数一起使用。
+    SO_RCVBUF：设置接收缓冲区大小。
+    SO_RCVLOWAT：接收缓冲区低水位标记。
+    SO_RCVTIMEO：设置接收超时时间。
+    SO_REUSEADDR：允许地址重用。
+    SO_SNDBUF：设置发送缓冲区大小。
+    SO_SNDLOWAT：发送缓冲区低水位标记。
+    SO_SNDTIMEO：设置发送超时时间。
+    SO_TIMESTAMP：启用时间戳选项。
+    SO_TYPE：获取套接字类型。
+
+IP 协议层选项（IPPROTO_IP 协议层）：
+    IP_ADD_MEMBERSHIP：加入多播组。
+    IP_DROP_MEMBERSHIP：离开多播组。
+    IP_HDRINCL：自定义 IP 头部。
+    IP_MULTICAST_IF：设置多播的网络接口。
+    IP_MULTICAST_LOOP：设置是否发送多播消息到自己。
+    IP_MULTICAST_TTL：设置多播消息的 TTL。
+    IP_OPTIONS：设置 IP 选项。
+    IP_RECVDSTADDR：接收报文的目标地址。
+    IP_TOS：设置 IP 报文的服务类型（TOS）。
+    IP_TTL：设置 IP 报文的 TTL。
+
+TCP 协议层选项（IPPROTO_TCP 协议层）：
+    TCP_NODELAY：禁用 Nagle 算法。
+    TCP_MAXSEG：设置最大 TCP 报文段长度。
+    TCP_KEEPIDLE：TCP 连接空闲时间。
+    TCP_KEEPINTVL：TCP 保活探测间隔时间。
+    TCP_KEEPCNT：TCP 保活探测尝试次数。
+    TCP_QUICKACK：快速确认模式。
+
+IPv6 协议层选项（IPPROTO_IPV6 协议层）：
+    IPV6_ADD_MEMBERSHIP：加入 IPv6 多播组。
+    IPV6_DROP_MEMBERSHIP：离开 IPv6 多播组。
+    IPV6_MULTICAST_IF：设置 IPv6 多播的网络接口。
+    IPV6_MULTICAST_HOPS：设置 IPv6 多播消息的 TTL。
+    IPV6_MULTICAST_LOOP：设置是否发送 IPv6 多播消息到自己。
+    IPV6_TCLASS：设置 IPv6 报文的流量类别。
+    IPV6_UNICAST_HOPS：设置 IPv6 报文的 TTL。
+    IPV6_V6ONLY：IPv6 和 IPv4 是否分开处理。
+
+

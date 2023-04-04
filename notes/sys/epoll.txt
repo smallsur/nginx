@@ -1,0 +1,19 @@
+int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
+typedef union epoll_data {
+    void *ptr;
+    int fd;
+    uint32_t u32;
+    uint64_t u64;
+} epoll_data_t;
+struct epoll_event {
+    uint32_t events;    /* Epoll events */
+    epoll_data_t data;  /* User data variable */
+};
+event:
+    EPOLLIN：表示文件描述符可读。
+    EPOLLOUT：表示文件描述符可写。
+    EPOLLRDHUP：表示对端已经关闭了连接。
+    EPOLLPRI：表示文件描述符有紧急数据可读。
+    EPOLLERR：表示文件描述符上有错误发生。
+    EPOLLHUP：表示文件描述符上挂起了事件。
+

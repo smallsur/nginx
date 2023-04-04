@@ -1,0 +1,21 @@
+sys/ioctl.h是一个C语言标准库头文件，包含了一些系统调用的接口，用于控制设备或进行底层操作。
+
+其中，ioctl()函数是该头文件中最常用的函数，它的函数原型如下：
+
+int ioctl(int fd, unsigned long request, ...);
+ioctl()函数的第一个参数fd表示设备的文件描述符，第二个参数request表示要执行的控制命令，
+第三个可变参数表示命令参数的指针。ioctl()函数根据不同的命令和参数类型，执行相应的操作。
+
+在Linux系统中，sys/ioctl.h头文件包含了一些常用的控制命令，例如：
+
+FIONBIO：设置非阻塞I/O模式。
+FIOASYNC：设置异步I/O模式。
+TIOCGWINSZ：获取终端窗口大小。
+SIOCETHTOOL：以太网工具命令。
+SIOCGIFADDR：获取网络接口的IP地址。
+SIOCGIFNETMASK：获取网络接口的子网掩码。
+SIOCGIFHWADDR：获取网络接口的MAC地址。
+
+
+
+

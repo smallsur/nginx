@@ -157,7 +157,7 @@ static void ngx_worker_process_cycle(int inum,const char *pprocname)
         //ngx_log_stderr(0,"good--这是子进程，pid为%P",ngx_pid);
         //ngx_log_error_core(0,0,"good--这是子进程，编号为%d,pid为%P",inum,ngx_pid);
 
-    } //end for(;;)
+    }
     return;
 }
 static void ngx_worker_process_init(int inum)
