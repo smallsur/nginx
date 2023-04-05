@@ -10,6 +10,7 @@
 #include "ngx_global.h"
 #include "ngx_func.h"
 #include "ngx_macro.h"
+#include "ngx_c_socket.h"
 
 static void ngx_start_worker_processes(int threadnums);
 static int ngx_spawn_process(int threadnums,const char *pprocname);
@@ -156,7 +157,7 @@ static void ngx_worker_process_cycle(int inum,const char *pprocname)
 
         //ngx_log_stderr(0,"good--这是子进程，pid为%P",ngx_pid);
         //ngx_log_error_core(0,0,"good--这是子进程，编号为%d,pid为%P",inum,ngx_pid);
-
+        ngx_process_events_and_timers();
     }
     return;
 }
@@ -170,6 +171,7 @@ static void ngx_worker_process_init(int inum)
         ngx_log_error_core(NGX_LOG_ALERT,errno,"ngx_worker_process_init()中sigprocmask()失败!");
     }
 
+    g_socket.ngx_epoll_init();
     //....将来再扩充代码
     //....
     return;

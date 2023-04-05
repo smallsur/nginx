@@ -377,6 +377,9 @@ nginx_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 nginx_SOURCE_DIR:STATIC=/home/awen/workstation/nginx
 
+//Dependencies for the target
+ngx_process_cycle_LIB_DEPENDS:STATIC=general;ngx_event;
+
 //Value Computed by CMake
 proc_BINARY_DIR:STATIC=/home/awen/workstation/nginx/cmake-build-debug/proc
 

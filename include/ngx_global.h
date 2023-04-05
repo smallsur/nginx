@@ -4,7 +4,7 @@
 //一些比较通用的定义放在这里
 
 #include <signal.h>
-
+#include "ngx_c_socket.h"
 //结构定义
 typedef struct {
     char itemName[50];
@@ -40,6 +40,8 @@ extern ngx_log_t   ngx_log;
 
 extern int           ngx_process;
 extern sig_atomic_t  ngx_reap;
+
+extern CSocekt       g_socket;
 
 
 #endif

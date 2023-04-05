@@ -692,7 +692,7 @@ build test/install/strip: phony test/CMakeFiles/install/strip.util
 #############################################
 # Order-only phony target for ngx_process_cycle
 
-build cmake_object_order_depends_target_ngx_process_cycle: phony || proc/CMakeFiles/ngx_process_cycle.dir
+build cmake_object_order_depends_target_ngx_process_cycle: phony || cmake_object_order_depends_target_ngx_event
 
 build proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o: CXX_COMPILER__ngx_process_cycle_Debug /home/awen/workstation/nginx/proc/ngx_process_cycle.cpp || cmake_object_order_depends_target_ngx_process_cycle
   DEP_FILE = proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o.d
@@ -709,7 +709,7 @@ build proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o: CXX_COMPILE
 #############################################
 # Link the static library proc/libngx_process_cycle.a
 
-build proc/libngx_process_cycle.a: CXX_STATIC_LIBRARY_LINKER__ngx_process_cycle_Debug proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o
+build proc/libngx_process_cycle.a: CXX_STATIC_LIBRARY_LINKER__ngx_process_cycle_Debug proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o || proc/libngx_event.a
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = proc/CMakeFiles/ngx_process_cycle.dir
   POST_BUILD = :
@@ -748,6 +748,38 @@ build proc/libngx_daemon.a: CXX_STATIC_LIBRARY_LINKER__ngx_daemon_Debug proc/CMa
   PRE_LINK = :
   TARGET_FILE = proc/libngx_daemon.a
   TARGET_PDB = ngx_daemon.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target ngx_event
+
+
+#############################################
+# Order-only phony target for ngx_event
+
+build cmake_object_order_depends_target_ngx_event: phony || proc/CMakeFiles/ngx_event.dir
+
+build proc/CMakeFiles/ngx_event.dir/ngx_event.cpp.o: CXX_COMPILER__ngx_event_Debug /home/awen/workstation/nginx/proc/ngx_event.cpp || cmake_object_order_depends_target_ngx_event
+  DEP_FILE = proc/CMakeFiles/ngx_event.dir/ngx_event.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu++17
+  INCLUDES = -I/home/awen/workstation/nginx/include
+  OBJECT_DIR = proc/CMakeFiles/ngx_event.dir
+  OBJECT_FILE_DIR = proc/CMakeFiles/ngx_event.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target ngx_event
+
+
+#############################################
+# Link the static library proc/libngx_event.a
+
+build proc/libngx_event.a: CXX_STATIC_LIBRARY_LINKER__ngx_event_Debug proc/CMakeFiles/ngx_event.dir/ngx_event.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = proc/CMakeFiles/ngx_event.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = proc/libngx_event.a
+  TARGET_PDB = ngx_event.a.dbg
 
 
 #############################################
@@ -1031,7 +1063,7 @@ build app/libngx_log.a: CXX_STATIC_LIBRARY_LINKER__ngx_log_Debug app/CMakeFiles/
 #############################################
 # Order-only phony target for nginx
 
-build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_ngx_c_conf cmake_object_order_depends_target_ngx_c_socket cmake_object_order_depends_target_ngx_daemon cmake_object_order_depends_target_ngx_init_setprotitle cmake_object_order_depends_target_ngx_log cmake_object_order_depends_target_ngx_process_cycle cmake_object_order_depends_target_ngx_signal cmake_object_order_depends_target_solution
+build cmake_object_order_depends_target_nginx: phony || cmake_object_order_depends_target_ngx_c_conf cmake_object_order_depends_target_ngx_c_socket cmake_object_order_depends_target_ngx_daemon cmake_object_order_depends_target_ngx_event cmake_object_order_depends_target_ngx_init_setprotitle cmake_object_order_depends_target_ngx_log cmake_object_order_depends_target_ngx_process_cycle cmake_object_order_depends_target_ngx_signal cmake_object_order_depends_target_solution
 
 build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen/workstation/nginx/app/nginx.cpp || cmake_object_order_depends_target_nginx
   DEP_FILE = app/CMakeFiles/nginx.dir/nginx.cpp.o.d
@@ -1048,9 +1080,9 @@ build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen
 #############################################
 # Link the executable app/nginx
 
-build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libngx_c_conf.a app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a signal/libngx_signal.a proc/libngx_process_cycle.a proc/libngx_daemon.a net/libngx_c_socket.a || app/libngx_init_setprotitle.a app/libngx_log.a app/libsolution.a misc/libngx_c_conf.a net/libngx_c_socket.a proc/libngx_daemon.a proc/libngx_process_cycle.a signal/libngx_signal.a
+build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/nginx.cpp.o | misc/libngx_c_conf.a app/libsolution.a app/libngx_init_setprotitle.a app/libngx_log.a signal/libngx_signal.a proc/libngx_process_cycle.a proc/libngx_daemon.a net/libngx_c_socket.a proc/libngx_event.a || app/libngx_init_setprotitle.a app/libngx_log.a app/libsolution.a misc/libngx_c_conf.a net/libngx_c_socket.a proc/libngx_daemon.a proc/libngx_event.a proc/libngx_process_cycle.a signal/libngx_signal.a
   FLAGS = -g
-  LINK_LIBRARIES = misc/libngx_c_conf.a  app/libsolution.a  app/libngx_init_setprotitle.a  app/libngx_log.a  signal/libngx_signal.a  proc/libngx_process_cycle.a  proc/libngx_daemon.a  net/libngx_c_socket.a
+  LINK_LIBRARIES = misc/libngx_c_conf.a  app/libsolution.a  app/libngx_init_setprotitle.a  app/libngx_log.a  signal/libngx_signal.a  proc/libngx_process_cycle.a  proc/libngx_daemon.a  net/libngx_c_socket.a  proc/libngx_event.a
   OBJECT_DIR = app/CMakeFiles/nginx.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -1189,15 +1221,15 @@ build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_conn.cpp.o: CXX_COMPILER__ngx
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   OBJECT_FILE_DIR = net/CMakeFiles/ngx_c_socket.dir
 
-build net/CMakeFiles/ngx_c_socket.dir/ngx_x_socekt_inet.cpp.o: CXX_COMPILER__ngx_c_socket_Debug /home/awen/workstation/nginx/net/ngx_x_socekt_inet.cpp || cmake_object_order_depends_target_ngx_c_socket
-  DEP_FILE = net/CMakeFiles/ngx_c_socket.dir/ngx_x_socekt_inet.cpp.o.d
+build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_inet.cpp.o: CXX_COMPILER__ngx_c_socket_Debug /home/awen/workstation/nginx/net/ngx_c_socket_inet.cpp || cmake_object_order_depends_target_ngx_c_socket
+  DEP_FILE = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_inet.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always -std=gnu++17
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   OBJECT_FILE_DIR = net/CMakeFiles/ngx_c_socket.dir
 
-build net/CMakeFiles/ngx_c_socket.dir/ngx_x_socekt_request.cpp.o: CXX_COMPILER__ngx_c_socket_Debug /home/awen/workstation/nginx/net/ngx_x_socekt_request.cpp || cmake_object_order_depends_target_ngx_c_socket
-  DEP_FILE = net/CMakeFiles/ngx_c_socket.dir/ngx_x_socekt_request.cpp.o.d
+build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_request.cpp.o: CXX_COMPILER__ngx_c_socket_Debug /home/awen/workstation/nginx/net/ngx_c_socket_request.cpp || cmake_object_order_depends_target_ngx_c_socket
+  DEP_FILE = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_request.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always -std=gnu++17
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
@@ -1211,7 +1243,7 @@ build net/CMakeFiles/ngx_c_socket.dir/ngx_x_socekt_request.cpp.o: CXX_COMPILER__
 #############################################
 # Link the static library net/libngx_c_socket.a
 
-build net/libngx_c_socket.a: CXX_STATIC_LIBRARY_LINKER__ngx_c_socket_Debug net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.cpp.o net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_accept.cpp.o net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_conn.cpp.o net/CMakeFiles/ngx_c_socket.dir/ngx_x_socekt_inet.cpp.o net/CMakeFiles/ngx_c_socket.dir/ngx_x_socekt_request.cpp.o
+build net/libngx_c_socket.a: CXX_STATIC_LIBRARY_LINKER__ngx_c_socket_Debug net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.cpp.o net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_accept.cpp.o net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_conn.cpp.o net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_inet.cpp.o net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_request.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   POST_BUILD = :
@@ -1311,6 +1343,8 @@ build libngx_c_socket.a: phony net/libngx_c_socket.a
 
 build libngx_daemon.a: phony proc/libngx_daemon.a
 
+build libngx_event.a: phony proc/libngx_event.a
+
 build libngx_init_setprotitle.a: phony app/libngx_init_setprotitle.a
 
 build libngx_log.a: phony app/libngx_log.a
@@ -1330,6 +1364,8 @@ build ngx_c_conf: phony misc/libngx_c_conf.a
 build ngx_c_socket: phony net/libngx_c_socket.a
 
 build ngx_daemon: phony proc/libngx_daemon.a
+
+build ngx_event: phony proc/libngx_event.a
 
 build ngx_init_setprotitle: phony app/libngx_init_setprotitle.a
 
@@ -1402,7 +1438,7 @@ build net/all: phony net/libngx_c_socket.a
 #############################################
 # Folder: /home/awen/workstation/nginx/cmake-build-debug/proc
 
-build proc/all: phony proc/libngx_process_cycle.a proc/libngx_daemon.a
+build proc/all: phony proc/libngx_process_cycle.a proc/libngx_daemon.a proc/libngx_event.a
 
 # =============================================================================
 

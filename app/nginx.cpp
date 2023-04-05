@@ -35,7 +35,7 @@ pid_t ngx_ppid;
 int     ngx_process;            //进程类型，比如master,worker进程等
 sig_atomic_t  ngx_reap;
 
-CSocekt g_socekt;
+CSocekt       g_socket;
 
 int main(int argc, char* argv[]){
 
@@ -71,7 +71,7 @@ int main(int argc, char* argv[]){
         exitcode = 1;
         goto lblexit;
     }
-    if(!g_socekt.Initialize()){
+    if(!g_socket.Initialize()){
         exitcode = 1;
         goto lblexit;
     }

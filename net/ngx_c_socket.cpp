@@ -28,7 +28,6 @@ CSocekt::CSocekt()
     m_pconnections = nullptr;
     m_pfree_connections = nullptr;
 
-
     return;
 }
 
@@ -66,7 +65,7 @@ void CSocekt::ReadConf()
 
 bool CSocekt::ngx_open_listening_sockets() {
     Config_Nginx& conf = Config_Nginx::get_instance();
-    m_ListenPortCount = conf.GetIntDefault("ListenPortPortCount",1);
+//    m_ListenPortCount = conf.GetIntDefault("ListenPortCount",1);
 
 
     struct sockaddr_in serv_addr;
