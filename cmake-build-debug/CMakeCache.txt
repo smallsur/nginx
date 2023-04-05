@@ -378,6 +378,9 @@ nginx_IS_TOP_LEVEL:STATIC=ON
 nginx_SOURCE_DIR:STATIC=/home/awen/workstation/nginx
 
 //Dependencies for the target
+ngx_c_socket_LIB_DEPENDS:STATIC=general;ngx_c_memory;
+
+//Dependencies for the target
 ngx_process_cycle_LIB_DEPENDS:STATIC=general;ngx_event;
 
 //Value Computed by CMake

@@ -1,276 +1,122 @@
-2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGHUP) succed!
+2023/04/05 21:41:50 [stderr] 15377: nginx: sigaction(SIGHUP) succed!
 
-2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGINT) succed!
+2023/04/05 21:41:50 [stderr] 15377: nginx: sigaction(SIGINT) succed!
 
-2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGTERM) succed!
+2023/04/05 21:41:50 [stderr] 15377: nginx: sigaction(SIGTERM) succed!
 
-2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGCHLD) succed!
+2023/04/05 21:41:50 [stderr] 15377: nginx: sigaction(SIGCHLD) succed!
 
-2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGQUIT) succed!
+2023/04/05 21:41:50 [stderr] 15377: nginx: sigaction(SIGQUIT) succed!
 
-2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGIO) succed!
+2023/04/05 21:41:50 [stderr] 15377: nginx: sigaction(SIGIO) succed!
 
-2023/04/01 17:29:38 [stderr] 11516: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+2023/04/05 21:41:50 [stderr] 15377: nginx: sigaction(SIGSYS, SIG_IGN) succed!
 
-2023/04/01 17:29:38 [stderr] 11519: nginx: -1560418136
+2023/04/05 21:41:50 [info] 15377: 监听8088端口成功!
+2023/04/05 21:41:50 [info] 15377: 监听8089端口成功!
+2023/04/05 21:47:30 [stderr] 15879: nginx: sigaction(SIGHUP) succed!
 
-2023/04/01 17:29:38 [stderr] 11519: nginx: -1560418136
+2023/04/05 21:47:30 [stderr] 15879: nginx: sigaction(SIGINT) succed!
 
-2023/04/01 17:29:38 [notice] 11520: worker process 11520 启动并开始运行......!
-2023/04/04 21:43:37 [stderr] 9003: nginx: sigaction(SIGHUP) succed!
+2023/04/05 21:47:30 [stderr] 15879: nginx: sigaction(SIGTERM) succed!
 
-2023/04/04 21:43:37 [stderr] 9003: nginx: sigaction(SIGINT) succed!
+2023/04/05 21:47:30 [stderr] 15879: nginx: sigaction(SIGCHLD) succed!
 
-2023/04/04 21:43:37 [stderr] 9003: nginx: sigaction(SIGTERM) succed!
+2023/04/05 21:47:30 [stderr] 15879: nginx: sigaction(SIGQUIT) succed!
 
-2023/04/04 21:43:37 [stderr] 9003: nginx: sigaction(SIGCHLD) succed!
+2023/04/05 21:47:30 [stderr] 15879: nginx: sigaction(SIGIO) succed!
 
-2023/04/04 21:43:37 [stderr] 9003: nginx: sigaction(SIGQUIT) succed!
+2023/04/05 21:47:30 [stderr] 15879: nginx: sigaction(SIGSYS, SIG_IGN) succed!
 
-2023/04/04 21:43:37 [stderr] 9003: nginx: sigaction(SIGIO) succed!
+2023/04/05 21:47:30 [info] 15879: 监听8088端口成功!
+2023/04/05 21:47:30 [info] 15879: 监听8089端口成功!
+2023/04/05 21:47:30 [notice] 15879: signal 17 (SIGCHLD) received from 15882
+2023/04/05 21:47:30 [alert] 15879: pid = 15882 exited on signal 11!
+2023/04/05 21:48:38 [stderr] 15940: nginx: sigaction(SIGHUP) succed!
 
-2023/04/04 21:43:37 [stderr] 9003: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+2023/04/05 21:48:38 [stderr] 15940: nginx: sigaction(SIGINT) succed!
 
-2023/04/04 21:43:37 [info] 9003: 监听10000端口成功!
-2023/04/04 21:43:37 [stderr] 9005: nginx: CSocekt::ngx_epoll_init()中epoll_create()失败. (22: Invalid argument) 
- (22: Invalid argument) 
-2023/04/04 21:43:37 [notice] 9003: signal 17 (SIGCHLD) received from 9005
-2023/04/04 21:43:37 [notice] 9003: pid = 9005 exited with code 2!
-2023/04/04 21:45:01 [notice] 9003: signal 15 (SIGTERM) received from 3166
-2023/04/04 21:45:01 [notice] 9003: signal 1 (SIGHUP) received 
-2023/04/04 21:58:19 [stderr] 9280: nginx: sigaction(SIGHUP) succed!
+2023/04/05 21:48:38 [stderr] 15940: nginx: sigaction(SIGTERM) succed!
 
-2023/04/04 21:58:21 [stderr] 9280: nginx: sigaction(SIGINT) succed!
+2023/04/05 21:48:38 [stderr] 15940: nginx: sigaction(SIGCHLD) succed!
 
-2023/04/04 21:58:21 [stderr] 9280: nginx: sigaction(SIGTERM) succed!
+2023/04/05 21:48:38 [stderr] 15940: nginx: sigaction(SIGQUIT) succed!
 
-2023/04/04 21:58:21 [stderr] 9280: nginx: sigaction(SIGCHLD) succed!
+2023/04/05 21:48:38 [stderr] 15940: nginx: sigaction(SIGIO) succed!
 
-2023/04/04 21:58:21 [stderr] 9280: nginx: sigaction(SIGQUIT) succed!
+2023/04/05 21:48:38 [stderr] 15940: nginx: sigaction(SIGSYS, SIG_IGN) succed!
 
-2023/04/04 21:58:21 [stderr] 9280: nginx: sigaction(SIGIO) succed!
+2023/04/05 21:48:38 [info] 15940: 监听8088端口成功!
+2023/04/05 21:48:38 [info] 15940: 监听8089端口成功!
+2023/04/05 21:56:41 [stderr] 16142: nginx: sigaction(SIGHUP) succed!
 
-2023/04/04 21:58:21 [stderr] 9280: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+2023/04/05 21:56:41 [stderr] 16142: nginx: sigaction(SIGINT) succed!
 
-2023/04/04 22:00:59 [stderr] 9661: nginx: sigaction(SIGHUP) succed!
+2023/04/05 21:56:41 [stderr] 16142: nginx: sigaction(SIGTERM) succed!
 
-2023/04/04 22:00:59 [stderr] 9661: nginx: sigaction(SIGINT) succed!
+2023/04/05 21:56:41 [stderr] 16142: nginx: sigaction(SIGCHLD) succed!
 
-2023/04/04 22:00:59 [stderr] 9661: nginx: sigaction(SIGTERM) succed!
+2023/04/05 21:56:41 [stderr] 16142: nginx: sigaction(SIGQUIT) succed!
 
-2023/04/04 22:00:59 [stderr] 9661: nginx: sigaction(SIGCHLD) succed!
+2023/04/05 21:56:41 [stderr] 16142: nginx: sigaction(SIGIO) succed!
 
-2023/04/04 22:00:59 [stderr] 9661: nginx: sigaction(SIGQUIT) succed!
+2023/04/05 21:56:41 [stderr] 16142: nginx: sigaction(SIGSYS, SIG_IGN) succed!
 
-2023/04/04 22:00:59 [stderr] 9661: nginx: sigaction(SIGIO) succed!
+2023/04/05 21:56:41 [info] 16142: 监听8088端口成功!
+2023/04/05 21:56:41 [info] 16142: 监听8089端口成功!
+2023/04/05 21:56:47 [notice] 16150: worker process 16150 启动并开始运行......!
+2023/04/05 21:57:00 [notice] 16150: signal 1 (SIGHUP) received 
+2023/04/05 21:57:00 [info] 16150: CSocekt::ngx_epoll_process_events()中epoll_wait()失败! (4: Interrupted system call) 
+2023/04/05 21:57:20 [stderr] 16187: nginx: sigaction(SIGHUP) succed!
 
-2023/04/04 22:00:59 [stderr] 9661: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+2023/04/05 21:57:20 [stderr] 16187: nginx: sigaction(SIGINT) succed!
 
-2023/04/04 22:00:59 [stderr] 9661: nginx: CSocekt::Initialize()中bind()失败,i=0. (13: Permission denied) 
- (13: Permission denied) 
-2023/04/04 22:02:00 [stderr] 9734: nginx: sigaction(SIGHUP) succed!
+2023/04/05 21:57:20 [stderr] 16187: nginx: sigaction(SIGTERM) succed!
 
-2023/04/04 22:02:00 [stderr] 9734: nginx: sigaction(SIGINT) succed!
+2023/04/05 21:57:20 [stderr] 16187: nginx: sigaction(SIGCHLD) succed!
 
-2023/04/04 22:02:00 [stderr] 9734: nginx: sigaction(SIGTERM) succed!
+2023/04/05 21:57:20 [stderr] 16187: nginx: sigaction(SIGQUIT) succed!
 
-2023/04/04 22:02:00 [stderr] 9734: nginx: sigaction(SIGCHLD) succed!
+2023/04/05 21:57:20 [stderr] 16187: nginx: sigaction(SIGIO) succed!
 
-2023/04/04 22:02:00 [stderr] 9734: nginx: sigaction(SIGQUIT) succed!
+2023/04/05 21:57:20 [stderr] 16187: nginx: sigaction(SIGSYS, SIG_IGN) succed!
 
-2023/04/04 22:02:00 [stderr] 9734: nginx: sigaction(SIGIO) succed!
+2023/04/05 21:57:20 [info] 16187: 监听8088端口成功!
+2023/04/05 21:57:20 [info] 16187: 监听8089端口成功!
+2023/04/05 21:57:20 [notice] 16190: worker process 16190 启动并开始运行......!
+2023/04/05 21:57:47 [notice] 16190: signal 1 (SIGHUP) received 
+2023/04/05 21:57:47 [info] 16190: CSocekt::ngx_epoll_process_events()中epoll_wait()失败! (4: Interrupted system call) 
+2023/04/05 21:58:22 [stderr] 16237: nginx: sigaction(SIGHUP) succed!
 
-2023/04/04 22:02:00 [stderr] 9734: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+2023/04/05 21:58:22 [stderr] 16237: nginx: sigaction(SIGINT) succed!
 
-2023/04/04 22:02:00 [stderr] 9734: nginx: CSocekt::Initialize()中bind()失败,i=0. (13: Permission denied) 
- (13: Permission denied) 
-2023/04/04 22:02:09 [stderr] 9769: nginx: sigaction(SIGHUP) succed!
+2023/04/05 21:58:22 [stderr] 16237: nginx: sigaction(SIGTERM) succed!
 
-2023/04/04 22:02:09 [stderr] 9769: nginx: sigaction(SIGINT) succed!
+2023/04/05 21:58:22 [stderr] 16237: nginx: sigaction(SIGCHLD) succed!
 
-2023/04/04 22:02:09 [stderr] 9769: nginx: sigaction(SIGTERM) succed!
+2023/04/05 21:58:22 [stderr] 16237: nginx: sigaction(SIGQUIT) succed!
 
-2023/04/04 22:02:09 [stderr] 9769: nginx: sigaction(SIGCHLD) succed!
+2023/04/05 21:58:22 [stderr] 16237: nginx: sigaction(SIGIO) succed!
 
-2023/04/04 22:02:09 [stderr] 9769: nginx: sigaction(SIGQUIT) succed!
+2023/04/05 21:58:22 [stderr] 16237: nginx: sigaction(SIGSYS, SIG_IGN) succed!
 
-2023/04/04 22:02:09 [stderr] 9769: nginx: sigaction(SIGIO) succed!
+2023/04/05 21:58:22 [info] 16237: 监听8088端口成功!
+2023/04/05 21:58:22 [info] 16237: 监听8089端口成功!
+2023/04/05 21:59:59 [notice] 16246: worker process 16246 启动并开始运行......!
+2023/04/05 22:05:03 [stderr] 16509: nginx: sigaction(SIGHUP) succed!
 
-2023/04/04 22:02:09 [stderr] 9769: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+2023/04/05 22:05:03 [stderr] 16509: nginx: sigaction(SIGINT) succed!
 
-2023/04/04 22:07:31 [stderr] 9923: nginx: sigaction(SIGHUP) succed!
+2023/04/05 22:05:03 [stderr] 16509: nginx: sigaction(SIGTERM) succed!
 
-2023/04/04 22:07:31 [stderr] 9923: nginx: sigaction(SIGINT) succed!
+2023/04/05 22:05:03 [stderr] 16509: nginx: sigaction(SIGCHLD) succed!
 
-2023/04/04 22:07:31 [stderr] 9923: nginx: sigaction(SIGTERM) succed!
+2023/04/05 22:05:03 [stderr] 16509: nginx: sigaction(SIGQUIT) succed!
 
-2023/04/04 22:07:31 [stderr] 9923: nginx: sigaction(SIGCHLD) succed!
+2023/04/05 22:05:03 [stderr] 16509: nginx: sigaction(SIGIO) succed!
 
-2023/04/04 22:07:31 [stderr] 9923: nginx: sigaction(SIGQUIT) succed!
+2023/04/05 22:05:03 [stderr] 16509: nginx: sigaction(SIGSYS, SIG_IGN) succed!
 
-2023/04/04 22:07:31 [stderr] 9923: nginx: sigaction(SIGIO) succed!
-
-2023/04/04 22:07:31 [stderr] 9923: nginx: sigaction(SIGSYS, SIG_IGN) succed!
-
-2023/04/04 22:10:41 [stderr] 9923: nginx: CSocekt::Initialize()中bind()失败,i=0. (13: Permission denied) 
- (13: Permission denied) 
-2023/04/04 22:13:21 [stderr] 10189: nginx: sigaction(SIGHUP) succed!
-
-2023/04/04 22:13:21 [stderr] 10189: nginx: sigaction(SIGINT) succed!
-
-2023/04/04 22:13:21 [stderr] 10189: nginx: sigaction(SIGTERM) succed!
-
-2023/04/04 22:13:21 [stderr] 10189: nginx: sigaction(SIGCHLD) succed!
-
-2023/04/04 22:13:21 [stderr] 10189: nginx: sigaction(SIGQUIT) succed!
-
-2023/04/04 22:13:21 [stderr] 10189: nginx: sigaction(SIGIO) succed!
-
-2023/04/04 22:13:21 [stderr] 10189: nginx: sigaction(SIGSYS, SIG_IGN) succed!
-
-2023/04/04 22:14:24 [info] 10189: 监听8088端口成功!
-2023/04/04 22:16:56 [info] 10189: 监听8089端口成功!
-2023/04/04 22:18:48 [notice] 10357: worker process 10357 启动并开始运行......!
-2023/04/04 22:21:25 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:27 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:29 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:30 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:31 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:32 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:33 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:35 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:35 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:35 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:35 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:36 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:36 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:36 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:36 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:37 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:37 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:37 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:37 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:38 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:38 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:38 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:38 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:39 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:39 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:39 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:21:39 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:22:41 [stderr] 10357: nginx: 22222222222222222222222.
-
-2023/04/04 22:23:07 [notice] 10357: signal 1 (SIGHUP) received 
-2023/04/04 22:23:07 [info] 10357: CSocekt::ngx_epoll_process_events()中epoll_wait()失败! (4: Interrupted system call) 
-2023/04/04 22:23:17 [stderr] 10357: nginx: 22222222222222222222222. (4: Interrupted system call) 
- (4: Interrupted system call) 
-2023/04/04 22:23:17 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:23:18 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:23:19 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:23:19 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:23:19 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:23:19 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:23:21 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:24:02 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:24:02 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:24:02 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:24:03 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:24:04 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:24:39 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:24:54 [stderr] 10357: nginx: 22222222222222222222222. (5: Input/output error) 
- (5: Input/output error) 
-2023/04/04 22:32:37 [stderr] 11252: nginx: sigaction(SIGHUP) succed!
-
-2023/04/04 22:32:37 [stderr] 11252: nginx: sigaction(SIGINT) succed!
-
-2023/04/04 22:32:37 [stderr] 11252: nginx: sigaction(SIGTERM) succed!
-
-2023/04/04 22:32:37 [stderr] 11252: nginx: sigaction(SIGCHLD) succed!
-
-2023/04/04 22:32:37 [stderr] 11252: nginx: sigaction(SIGQUIT) succed!
-
-2023/04/04 22:32:37 [stderr] 11252: nginx: sigaction(SIGIO) succed!
-
-2023/04/04 22:32:37 [stderr] 11252: nginx: sigaction(SIGSYS, SIG_IGN) succed!
-
-2023/04/04 22:32:37 [info] 11252: 监听8088端口成功!
-2023/04/04 22:32:37 [info] 11252: 监听8089端口成功!
-2023/04/04 22:33:05 [notice] 11252: signal 17 (SIGCHLD) received from 11276
-2023/04/04 22:33:05 [alert] 11252: pid = 11276 exited on signal 9!
-2023/04/04 22:33:05 [notice] 11252: signal 1 (SIGHUP) received 
-2023/04/04 22:34:06 [stderr] 11439: nginx: sigaction(SIGHUP) succed!
-
-2023/04/04 22:34:06 [stderr] 11439: nginx: sigaction(SIGINT) succed!
-
-2023/04/04 22:34:06 [stderr] 11439: nginx: sigaction(SIGTERM) succed!
-
-2023/04/04 22:34:06 [stderr] 11439: nginx: sigaction(SIGCHLD) succed!
-
-2023/04/04 22:34:06 [stderr] 11439: nginx: sigaction(SIGQUIT) succed!
-
-2023/04/04 22:34:06 [stderr] 11439: nginx: sigaction(SIGIO) succed!
-
-2023/04/04 22:34:06 [stderr] 11439: nginx: sigaction(SIGSYS, SIG_IGN) succed!
-
-2023/04/04 22:34:06 [info] 11439: 监听8088端口成功!
-2023/04/04 22:34:06 [info] 11439: 监听8089端口成功!
-2023/04/04 22:34:28 [notice] 11439: signal 17 (SIGCHLD) received from 11498
-2023/04/04 22:34:28 [alert] 11439: pid = 11498 exited on signal 9!
-2023/04/04 22:34:28 [notice] 11439: signal 1 (SIGHUP) received 
-2023/04/04 22:36:49 [stderr] 11873: nginx: sigaction(SIGHUP) succed!
-
-2023/04/04 22:36:49 [stderr] 11873: nginx: sigaction(SIGINT) succed!
-
-2023/04/04 22:36:49 [stderr] 11873: nginx: sigaction(SIGTERM) succed!
-
-2023/04/04 22:36:49 [stderr] 11873: nginx: sigaction(SIGCHLD) succed!
-
-2023/04/04 22:36:49 [stderr] 11873: nginx: sigaction(SIGQUIT) succed!
-
-2023/04/04 22:36:49 [stderr] 11873: nginx: sigaction(SIGIO) succed!
-
-2023/04/04 22:36:49 [stderr] 11873: nginx: sigaction(SIGSYS, SIG_IGN) succed!
-
-2023/04/04 22:36:49 [info] 11873: 监听8088端口成功!
-2023/04/04 22:36:49 [info] 11873: 监听8089端口成功!
-2023/04/04 22:38:38 [notice] 12005: worker process 12005 启动并开始运行......!
+2023/04/05 22:05:03 [info] 16509: 监听8088端口成功!
+2023/04/05 22:05:03 [info] 16509: 监听8089端口成功!
+2023/04/05 22:05:16 [notice] 16529: worker process 16529 启动并开始运行......!

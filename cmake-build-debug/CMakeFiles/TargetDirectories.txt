@@ -6,6 +6,7 @@
 /home/awen/workstation/nginx/cmake-build-debug/CMakeFiles/install/strip.dir
 /home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/memory_pool.dir
 /home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/ngx_c_conf.dir
+/home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/ngx_c_memory.dir
 /home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/edit_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/rebuild_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/misc/CMakeFiles/list_install_components.dir
@@ -62,6 +63,7 @@
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/ngx_log.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/nginx.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/test.dir
+/home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/clientTest.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/edit_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/rebuild_cache.dir
 /home/awen/workstation/nginx/cmake-build-debug/app/CMakeFiles/list_install_components.dir

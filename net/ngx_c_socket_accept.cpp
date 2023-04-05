@@ -99,7 +99,7 @@ void CSocekt::ngx_event_accept(lpngx_connection_t oldc) {
             if(setnonblocking(s) == false)
             {
                 //设置非阻塞居然失败
-                ngx_close_accepted_connection(newc);
+                ngx_close_connection(newc);
                 return; //直接返回
             }
         }
@@ -109,28 +109,17 @@ void CSocekt::ngx_event_accept(lpngx_connection_t oldc) {
         //客户端应该主动发送第一次的数据，这里将读事件加入epoll监控
         if(ngx_epoll_add_event(s,                 //socket句柄
                                1,0,              //读，写
-                               EPOLLET,          //其他补充标记【EPOLLET(高速模式，边缘触发ET)】
+                               0,          //其他补充标记【EPOLLET(高速模式，边缘触发ET)】
                                EPOLL_CTL_ADD,    //事件类型【增加，还有删除/修改】
                                newc              //连接池中的连接
         ) == -1)
         {
             //增加事件失败，失败日志在ngx_epoll_add_event中写过了，因此这里不多写啥；
-            ngx_close_accepted_connection(newc);
+            ngx_close_connection(newc);
             return; //直接返回
         }
 
         break;  //一般就是循环一次就跳出去
     } while (true);
-    return;
-}
-
-void CSocekt::ngx_close_accepted_connection(lpngx_connection_t c) {
-    int fd = c->fd;
-    ngx_free_connection(c);
-    c->fd = -1; //官方nginx这么写，但这有意义吗？
-    if(close(fd) == -1)
-    {
-        ngx_log_error_core(NGX_LOG_ALERT,errno,"CSocekt::ngx_close_accepted_connection()中close(%d)失败!",fd);
-    }
     return;
 }

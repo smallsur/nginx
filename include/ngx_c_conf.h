@@ -6,6 +6,7 @@
 #define NGINX_NGX_C_CONF_H
 #include <vector>
 #include <memory>
+
 #include "ngx_global.h"
 
 template<typename T>
@@ -37,5 +38,13 @@ private:
     std::vector<std::shared_ptr<Config_Nginx_Item>> configItemList;
 };
 
+
+class CMemory:public Singleton<CMemory>{
+public:
+    explicit CMemory(Token){
+    };
+    void *AllocMemory(int memCount,bool ifmemset);
+    void FreeMemory(void *point);
+};
 
 #endif //NGINX_NGX_C_CONF_H

@@ -23,3 +23,8 @@ target_link_libraries(nginx PUBLIC ngx_c_socket)
 
 target_include_directories(test PUBLIC ${INCLUDE_DIR})
 
+add_executable(clientTest clientTest.cpp)
+target_link_libraries(clientTest PUBLIC ngx_c_socket)
+target_include_directories(clientTest PUBLIC ${INCLUDE_DIR})
+
+

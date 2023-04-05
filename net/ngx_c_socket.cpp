@@ -18,15 +18,20 @@
 //构造函数
 CSocekt::CSocekt()
 {
-    m_ListenPortCount = 1;   //监听一个端口
-
     m_epollhandle = -1;
-    m_worker_connections = 0;
+
+    m_ListenPortCount = 1;   //监听一个端口
+    m_worker_connections = 1;
+
     m_free_connection_n = 0;
     m_connection_n = 0;
 
     m_pconnections = nullptr;
     m_pfree_connections = nullptr;
+
+    //一些和网络通讯有关的常用变量值，供后续频繁使用时提高效率
+    m_iLenPkgHeader = sizeof(COMM_PKG_HEADER);    //包头的sizeof值【占用的字节数】
+    m_iLenMsgHeader =  sizeof(STRUC_MSG_HEADER);  //消息头的sizeof值【占用的字节数】
 
     return;
 }
@@ -44,7 +49,21 @@ CSocekt::~CSocekt()
 
     if(m_pconnections != nullptr)//释放连接池
         delete [] m_pconnections;
+    clearMsgRecvQueue();
     return;
+}
+
+void CSocekt::clearMsgRecvQueue() {
+    char * sTmpMempoint;
+    CMemory& p_memory = CMemory::get_instance();
+
+    //临界与否，日后再考虑，当前先不考虑。。。。。。如果将来有线程池再考虑临界问题
+    while(!m_MsgRecvQueue.empty())
+    {
+        sTmpMempoint = m_MsgRecvQueue.front();
+        m_MsgRecvQueue.pop_front();
+        p_memory.FreeMemory(sTmpMempoint);
+    }
 }
 
 //初始化函数【fork()子进程之前干这个事】
@@ -187,7 +206,7 @@ int CSocekt::ngx_epoll_init() {
         c[i].instance = 1;
         c[i].iCurrsequence = 0;
         next = &c[i];
-    } while (i>=0);
+    } while (i>0);
     m_free_connection_n = m_connection_n;
     m_pfree_connections = next;
     std::vector<lpngx_listening_t>::iterator pos;
@@ -315,6 +334,7 @@ int CSocekt::ngx_epoll_process_events(int timer) {
             ngx_log_error_core(NGX_LOG_DEBUG,0,"CSocekt::ngx_epoll_process_events()中遇到了instance值改变的过期事件:%p.",c);
             continue; //这种事件就不处理即可
         }
+
         revents = m_events[i].events;//取出事件类型
         if(revents & (EPOLLERR|EPOLLHUP)) //例如对方close掉套接字，这里会感应到【换句话说：如果发生了错误或者客户端断连】
         {

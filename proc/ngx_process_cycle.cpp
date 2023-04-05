@@ -81,7 +81,7 @@ void  ngx_master_process_cycle(){
 
         //    printf("执行到sigsuspend()下边来了\n");
 
-///        printf("master进程休息1秒\n");
+
         //sleep(1); //休息1秒
         //以后扩充.......
     }
@@ -176,4 +176,6 @@ static void ngx_worker_process_init(int inum)
     //....
     return;
 }
+
+
 
