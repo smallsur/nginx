@@ -1,6 +1,7 @@
 //
 // Created by awen on 23-4-1.
 //
+#include <stdlib.h>
 #include <stdio.h>
 #include <signal.h>
 #include <errno.h>
@@ -170,6 +171,14 @@ static void ngx_worker_process_init(int inum)
     {
         ngx_log_error_core(NGX_LOG_ALERT,errno,"ngx_worker_process_init()中sigprocmask()失败!");
     }
+    Config_Nginx& p_config = Config_Nginx::get_instance();
+    int tmpthreadnums = p_config.GetIntDefault("ProcMsgRecvWorkThreadCount",5); //处理接收到的消息的线程池中线程数量
+    if(g_threadpool.Create(tmpthreadnums) == false)  //创建线程池中线程
+    {
+        //内存没释放，但是简单粗暴退出；
+        exit(-2);
+    }
+    sleep(1); //再休息1秒；
 
     g_socket.ngx_epoll_init();
     //....将来再扩充代码

@@ -92,7 +92,6 @@ void CSocekt::ngx_event_accept(lpngx_connection_t oldc) {
             return;
         }
         memcpy(&newc->s_sockaddr,&mysockaddr,socklen);
-
         if(!use_accept4)
         {
             //如果不是用accept4()取得的socket，那么就要设置为非阻塞【因为用accept4()的已经被accept4()设置为非阻塞了】
@@ -118,7 +117,6 @@ void CSocekt::ngx_event_accept(lpngx_connection_t oldc) {
             ngx_close_connection(newc);
             return; //直接返回
         }
-
         break;  //一般就是循环一次就跳出去
     } while (true);
     return;

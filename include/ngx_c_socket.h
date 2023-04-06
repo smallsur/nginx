@@ -5,6 +5,7 @@
 #include <sys/epoll.h> //epoll
 #include <sys/socket.h>
 #include <list>
+#include <pthread.h>
 
 #include "ngx_comm.h"
 
@@ -60,6 +61,7 @@ struct ngx_connection_s
     bool                      ifnewrecvMem;                   //如果我们成功的收到了包头，那么我们就要分配内存开始保存 包头+消息头+包体内容，这个标记用来标记是否我们new过内存，因为new过是需要释放的
     char                      *pnewMemPointer;                //new出来的用于收包的内存首地址，和ifnewrecvMem配对使用
 };
+
 //消息头，引入的目的是当收到数据包时，额外记录一些内容以备将来使用
 typedef struct _STRUC_MSG_HEADER
 {
@@ -79,6 +81,9 @@ public:
     virtual bool Initialize();                                         //初始化函数
 
 public:
+    char *outMsgRecvQueue();                                           //将一个消息出消息队列
+    virtual void threadRecvProcFunc(char *pMsgBuf);                    //处理客户端请求，虚函数，因为将来可以考虑自己来写子类继承本类
+
     int  ngx_epoll_init();                                             //epoll功能初始化
     //void ngx_epoll_listenportstart();                                  //监听端口开始工作
     int  ngx_epoll_add_event(int fd,int readevent,int writeevent,uint32_t otherflag,uint32_t eventtype,lpngx_connection_t c);
@@ -107,9 +112,11 @@ private:
     ssize_t recvproc(lpngx_connection_t c,char *buff,ssize_t buflen);  //接收从客户端来的数据专用函数
     void ngx_wait_request_handler_proc_p1(lpngx_connection_t c);       //包头收完整后的处理，我们称为包处理阶段1：写成函数，方便复用
     void ngx_wait_request_handler_proc_plast(lpngx_connection_t c);    //收到一个完整包后的处理，放到一个函数中，方便调用
-    void inMsgRecvQueue(char *buf);                                    //收到一个完整消息后，入消息队列
-    void tmpoutMsgRecvQueue(); //临时清除对列中消息函数，测试用，将来会删除该函数
-    void clearMsgRecvQueue();                                          //清理接收消息队列
+    void inMsgRecvQueue(char *buf,,int &irmqc);                                    //收到一个完整消息后，入消息队列
+//    void tmpoutMsgRecvQueue(); //临时清除对列中消息函数，测试用，将来会删除该函数
+    void clearMsgRecvQueue();
+
+
 
 private:
     int                            m_worker_connections;               //epoll连接的最大项数
@@ -136,6 +143,10 @@ private:
     //消息队列
     std::list<char *>              m_MsgRecvQueue;                     //接收数据消息队列
 
+    int                            m_iRecvMsgQueueCount;               //收消息队列大小
+
+    //多线程相关
+    pthread_mutex_t                m_recvMessageQueueMutex;            //收消息队列互斥量
 };
 
 #endif

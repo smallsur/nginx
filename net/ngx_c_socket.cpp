@@ -33,7 +33,10 @@ CSocekt::CSocekt()
     m_iLenPkgHeader = sizeof(COMM_PKG_HEADER);    //包头的sizeof值【占用的字节数】
     m_iLenMsgHeader =  sizeof(STRUC_MSG_HEADER);  //消息头的sizeof值【占用的字节数】
 
+    m_iRecvMsgQueueCount = 0;
+    pthread_mutex_init(&m_recvMessageQueueMutex, nullptr);
     return;
+
 }
 
 //释放函数
@@ -50,6 +53,7 @@ CSocekt::~CSocekt()
     if(m_pconnections != nullptr)//释放连接池
         delete [] m_pconnections;
     clearMsgRecvQueue();
+    pthread_mutex_destroy(&m_recvMessageQueueMutex);
     return;
 }
 
