@@ -7,6 +7,7 @@
 
 #include "ngx_c_threadpool.h"
 #include "ngx_c_socket.h"
+#include "ngx_c_slogic.h"
 //结构定义
 typedef struct {
     char itemName[50];
@@ -43,7 +44,8 @@ extern ngx_log_t   ngx_log;
 extern int           ngx_process;
 extern sig_atomic_t  ngx_reap;
 
-extern CSocekt       g_socket;
+//extern CSocekt       g_socket;
+extern CLogicSocket       g_socket;
 extern CThreadPool   g_threadpool;
 
 

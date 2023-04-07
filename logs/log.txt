@@ -120,3 +120,69 @@
 2023/04/05 22:05:03 [info] 16509: 监听8088端口成功!
 2023/04/05 22:05:03 [info] 16509: 监听8089端口成功!
 2023/04/05 22:05:16 [notice] 16529: worker process 16529 启动并开始运行......!
+2023/04/07 16:31:28 [stderr] 7342: nginx: sigaction(SIGHUP) succed!
+
+2023/04/07 16:31:28 [stderr] 7342: nginx: sigaction(SIGINT) succed!
+
+2023/04/07 16:31:28 [stderr] 7342: nginx: sigaction(SIGTERM) succed!
+
+2023/04/07 16:31:28 [stderr] 7342: nginx: sigaction(SIGCHLD) succed!
+
+2023/04/07 16:31:28 [stderr] 7342: nginx: sigaction(SIGQUIT) succed!
+
+2023/04/07 16:31:28 [stderr] 7342: nginx: sigaction(SIGIO) succed!
+
+2023/04/07 16:31:28 [stderr] 7342: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+
+2023/04/07 16:31:28 [info] 7342: 监听8088端口成功!
+2023/04/07 16:31:28 [info] 7342: 监听8089端口成功!
+2023/04/07 16:33:23 [notice] 7391: worker process 7391 启动并开始运行......!
+2023/04/07 16:34:08 [info] 7391: CSocekt::ngx_epoll_process_events()中epoll_wait()失败! (4: Interrupted system call) 
+2023/04/07 16:34:10 [info] 7391: CSocekt::ngx_epoll_process_events()中epoll_wait()失败! (4: Interrupted system call) 
+2023/04/07 16:36:03 [stderr] 7583: nginx: sigaction(SIGHUP) succed!
+
+2023/04/07 16:36:03 [stderr] 7583: nginx: sigaction(SIGINT) succed!
+
+2023/04/07 16:36:03 [stderr] 7583: nginx: sigaction(SIGTERM) succed!
+
+2023/04/07 16:36:03 [stderr] 7583: nginx: sigaction(SIGCHLD) succed!
+
+2023/04/07 16:36:03 [stderr] 7583: nginx: sigaction(SIGQUIT) succed!
+
+2023/04/07 16:36:03 [stderr] 7583: nginx: sigaction(SIGIO) succed!
+
+2023/04/07 16:36:03 [stderr] 7583: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+
+2023/04/07 16:36:03 [info] 7583: 监听8088端口成功!
+2023/04/07 16:36:03 [info] 7583: 监听8089端口成功!
+2023/04/07 16:36:12 [notice] 7603: worker process 7603 启动并开始运行......!
+2023/04/07 16:36:33 [notice] 7603: signal 1 (SIGHUP) received 
+2023/04/07 16:36:33 [info] 7603: CSocekt::ngx_epoll_process_events()中epoll_wait()失败! (4: Interrupted system call) 
+2023/04/07 16:37:43 [stderr] 7701: nginx: sigaction(SIGHUP) succed!
+
+2023/04/07 16:37:43 [stderr] 7701: nginx: sigaction(SIGINT) succed!
+
+2023/04/07 16:37:43 [stderr] 7701: nginx: sigaction(SIGTERM) succed!
+
+2023/04/07 16:37:43 [stderr] 7701: nginx: sigaction(SIGCHLD) succed!
+
+2023/04/07 16:37:43 [stderr] 7701: nginx: sigaction(SIGQUIT) succed!
+
+2023/04/07 16:37:43 [stderr] 7701: nginx: sigaction(SIGIO) succed!
+
+2023/04/07 16:37:43 [stderr] 7701: nginx: sigaction(SIGSYS, SIG_IGN) succed!
+
+2023/04/07 16:37:43 [info] 7701: 监听8088端口成功!
+2023/04/07 16:37:43 [info] 7701: 监听8089端口成功!
+2023/04/07 16:41:18 [notice] 7708: worker process 7708 启动并开始运行......!
+2023/04/07 16:43:39 [stderr] 7708: nginx: 执行了CLogicSocket::_HandleRegister()!
+
+2023/04/07 16:44:49 [stderr] 7708: nginx: 执行了CLogicSocket::_HandleLogIn()!
+
+2023/04/07 16:44:57 [stderr] 7708: nginx: 111111111111111111111111111111. (104: Connection reset by peer) 
+ (104: Connection reset by peer) 
+2023/04/07 16:49:40 [info] 7708: CSocekt::ngx_epoll_process_events()中epoll_wait()失败! (4: Interrupted system call) 
+2023/04/07 16:50:55 [info] 7708: CSocekt::ngx_epoll_process_events()中epoll_wait()失败! (4: Interrupted system call) 
+2023/04/07 16:51:14 [info] 7708: CSocekt::ngx_epoll_process_events()中epoll_wait()失败! (4: Interrupted system call) 
+2023/04/07 16:53:38 [stderr] 7708: nginx: 111111111111111111111111111111. (104: Connection reset by peer) 
+ (104: Connection reset by peer) 

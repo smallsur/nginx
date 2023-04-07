@@ -32,9 +32,6 @@ CSocekt::CSocekt()
     //一些和网络通讯有关的常用变量值，供后续频繁使用时提高效率
     m_iLenPkgHeader = sizeof(COMM_PKG_HEADER);    //包头的sizeof值【占用的字节数】
     m_iLenMsgHeader =  sizeof(STRUC_MSG_HEADER);  //消息头的sizeof值【占用的字节数】
-
-    m_iRecvMsgQueueCount = 0;
-    pthread_mutex_init(&m_recvMessageQueueMutex, nullptr);
     return;
 
 }
@@ -52,22 +49,8 @@ CSocekt::~CSocekt()
 
     if(m_pconnections != nullptr)//释放连接池
         delete [] m_pconnections;
-    clearMsgRecvQueue();
-    pthread_mutex_destroy(&m_recvMessageQueueMutex);
+
     return;
-}
-
-void CSocekt::clearMsgRecvQueue() {
-    char * sTmpMempoint;
-    CMemory& p_memory = CMemory::get_instance();
-
-    //临界与否，日后再考虑，当前先不考虑。。。。。。如果将来有线程池再考虑临界问题
-    while(!m_MsgRecvQueue.empty())
-    {
-        sTmpMempoint = m_MsgRecvQueue.front();
-        m_MsgRecvQueue.pop_front();
-        p_memory.FreeMemory(sTmpMempoint);
-    }
 }
 
 //初始化函数【fork()子进程之前干这个事】
@@ -157,24 +140,6 @@ bool CSocekt::setnonblocking(int sockfd)
     }
     return true;
 
-    //如下也是一种写法，跟上边这种写法其实是一样的，但上边的写法更简单
-    /*
-    //fcntl:file control【文件控制】相关函数，执行各种描述符控制操作
-    //参数1：所要设置的描述符，这里是套接字【也是描述符的一种】
-    int opts = fcntl(sockfd, F_GETFL);  //用F_GETFL先获取描述符的一些标志信息
-    if(opts < 0)
-    {
-        ngx_log_stderr(errno,"CSocekt::setnonblocking()中fcntl(F_GETFL)失败.");
-        return false;
-    }
-    opts |= O_NONBLOCK; //把非阻塞标记加到原来的标记上，标记这是个非阻塞套接字【如何关闭非阻塞呢？opts &= ~O_NONBLOCK,然后再F_SETFL一下即可】
-    if(fcntl(sockfd, F_SETFL, opts) < 0)
-    {
-        ngx_log_stderr(errno,"CSocekt::setnonblocking()中fcntl(F_SETFL)失败.");
-        return false;
-    }
-    return true;
-    */
 }
 
 void CSocekt::ngx_close_listening_sockets()
@@ -313,28 +278,11 @@ int CSocekt::ngx_epoll_process_events(int timer) {
             //比如我们用epoll_wait取得三个事件，处理第一个事件时，因为业务需要，我们把这个连接关闭，那我们应该会把c->fd设置为-1；
             //第二个事件照常处理
             //第三个事件，假如这第三个事件，也跟第一个事件对应的是同一个连接，那这个条件就会成立；那么这种事件，属于过期事件，不该处理
-
-            //这里可以增加个日志，也可以不增加日志
             ngx_log_error_core(NGX_LOG_DEBUG,0,"CSocekt::ngx_epoll_process_events()中遇到了fd=-1的过期事件:%p.",c);
             continue; //这种事件就不处理即可
         }
         if(c->instance != instance)
         {
-            //--------------------以下这些说法来自于资料--------------------------------------
-            //什么时候这个条件成立呢？【换种问法：instance标志为什么可以判断事件是否过期呢？】
-            //比如我们用epoll_wait取得三个事件，处理第一个事件时，因为业务需要，我们把这个连接关闭【麻烦就麻烦在这个连接被服务器关闭上了】，但是恰好第三个事件也跟这个连接有关；
-            //因为第一个事件就把socket连接关闭了，显然第三个事件我们是不应该处理的【因为这是个过期事件】，若处理肯定会导致错误；
-            //那我们上述把c->fd设置为-1，可以解决这个问题吗？ 能解决一部分问题，但另外一部分不能解决，不能解决的问题描述如下【这么离奇的情况应该极少遇到】：
-            //a)处理第一个事件时，因为业务需要，我们把这个连接【假设套接字为50】关闭，同时设置c->fd = -1;并且调用ngx_free_connection将该连接归还给连接池；
-            //b)处理第二个事件，恰好第二个事件是建立新连接事件，调用ngx_get_connection从连接池中取出的连接非常可能就是刚刚释放的第一个事件对应的连接池中的连接；
-            //c)又因为a中套接字50被释放了，所以会被操作系统拿来复用，复用给了b)【一般这么快就被复用也是醉了】；
-            //d)当处理第三个事件时，第三个事件其实是已经过期的，应该不处理，那怎么判断这第三个事件是过期的呢？ 【假设现在处理的是第三个事件，此时这个 连接池中的该连接 实际上已经被用作第二个事件对应的socket上了】；
-            //依靠instance标志位能够解决这个问题，当调用ngx_get_connection从连接池中获取一个新连接时，我们把instance标志位置反，所以这个条件如果不成立，说明这个连接已经被挪作他用了；
-
-            //--------------------我的个人思考--------------------------------------
-            //如果收到了若干个事件，其中连接关闭也搞了多次，导致这个instance标志位被取反2次，那么，造成的结果就是：还是有可能遇到某些过期事件没有被发现【这里也就没有被continue】，照旧被当做没过期事件处理了；
-            //如果是这样，那就只能被照旧处理了。可能会造成偶尔某个连接被误关闭？但是整体服务器程序运行应该是平稳，问题不大的，这种漏网而被当成没过期来处理的的过期事件应该是极少发生的
-
             ngx_log_error_core(NGX_LOG_DEBUG,0,"CSocekt::ngx_epoll_process_events()中遇到了instance值改变的过期事件:%p.",c);
             continue; //这种事件就不处理即可
         }
@@ -342,25 +290,17 @@ int CSocekt::ngx_epoll_process_events(int timer) {
         revents = m_events[i].events;//取出事件类型
         if(revents & (EPOLLERR|EPOLLHUP)) //例如对方close掉套接字，这里会感应到【换句话说：如果发生了错误或者客户端断连】
         {
-            //这加上读写标记，方便后续代码处理
             revents |= EPOLLIN|EPOLLOUT;   //EPOLLIN：表示对应的链接上有数据可以读出（TCP链接的远端主动关闭连接，也相当于可读事件，因为本服务器小处理发送来的FIN包）
-            //EPOLLOUT：表示对应的连接上可以写入数据发送【写准备好】
-            //ngx_log_stderr(errno,"2222222222222222222222222.");
         }
         if(revents & EPOLLIN)  //如果是读事件
         {
             //一个客户端新连入，这个会成立
             //c->r_ready = 1;               //标记可以读；【从连接池拿出一个连接时这个连接的所有成员都是0】
             (this->* (c->rhandler) )(c);    //注意括号的运用来正确设置优先级，防止编译出错；【如果是个新客户连入
-            //如果新连接进入，这里执行的应该是CSocekt::ngx_event_accept(c)】
-            //如果是已经连入，发送数据到这里，则这里执行的应该是 CSocekt::ngx_wait_request_handler
         }
         if(revents & EPOLLOUT) //如果是写事件
         {
-            //....待扩展
-
             ngx_log_stderr(errno,"111111111111111111111111111111.");
-
         }
     }
     return 1;

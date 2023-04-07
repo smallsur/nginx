@@ -81,11 +81,11 @@ public:
     virtual bool Initialize();                                         //初始化函数
 
 public:
-    char *outMsgRecvQueue();                                           //将一个消息出消息队列
+
     virtual void threadRecvProcFunc(char *pMsgBuf);                    //处理客户端请求，虚函数，因为将来可以考虑自己来写子类继承本类
 
     int  ngx_epoll_init();                                             //epoll功能初始化
-    //void ngx_epoll_listenportstart();                                  //监听端口开始工作
+
     int  ngx_epoll_add_event(int fd,int readevent,int writeevent,uint32_t otherflag,uint32_t eventtype,lpngx_connection_t c);
     //epoll增加事件
     int  ngx_epoll_process_events(int timer);                          //epoll等待接收和处理事件
@@ -112,13 +112,11 @@ private:
     ssize_t recvproc(lpngx_connection_t c,char *buff,ssize_t buflen);  //接收从客户端来的数据专用函数
     void ngx_wait_request_handler_proc_p1(lpngx_connection_t c);       //包头收完整后的处理，我们称为包处理阶段1：写成函数，方便复用
     void ngx_wait_request_handler_proc_plast(lpngx_connection_t c);    //收到一个完整包后的处理，放到一个函数中，方便调用
-    void inMsgRecvQueue(char *buf,,int &irmqc);                                    //收到一个完整消息后，入消息队列
-//    void tmpoutMsgRecvQueue(); //临时清除对列中消息函数，测试用，将来会删除该函数
-    void clearMsgRecvQueue();
 
 
 
 private:
+
     int                            m_worker_connections;               //epoll连接的最大项数
     int                            m_ListenPortCount;                  //所监听的端口数量
     int                            m_epollhandle;                      //epoll_create返回的句柄
@@ -126,9 +124,7 @@ private:
     //和连接池有关的
     lpngx_connection_t             m_pconnections;                     //注意这里可是个指针，其实这是个连接池的首地址
     lpngx_connection_t             m_pfree_connections;                //空闲连接链表头，连接池中总是有某些连接被占用，为了快速在池中找到一个空闲的连接，我把空闲的连接专门用该成员记录;
-    //【串成一串，其实这里指向的都是m_pconnections连接池里的没有被使用的成员】
-    //lpngx_event_t                  m_pread_events;                     //指针，读事件数组
-    //lpngx_event_t                  m_pwrite_events;                    //指针，写事件数组
+
     int                            m_connection_n;                     //当前进程中所有连接对象的总数【连接池大小】
     int                            m_free_connection_n;                //连接池中可用连接总数
 
@@ -137,16 +133,10 @@ private:
 
     struct epoll_event             m_events[NGX_MAX_EVENTS];           //用于在epoll_wait()中承载返回的所发生的事件
     //一些和网络通讯有关的成员变量
+protected:
     size_t                         m_iLenPkgHeader;                    //sizeof(COMM_PKG_HEADER);
     size_t                         m_iLenMsgHeader;                    //sizeof(STRUC_MSG_HEADER);
 
-    //消息队列
-    std::list<char *>              m_MsgRecvQueue;                     //接收数据消息队列
-
-    int                            m_iRecvMsgQueueCount;               //收消息队列大小
-
-    //多线程相关
-    pthread_mutex_t                m_recvMessageQueueMutex;            //收消息队列互斥量
 };
 
 #endif
