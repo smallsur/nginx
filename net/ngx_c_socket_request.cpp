@@ -5,7 +5,6 @@
 #include <string.h>
 #include <errno.h>     //errno
 #include <arpa/inet.h>
-#include <pthread.h>
 
 
 #include "ngx_c_conf.h"
@@ -13,9 +12,8 @@
 #include "ngx_global.h"
 #include "ngx_func.h"
 #include "ngx_c_socket.h"
-#include "ngx_c_lockmutex.h"
 
-//来数据时候的处理，当连接上有数据来的时候，本函数会被ngx_epoll_process_events()所调用  ,官方的类似函数为ngx_http_wait_request_handler();
+
 void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
 {
     //收包，注意我们用的第二个和第三个参数，我们用的始终是这两个参数，因此我们必须保证 c->precvbuf指向正确的收包位置，保证c->irecvlen指向正确的收包宽度
@@ -214,11 +212,6 @@ void CSocekt::ngx_wait_request_handler_proc_p1(lpngx_connection_t c)
 //收到一个完整包后的处理【plast表示最后阶段】，放到一个函数中，方便调用
 void CSocekt::ngx_wait_request_handler_proc_plast(lpngx_connection_t c)
 {
-    int irmqc = 0;  //消息队列当前信息数量
-    //把这段内存放到消息队列中来；
-//    inMsgRecvQueue(c->pnewMemPointer, irmqc);
-    //......这里可能考虑触发业务逻辑，怎么触发业务逻辑，这个代码以后再考虑扩充。。。。。。
-//    g_threadpool.Call(irmqc);
     g_threadpool.inMsgRecvQueueAndSignal(c->pnewMemPointer);
     c->ifnewrecvMem    = false;            //内存不再需要释放，因为你收完整了包，这个包被上边调用inMsgRecvQueue()移入消息队列，那么释放内存就属于业务逻辑去干，不需要回收连接到连接池中干了
     c->pnewMemPointer  = nullptr;

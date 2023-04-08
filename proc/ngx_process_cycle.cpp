@@ -20,7 +20,6 @@ static void ngx_worker_process_init(int inum);
 
 static u_char  master_process[] = "master process";
 
-
 void  ngx_master_process_cycle(){
     sigset_t set;        //信号集
 
@@ -72,13 +71,14 @@ void  ngx_master_process_cycle(){
     }
     return;
 };
+
 static void ngx_start_worker_processes(int threadnums)
 {
     int i;
-    for (i = 0; i < threadnums; i++)  //master进程在走这个循环，来创建若干个子进程
+    for (i = 0; i < threadnums; i++)
     {
         ngx_spawn_process(i,"worker process");
-    } //end for
+    }
     return;
 }
 
@@ -87,9 +87,7 @@ static int ngx_spawn_process(int inum,const char *pprocname)
     pid_t  pid;
 
     pid = fork(); //fork()系统调用产生子进程
-//    printf("%d",g_os_argc);
 
-//    ngx_log_stderr(0,"%d",g_os_argv);
     switch (pid)  //pid判断父子进程，分支处理
     {
         case -1: //产生子进程失败
@@ -105,27 +103,24 @@ static int ngx_spawn_process(int inum,const char *pprocname)
 
         default: //这个应该是父进程分支，直接break;，流程往switch之后走
             break;
-    }//end switch
+    }
 
-    //父进程分支会走到这里，子进程流程不往下边走-------------------------
-    //若有需要，以后再扩展增加其他代码......
     return pid;
 }
 
 static void ngx_worker_process_cycle(int inum,const char *pprocname)
 {
-    //重新为子进程设置进程名，不要与父进程重复------
     ngx_worker_process_init(inum);
     ngx_setproctitle(pprocname); //设置标题
     ngx_log_error_core(NGX_LOG_NOTICE,0,"%s %P 启动并开始运行......!",pprocname,ngx_pid); //设置标题时顺便记录下来进程名，进程id等信息到日志
-    //暂时先放个死循环，我们在这个循环里一直不出来
-    //setvbuf(stdout,NULL,_IONBF,0); //这个函数. 直接将printf缓冲区禁止， printf就直接输出了。
+
     for(;;)
     {
         ngx_process_events_and_timers();
     }
-    return;
+    g_threadpool.StopAll();
 }
+
 static void ngx_worker_process_init(int inum)
 {
     sigset_t  set;      //信号集
@@ -135,20 +130,20 @@ static void ngx_worker_process_init(int inum)
     {
         ngx_log_error_core(NGX_LOG_ALERT,errno,"ngx_worker_process_init()中sigprocmask()失败!");
     }
+
     Config_Nginx& p_config = Config_Nginx::get_instance();
-    int tmpthreadnums = p_config.GetIntDefault("ProcMsgRecvWorkThreadCount",5); //处理接收到的消息的线程池中线程数量
-    if(g_threadpool.Create(tmpthreadnums) == false)  //创建线程池中线程
+    int tmpthreadnums = p_config.GetIntDefault("ProcMsgRecvWorkThreadCount",5);
+
+    if(!g_threadpool.Create(tmpthreadnums))
     {
-        //内存没释放，但是简单粗暴退出；
         exit(-2);
     }
-    sleep(1); //再休息1秒；
+
+    sleep(1);
 
     g_socket.ngx_epoll_init();
-    //....将来再扩充代码
-    //....
-    return;
 }
+
 
 
 

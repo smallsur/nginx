@@ -21,17 +21,15 @@ CThreadPool::CThreadPool()
 {
     m_iRunningThreadNum = 0; //正在运行的线程，开始给个0【注意这种写法：原子的对象给0也可以直接赋值，当整型变量来用】
     m_iLastEmgTime = 0;      //上次报告线程不够用了的时间；
-    //m_iPrintInfoTime = 0;    //上次打印参考信息的时间；
 }
 
 //析构函数
 CThreadPool::~CThreadPool()
 {
-    //资源释放在StopAll()里统一进行
+
 }
 
-//创建线程池中的线程，要手工调用，不在构造函数里调用了
-//返回值：所有线程都创建成功则返回true，出现错误则返回false
+
 bool CThreadPool::Create(int threadNum)
 {
     ThreadItem *pNew;
@@ -71,7 +69,7 @@ bool CThreadPool::Create(int threadNum)
     return true;
 }
 
-//线程入口函数，当用pthread_create()创建线程后，这个ThreadFunc()函数都会被立即执行；
+///线程入口函数
 void* CThreadPool::ThreadFunc(void* threadData)
 {
     //这个是静态成员函数，是不存在this指针的；
@@ -120,16 +118,11 @@ void* CThreadPool::ThreadFunc(void* threadData)
 
         g_socket.threadRecvProcFunc(jobbuf);     //处理消息队列中来的消息
 
-//        ngx_log_stderr(0,"执行开始---begin,tid=%ui!",tid);
-//        sleep(5); //临时测试代码
-//        ngx_log_stderr(0,"执行结束---end,tid=%ui!",tid);
 
         p_memory.FreeMemory(jobbuf);              //释放消息内存
         --pThreadPoolObj->m_iRunningThreadNum;     //原子-1
 
-    } //end while(true)
-
-    //能走出来表示整个程序要结束啊，怎么判断所有线程都结束？
+    }
     return (void*)0;
 }
 
@@ -173,7 +166,6 @@ void CThreadPool::StopAll()
     m_threadVector.clear();
 
     ngx_log_stderr(0,"CThreadPool::StopAll()成功返回，线程池中线程全部正常结束!");
-    return;
 }
 
 
@@ -196,34 +188,23 @@ void CThreadPool::inMsgRecvQueueAndSignal(char *buf) {
     }
 
     Call();
-    return;
 }
 
 
 //来任务了，调一个线程池中的线程下来干活
 void CThreadPool::Call()
 {
-    //ngx_log_stderr(0,"m_pthreadCondbegin--------------=%ui!",m_pthreadCond);  //数字5，此数字不靠谱
-    //for(int i = 0; i <= 100; i++)
-    //{
     int err = pthread_cond_signal(&m_pthreadCond); //唤醒一个等待该条件的线程，也就是可以唤醒卡在pthread_cond_wait()的线程
     if(err != 0 )
     {
         //这是有问题啊，要打印日志啊
         ngx_log_stderr(err,"CThreadPool::Call()中pthread_cond_signal()失败，返回的错误码为%d!",err);
     }
-    //}
-    //唤醒完100次，试试打印下m_pthreadCond值;
-    //ngx_log_stderr(0,"m_pthreadCondend--------------=%ui!",m_pthreadCond);  //数字1
 
-
-    //(1)如果当前的工作线程全部都忙，则要报警
-    //bool ifallthreadbusy = false;
+    ///如果当前的工作线程全部都忙，则要报警
     if(m_iThreadNum == m_iRunningThreadNum) //线程池中线程总量，跟当前正在干活的线程数量一样，说明所有线程都忙碌起来，线程不够用了
     {
-        //线程不够用了
-        //ifallthreadbusy = true;
-        time_t currtime = time(NULL);
+        time_t currtime = time(nullptr);
         if(currtime - m_iLastEmgTime > 10) //最少间隔10秒钟才报一次线程池中线程不够用的问题；
         {
             //两次报告之间的间隔必须超过10秒，不然如果一直出现当前工作线程全忙，但频繁报告日志也够烦的
@@ -231,41 +212,7 @@ void CThreadPool::Call()
             //写日志，通知这种紧急情况给用户，用户要考虑增加线程池中线程数量了
             ngx_log_stderr(0,"CThreadPool::Call()中发现线程池中当前空闲线程数量为0，要考虑扩容线程池了!");
         }
-    } //end if
-
-/*
-    //-------------------------------------------------------如下内容都是一些测试代码；
-    //唤醒丢失？--------------------------------------------------------------------------
-    //(2)整个工程中，只在一个线程（主线程）中调用了Call，所以不存在多个线程调用Call的情形。
-    if(ifallthreadbusy == false)
-    {
-        //有空闲线程  ，有没有可能我这里调用   pthread_cond_signal()，但因为某个时刻线程曾经全忙过，导致本次调用 pthread_cond_signal()并没有激发某个线程的pthread_cond_wait()执行呢？
-           //我认为这种可能性不排除，这叫 唤醒丢失。如果真出现这种问题，我们如何弥补？
-        if(irmqc > 5) //我随便来个数字比如给个5吧
-        {
-            //如果有空闲线程，并且 接收消息队列中超过5条信息没有被处理，则我总感觉可能真的是 唤醒丢失
-            //唤醒如果真丢失，我是否考虑这里多唤醒一次？以尝试逐渐补偿回丢失的唤醒？此法是否可行，我尚不可知，我打印一条日志【其实后来仔细相同：唤醒如果真丢失，也无所谓，因为ThreadFunc()会一直处理直到整个消息队列为空】
-            ngx_log_stderr(0,"CThreadPool::Call()中感觉有唤醒丢失发生，irmqc = %d!",irmqc);
-
-            int err = pthread_cond_signal(&m_pthreadCond); //唤醒一个等待该条件的线程，也就是可以唤醒卡在pthread_cond_wait()的线程
-            if(err != 0 )
-            {
-                //这是有问题啊，要打印日志啊
-                ngx_log_stderr(err,"CThreadPool::Call()中pthread_cond_signal 2()失败，返回的错误码为%d!",err);
-            }
-        }
-    }  //end if
-
-    //(3)准备打印一些参考信息【10秒打印一次】,当然是有触发本函数的情况下才行
-    m_iCurrTime = time(NULL);
-    if(m_iCurrTime - m_iPrintInfoTime > 10)
-    {
-        m_iPrintInfoTime = m_iCurrTime;
-        int irunn = m_iRunningThreadNum;
-        ngx_log_stderr(0,"信息：当前消息队列中的消息数为%d,整个线程池中线程数量为%d,正在运行的线程数量为 = %d!",irmqc,m_iThreadNum,irunn); //正常消息，三个数字为 1，X，0
     }
-    */
-    return;
 }
 
 //唤醒丢失问题，sem_t sem_write;

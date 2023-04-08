@@ -69,10 +69,10 @@ void CSocekt::ReadConf()
     return;
 }
 
-bool CSocekt::ngx_open_listening_sockets() {
+////子进程初始化监听
+bool CSocekt::ngx_open_listening_sockets()
+{
     Config_Nginx& conf = Config_Nginx::get_instance();
-//    m_ListenPortCount = conf.GetIntDefault("ListenPortCount",1);
-
 
     struct sockaddr_in serv_addr;
     char               strinfo[100];
@@ -129,8 +129,18 @@ bool CSocekt::ngx_open_listening_sockets() {
     }
     return true;
 }
+////子进程关闭监听
+void CSocekt::ngx_close_listening_sockets()
+{
+    for(int i = 0; i < m_ListenPortCount; i++) //要关闭这么多个监听端口
+    {
+        close(m_ListenSocketList[i]->fd);
+        ngx_log_error_core(NGX_LOG_INFO,0,"关闭监听端口%d!",m_ListenSocketList[i]->port); //显示一些信息到日志中
+    }
+    return;
+}
 
-//设置socket连接为非阻塞模式【这种函数的写法很固定】：非阻塞，概念在五章四节讲解的非常清楚【不断调用，不断调用这种：拷贝数据的时候是阻塞的】
+////设置socket非阻塞
 bool CSocekt::setnonblocking(int sockfd)
 {
     int nb=1; //0：清除，1：设置
@@ -142,29 +152,18 @@ bool CSocekt::setnonblocking(int sockfd)
 
 }
 
-void CSocekt::ngx_close_listening_sockets()
-{
-    for(int i = 0; i < m_ListenPortCount; i++) //要关闭这么多个监听端口
-    {
-        //ngx_log_stderr(0,"端口是%d,socketid是%d.",m_ListenSocketList[i]->port,m_ListenSocketList[i]->fd);
-        close(m_ListenSocketList[i]->fd);
-        ngx_log_error_core(NGX_LOG_INFO,0,"关闭监听端口%d!",m_ListenSocketList[i]->port); //显示一些信息到日志中
-    }//end for(int i = 0; i < m_ListenPortCount; i++)
-    return;
-}
-
+////初始化epoll，并将监听的socket添加进链接，同时互相关注
 int CSocekt::ngx_epoll_init() {
+    ///初始化epoll
     m_epollhandle = epoll_create(m_worker_connections);
     if (m_epollhandle == -1)
     {
         ngx_log_stderr(errno,"CSocekt::ngx_epoll_init()中epoll_create()失败.");
         exit(2); //这是致命问题了，直接退，资源由系统释放吧，这里不刻意释放了，比较麻烦
     }
+    ///初始化连接池
     m_connection_n = m_worker_connections;
-
     m_pconnections = new ngx_connection_t[m_connection_n];
-
-
     int i = m_connection_n;
     lpngx_connection_t next = nullptr;
     lpngx_connection_t c = m_pconnections;
@@ -178,6 +177,7 @@ int CSocekt::ngx_epoll_init() {
     } while (i>0);
     m_free_connection_n = m_connection_n;
     m_pfree_connections = next;
+    ///监听的socket添加进链接，同时互相关注
     std::vector<lpngx_listening_t>::iterator pos;
     for(pos = m_ListenSocketList.begin(); pos != m_ListenSocketList.end(); ++pos)
     {
@@ -190,8 +190,6 @@ int CSocekt::ngx_epoll_init() {
         }
         c->listening = (*pos);   //连接对象 和监听对象关联，方便通过连接对象找监听对象
         (*pos)->connection = c;  //监听对象 和连接对象关联，方便通过监听对象找连接对象
-
-        //rev->accept = 1; //监听端口必须设置accept标志为1  ，这个是否有必要，再研究
 
         //对监听端口的读事件设置处理方法，因为监听端口是用来等对方连接的发送三路握手的，所以监听端口关心的就是读事件
         c->rhandler = &CSocekt::ngx_event_accept;
@@ -206,7 +204,7 @@ int CSocekt::ngx_epoll_init() {
         {
             exit(2); //有问题，直接退出，日志 已经写过了
         }
-    } //end for
+    }
     return 1;
 }
 
@@ -237,10 +235,11 @@ int CSocekt::ngx_epoll_add_event(int fd, int readevent, int writeevent, uint32_t
 
 int CSocekt::ngx_epoll_process_events(int timer) {
     int events = epoll_wait(m_epollhandle,m_events,NGX_MAX_EVENTS, timer);
+
     if(events == -1){
         //#define EINTR  4，EINTR错误的产生：当阻塞于某个慢系统调用的一个进程捕获某个信号且相应信号处理函数返回时，该系统调用可能返回一个EINTR错误。
         //例如：在socket服务器端，设置了信号捕获机制，有子进程，当在父进程阻塞于慢系统调用时由父进程捕获到了一个有效信号时，内核会致使accept返回一个EINTR错误(被中断的系统调用)。
-        if(errno == EINTR)
+        if(errno == EINTR)///中断信号
         {
             //信号所致，直接返回，一般认为这不是毛病，但还是打印下日志记录一下，因为一般也不会人为给worker进程发送消息
             ngx_log_error_core(NGX_LOG_INFO,errno,"CSocekt::ngx_epoll_process_events()中epoll_wait()失败!");

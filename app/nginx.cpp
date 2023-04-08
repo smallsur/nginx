@@ -35,8 +35,8 @@ pid_t ngx_ppid;
 int     ngx_process;            //进程类型，比如master,worker进程等
 sig_atomic_t  ngx_reap;
 
-CLogicSocket       g_socket;
-CThreadPool  g_threadpool;
+CLogicSocket    g_socket;
+CThreadPool     g_threadpool;
 
 int main(int argc, char* argv[]){
 
