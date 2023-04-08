@@ -119,6 +119,7 @@ static void ngx_worker_process_cycle(int inum,const char *pprocname)
         ngx_process_events_and_timers();
     }
     g_threadpool.StopAll();
+    g_socket.Shutdown_subproc(); //socket需要释放的东西考虑释放；
 }
 
 static void ngx_worker_process_init(int inum)
@@ -140,6 +141,11 @@ static void ngx_worker_process_init(int inum)
     }
 
     sleep(1);
+    if(!g_socket.Initialize_subproc()) //初始化子进程需要具备的一些多线程能力相关的信息
+    {
+        //内存没释放，但是简单粗暴退出；
+        exit(-2);
+    }
 
     g_socket.ngx_epoll_init();
 }

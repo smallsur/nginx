@@ -15,25 +15,29 @@
 #include "ngx_c_conf.h"
 #include "ngx_func.h"
 #include "ngx_macro.h"
+#include "ngx_c_lockmutex.h"
+
 //构造函数
 CSocekt::CSocekt()
 {
+    ///epoll
     m_epollhandle = -1;
 
+    ///listen port
     m_ListenPortCount = 1;   //监听一个端口
     m_worker_connections = 1;
 
-    m_free_connection_n = 0;
-    m_connection_n = 0;
+    ///connect setting
+    m_RecyConnectionWaitTime = 60;
 
-    m_pconnections = nullptr;
-    m_pfree_connections = nullptr;
-
-    //一些和网络通讯有关的常用变量值，供后续频繁使用时提高效率
+    ///网络通讯的常用变量值
     m_iLenPkgHeader = sizeof(COMM_PKG_HEADER);    //包头的sizeof值【占用的字节数】
     m_iLenMsgHeader =  sizeof(STRUC_MSG_HEADER);  //消息头的sizeof值【占用的字节数】
-    return;
 
+    ///queue
+    m_iSendMsgQueueCount = 0;     //发消息队列大小
+    m_totol_recyconnection_n = 0; //待释放连接队列大小
+    return;
 }
 
 //释放函数
@@ -47,10 +51,9 @@ CSocekt::~CSocekt()
     }//end for
     m_ListenSocketList.clear();
 
-    if(m_pconnections != nullptr)//释放连接池
-        delete [] m_pconnections;
+//    if(m_pconnections != nullptr)//释放连接池
+//        delete [] m_pconnections;
 
-    return;
 }
 
 //初始化函数【fork()子进程之前干这个事】
@@ -61,11 +64,106 @@ bool CSocekt::Initialize()
     return reco;
 }
 
+//子进程中才需要执行的初始化函数
+bool CSocekt::Initialize_subproc()
+{
+    //发消息互斥量初始化
+    if(pthread_mutex_init(&m_sendMessageQueueMutex, NULL)  != 0)
+    {
+        ngx_log_stderr(0,"CSocekt::Initialize()中pthread_mutex_init(&m_sendMessageQueueMutex)失败.");
+        return false;
+    }
+    //连接相关互斥量初始化
+    if(pthread_mutex_init(&m_connectionMutex, NULL)  != 0)
+    {
+        ngx_log_stderr(0,"CSocekt::Initialize()中pthread_mutex_init(&m_connectionMutex)失败.");
+        return false;
+    }
+    //连接回收队列相关互斥量初始化
+    if(pthread_mutex_init(&m_recyconnqueueMutex, NULL)  != 0)
+    {
+        ngx_log_stderr(0,"CSocekt::Initialize()中pthread_mutex_init(&m_recyconnqueueMutex)失败.");
+        return false;
+    }
+
+    //初始化发消息相关信号量，信号量用于进程/线程 之间的同步，虽然 互斥量[pthread_mutex_lock]和 条件变量[pthread_cond_wait]都是线程之间的同步手段，但
+    //这里用信号量实现 则 更容易理解，更容易简化问题，使用书写的代码短小且清晰；
+    //第二个参数=0，表示信号量在线程之间共享，确实如此 ，如果非0，表示在进程之间共享
+    //第三个参数=0，表示信号量的初始值，为0时，调用sem_wait()就会卡在那里卡着
+    if(sem_init(&m_semEventSendQueue,0,0) == -1)
+    {
+        ngx_log_stderr(0,"CSocekt::Initialize()中sem_init(&m_semEventSendQueue,0,0)失败.");
+        return false;
+    }
+
+    //创建线程
+    int err;
+    /*ThreadItem *pSendQueue;
+    m_threadVector.push_back(pSendQueue = new ThreadItem(this));                         //创建 一个新线程对象 并入到容器中
+    err = pthread_create(&pSendQueue->_Handle, NULL, ServerSendQueueThread,pSendQueue); //创建线程，错误不返回到errno，一般返回错误码
+    if(err != 0)
+    {
+        return false;
+    }*/
+    //---
+    ThreadItem *pRecyconn;
+    m_threadVector.push_back(pRecyconn = new ThreadItem(this));
+    err = pthread_create(&pRecyconn->_Handle, nullptr, ServerRecyConnectionThread,pRecyconn);
+    if(err != 0)
+    {
+        return false;
+    }
+    return true;
+}
+
+//关闭退出函数[子进程中执行]
+void CSocekt::Shutdown_subproc()
+{
+    //(1)把干活的线程停止掉，注意 系统应该尝试通过设置 g_stopEvent = 1来 开始让整个项目停止
+    std::vector<ThreadItem*>::iterator iter;
+    for(iter = m_threadVector.begin(); iter != m_threadVector.end(); iter++)
+    {
+        pthread_join((*iter)->_Handle, NULL); //等待一个线程终止
+    }
+    //(2)释放一下new出来的ThreadItem【线程池中的线程】
+    for(iter = m_threadVector.begin(); iter != m_threadVector.end(); iter++)
+    {
+        if(*iter)
+            delete *iter;
+    }
+    m_threadVector.clear();
+
+    //(3)队列相关
+    clearMsgSendQueue();
+    clearconnection();
+
+    //(4)多线程相关
+    pthread_mutex_destroy(&m_connectionMutex);          //连接相关互斥量释放
+    pthread_mutex_destroy(&m_sendMessageQueueMutex);    //发消息互斥量释放
+    pthread_mutex_destroy(&m_recyconnqueueMutex);       //连接回收队列相关的互斥量释放
+    sem_destroy(&m_semEventSendQueue);                  //发消息相关线程信号量释放
+}
+
+void CSocekt::clearMsgSendQueue()
+{
+    char * sTmpMempoint;
+    CMemory &p_memory = CMemory::get_instance();
+
+    while(!m_MsgSendQueue.empty())
+    {
+        sTmpMempoint = m_MsgSendQueue.front();
+        m_MsgSendQueue.pop_front();
+        p_memory.FreeMemory(sTmpMempoint);
+    }
+}
+
 void CSocekt::ReadConf()
 {
     Config_Nginx &p_config = Config_Nginx::get_instance();
     m_worker_connections = p_config.GetIntDefault("worker_connections",m_worker_connections); //epoll连接的最大项数
     m_ListenPortCount    = p_config.GetIntDefault("ListenPortCount",m_ListenPortCount);       //取得要监听的端口数量
+    m_RecyConnectionWaitTime  = p_config.GetIntDefault("Sock_RecyConnectionWaitTime",m_RecyConnectionWaitTime); //等待这么些秒后才回收连接
+
     return;
 }
 
@@ -78,6 +176,9 @@ bool CSocekt::ngx_open_listening_sockets()
     char               strinfo[100];
 
     memset(&serv_addr,0, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;                //选择协议族为IPV4
+    serv_addr.sin_addr.s_addr = htonl(INADDR_ANY); //监听本地所有的IP地址；INADDR_ANY表示的是一个服务器上所有的网卡（服务器可能不止一个网卡）多个本地ip地址都进行绑定端口号，进行侦听。
+
     for (int i = 0; i < m_ListenPortCount; ++i) {
         int isock = socket(AF_INET,SOCK_STREAM,0);
         if(isock == -1)
@@ -152,6 +253,21 @@ bool CSocekt::setnonblocking(int sockfd)
 
 }
 
+//将一个待发送消息入到发消息队列中
+void CSocekt::msgSend(char *psendbuf)
+{
+    CLock lock(&m_sendMessageQueueMutex);
+    m_MsgSendQueue.push_back(psendbuf);
+    ++m_iSendMsgQueueCount;   //原子操作
+
+    //将信号量的值+1,这样其他卡在sem_wait的就可以走下去
+    if(sem_post(&m_semEventSendQueue)==-1)  //让ServerSendQueueThread()流程走下来干活
+    {
+        ngx_log_stderr(0,"CSocekt::msgSend()sem_post(&m_semEventSendQueue)失败.");
+    }
+}
+
+
 ////初始化epoll，并将监听的socket添加进链接，同时互相关注
 int CSocekt::ngx_epoll_init() {
     ///初始化epoll
@@ -162,44 +278,29 @@ int CSocekt::ngx_epoll_init() {
         exit(2); //这是致命问题了，直接退，资源由系统释放吧，这里不刻意释放了，比较麻烦
     }
     ///初始化连接池
-    m_connection_n = m_worker_connections;
-    m_pconnections = new ngx_connection_t[m_connection_n];
-    int i = m_connection_n;
-    lpngx_connection_t next = nullptr;
-    lpngx_connection_t c = m_pconnections;
-    do {
-        i--;
-        c[i].data = next;
-        c[i].fd = -1;
-        c[i].instance = 1;
-        c[i].iCurrsequence = 0;
-        next = &c[i];
-    } while (i>0);
-    m_free_connection_n = m_connection_n;
-    m_pfree_connections = next;
+    initconnection();
     ///监听的socket添加进链接，同时互相关注
     std::vector<lpngx_listening_t>::iterator pos;
     for(pos = m_ListenSocketList.begin(); pos != m_ListenSocketList.end(); ++pos)
     {
-        c = ngx_get_connection((*pos)->fd); //从连接池中获取一个空闲连接对象
-        if (c == nullptr)
+        lpngx_connection_t p_Conn = ngx_get_connection((*pos)->fd); //从连接池中获取一个空闲连接对象
+        if (p_Conn == NULL)
         {
             //这是致命问题，刚开始怎么可能连接池就为空呢？
             ngx_log_stderr(errno,"CSocekt::ngx_epoll_init()中ngx_get_connection()失败.");
             exit(2); //这是致命问题了，直接退，资源由系统释放吧，这里不刻意释放了，比较麻烦
         }
-        c->listening = (*pos);   //连接对象 和监听对象关联，方便通过连接对象找监听对象
-        (*pos)->connection = c;  //监听对象 和连接对象关联，方便通过监听对象找连接对象
+        p_Conn->listening = (*pos);   //连接对象 和监听对象关联，方便通过连接对象找监听对象
+        (*pos)->connection = p_Conn;  //监听对象 和连接对象关联，方便通过监听对象找连接对象
 
-        //对监听端口的读事件设置处理方法，因为监听端口是用来等对方连接的发送三路握手的，所以监听端口关心的就是读事件
-        c->rhandler = &CSocekt::ngx_event_accept;
+        p_Conn->rhandler = &CSocekt::ngx_event_accept;
 
-        //往监听socket上增加监听事件，从而开始让监听端口履行其职责【如果不加这行，虽然端口能连上，但不会触发ngx_epoll_process_events()里边的epoll_wait()往下走】
-        if(ngx_epoll_add_event((*pos)->fd,       //socekt句柄
-                               1,0,             //读，写【只关心读事件，所以参数2：readevent=1,而参数3：writeevent=0】
-                               0,               //其他补充标记
-                               EPOLL_CTL_ADD,   //事件类型【增加，还有删除/修改】
-                               c                //连接池中的连接
+        if(ngx_epoll_oper_event(
+                (*pos)->fd,         //socekt句柄
+                EPOLL_CTL_ADD,      //事件类型，这里是增加
+                EPOLLIN|EPOLLRDHUP, //标志，这里代表要增加的标志,EPOLLIN：可读，EPOLLRDHUP：TCP连接的远端关闭或者半关闭
+                0,                  //对于事件类型为增加的，不需要这个参数
+                p_Conn              //连接池中的连接
         ) == -1)
         {
             exit(2); //有问题，直接退出，日志 已经写过了
@@ -208,30 +309,69 @@ int CSocekt::ngx_epoll_init() {
     return 1;
 }
 
-
-int CSocekt::ngx_epoll_add_event(int fd, int readevent, int writeevent, uint32_t otherflag, uint32_t eventtype,
-                                 lpngx_connection_t c) {
+//对epoll事件的具体操作
+//返回值：成功返回1，失败返回-1；
+int CSocekt::ngx_epoll_oper_event(
+        int                fd,               //句柄，一个socket
+        uint32_t           eventtype,        //事件类型，一般是EPOLL_CTL_ADD，EPOLL_CTL_MOD，EPOLL_CTL_DEL ，说白了就是操作epoll红黑树的节点(增加，修改，删除)
+        uint32_t           flag,             //标志，具体含义取决于eventtype
+        int                bcaction,         //补充动作，用于补充flag标记的不足  :  0：增加   1：去掉
+        lpngx_connection_t pConn             //pConn：一个指针【其实是一个连接】，EPOLL_CTL_ADD时增加到红黑树中去，将来epoll_wait时能取出来用
+)
+{
     struct epoll_event ev;
-    //int op;
     memset(&ev, 0, sizeof(ev));
 
-    if(readevent==1){
-        ev.events = EPOLLIN|EPOLLRDHUP;
-    } else{
+    if(eventtype == EPOLL_CTL_ADD) //往红黑树中增加节点；
+    {
+        //红黑树从无到有增加节点
+        ev.data.ptr = (void *)pConn;
+        ev.events = flag;      //既然是增加节点，则不管原来是啥标记
+        pConn->events = flag;  //这个连接本身也记录这个标记
+    }
+    else if(eventtype == EPOLL_CTL_MOD)
+    {
+        //节点已经在红黑树中，修改节点的事件信息
+    }
+    else
+    {
+        //删除红黑树中节点，目前没这个需求，所以将来再扩展
+        return  1;  //先直接返回1表示成功
+    }
 
-    }
-    if(otherflag!=0){
-        ev.events |= otherflag;
-    }
-    //以下这段代码抄自nginx官方,因为指针的最后一位【二进制位】肯定不是1，所以 和 c->instance做 |运算；到时候通过一些编码，既可以取得c的真实地址，又可以把此时此刻的c->instance值取到
-    //比如c是个地址，可能的值是 0x00af0578，对应的二进制是‭101011110000010101111000‬，而 | 1后是0x00af0579
-    ev.data.ptr = (void *)((uintptr_t)c | c->instance);
-    if (epoll_ctl(m_epollhandle,eventtype,fd,&ev)==-1){
-        ngx_log_stderr(errno,"CSocekt::ngx_epoll_add_event()中epoll_ctl(%d,%d,%d,%u,%u)失败.",fd,readevent,writeevent,otherflag,eventtype);
+    if(epoll_ctl(m_epollhandle,eventtype,fd,&ev) == -1)
+    {
+        ngx_log_stderr(errno,"CSocekt::ngx_epoll_oper_event()中epoll_ctl(%d,%ud,%ud,%d)失败.",fd,eventtype,flag,bcaction);
         return -1;
     }
     return 1;
 }
+
+//int CSocekt::ngx_epoll_add_event(int fd, int readevent, int writeevent, uint32_t otherflag, uint32_t eventtype,
+//                                 lpngx_connection_t c) {
+//    struct epoll_event ev;
+//    //int op;
+//    memset(&ev, 0, sizeof(ev));
+//
+//    if(readevent==1){
+//        ev.events = EPOLLIN|EPOLLRDHUP;
+//    } else{
+//
+//    }
+//    if(otherflag!=0){
+//        ev.events |= otherflag;
+//    }
+//    //以下这段代码抄自nginx官方,因为指针的最后一位【二进制位】肯定不是1，所以 和 c->instance做 |运算；到时候通过一些编码，既可以取得c的真实地址，又可以把此时此刻的c->instance值取到
+//    //比如c是个地址，可能的值是 0x00af0578，对应的二进制是‭101011110000010101111000‬，而 | 1后是0x00af0579
+//    ev.data.ptr = (void *)((uintptr_t)c | c->instance);
+//    if (epoll_ctl(m_epollhandle,eventtype,fd,&ev)==-1){
+//        ngx_log_stderr(errno,"CSocekt::ngx_epoll_add_event()中epoll_ctl(%d,%d,%d,%u,%u)失败.",fd,readevent,writeevent,otherflag,eventtype);
+//        return -1;
+//    }
+//    return 1;
+//}
+//
+
 
 int CSocekt::ngx_epoll_process_events(int timer) {
     int events = epoll_wait(m_epollhandle,m_events,NGX_MAX_EVENTS, timer);
@@ -287,10 +427,12 @@ int CSocekt::ngx_epoll_process_events(int timer) {
         }
 
         revents = m_events[i].events;//取出事件类型
+
         if(revents & (EPOLLERR|EPOLLHUP)) //例如对方close掉套接字，这里会感应到【换句话说：如果发生了错误或者客户端断连】
         {
             revents |= EPOLLIN|EPOLLOUT;   //EPOLLIN：表示对应的链接上有数据可以读出（TCP链接的远端主动关闭连接，也相当于可读事件，因为本服务器小处理发送来的FIN包）
         }
+
         if(revents & EPOLLIN)  //如果是读事件
         {
             //一个客户端新连入，这个会成立

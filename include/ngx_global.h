@@ -48,6 +48,7 @@ extern sig_atomic_t  ngx_reap;
 extern CLogicSocket       g_socket;
 extern CThreadPool   g_threadpool;
 
+extern int           g_stopEvent;
 
 #endif
 

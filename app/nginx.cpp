@@ -38,6 +38,8 @@ sig_atomic_t  ngx_reap;
 CLogicSocket    g_socket;
 CThreadPool     g_threadpool;
 
+int     g_stopEvent;            //标志程序退出,0不退出1，退出
+
 int main(int argc, char* argv[]){
 
     int exitcode = 0;
@@ -67,6 +69,10 @@ int main(int argc, char* argv[]){
         exitcode = 2;
         goto lblexit;
     }
+    //(2.1)内存单例类可以在这里初始化，返回值不用保存
+    CMemory::get_instance();
+    //(2.2)crc32校验算法单例类可以在这里初始化，返回值不用保存
+    CCRC32::get_instance();
     ngx_log_init();
     if(ngx_init_signals()==-1){
         exitcode = 1;

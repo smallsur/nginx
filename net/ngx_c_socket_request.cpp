@@ -96,7 +96,8 @@ ssize_t CSocekt::recvproc(lpngx_connection_t c,char *buff,ssize_t buflen)  //ssi
     {
         //客户端关闭【应该是正常完成了4次挥手】，我这边就直接回收连接连接，关闭socket即可
         //    ngx_log_stderr(0,"连接被客户端正常关闭[4路挥手关闭]！");
-        ngx_close_connection(c);
+//        ngx_close_connection(c);
+        inRecyConnectQueue(c);
         return -1;
     }
     //客户端没断，走这里
@@ -139,7 +140,7 @@ ssize_t CSocekt::recvproc(lpngx_connection_t c,char *buff,ssize_t buflen)  //ssi
         //    ngx_log_stderr(0,"连接被客户端 非 正常关闭！");
 
         //这种真正的错误就要，直接关闭套接字，释放连接池中连接了
-        ngx_close_connection(c);
+        inRecyConnectQueue(c);
         return -1;
     }
 
@@ -181,8 +182,8 @@ void CSocekt::ngx_wait_request_handler_proc_p1(lpngx_connection_t c)
         //合法的包头，继续处理
         //我现在要分配内存开始收包体，因为包体长度并不是固定的，所以内存肯定要new出来；
         char *pTmpBuffer  = (char *)p_memory.AllocMemory(m_iLenMsgHeader + e_pkgLen,false); //分配内存【长度是 消息头长度  + 包头长度 + 包体长度】，最后参数先给false，表示内存不需要memset;
-        c->ifnewrecvMem   = true;        //标记我们new了内存，将来在ngx_free_connection()要回收的
-        c->pnewMemPointer = pTmpBuffer;  //内存开始指针
+//        c->ifnewrecvMem   = true;        //标记我们new了内存，将来在ngx_free_connection()要回收的
+        c->precvMemPointer = pTmpBuffer;  //内存开始指针
 
         //a)先填写消息头内容
         LPSTRUC_MSG_HEADER ptmpMsgHeader = (LPSTRUC_MSG_HEADER)pTmpBuffer;
@@ -212,13 +213,66 @@ void CSocekt::ngx_wait_request_handler_proc_p1(lpngx_connection_t c)
 //收到一个完整包后的处理【plast表示最后阶段】，放到一个函数中，方便调用
 void CSocekt::ngx_wait_request_handler_proc_plast(lpngx_connection_t c)
 {
-    g_threadpool.inMsgRecvQueueAndSignal(c->pnewMemPointer);
-    c->ifnewrecvMem    = false;            //内存不再需要释放，因为你收完整了包，这个包被上边调用inMsgRecvQueue()移入消息队列，那么释放内存就属于业务逻辑去干，不需要回收连接到连接池中干了
-    c->pnewMemPointer  = nullptr;
+    g_threadpool.inMsgRecvQueueAndSignal(c->precvMemPointer);
+//    c->ifnewrecvMem    = false;            //内存不再需要释放，因为你收完整了包，这个包被上边调用inMsgRecvQueue()移入消息队列，那么释放内存就属于业务逻辑去干，不需要回收连接到连接池中干了
+    c->precvMemPointer  = nullptr;
     c->curStat         = _PKG_HD_INIT;     //收包状态机的状态恢复为原始态，为收下一个包做准备
     c->precvbuf        = c->dataHeadInfo;  //设置好收包的位置
     c->irecvlen        = m_iLenPkgHeader;  //设置好要接收数据的大小
     return;
+}
+
+//发送数据专用函数，返回本次发送的字节数
+//返回 > 0，成功发送了一些字节
+//=0，估计对方断了
+//-1，errno == EAGAIN ，本方发送缓冲区满了
+//-2，errno != EAGAIN != EWOULDBLOCK != EINTR ，一般我认为都是对端断开的错误
+ssize_t CSocekt::sendproc(lpngx_connection_t c,char *buff,ssize_t size)  //ssize_t是有符号整型，在32位机器上等同与int，在64位机器上等同与long int，size_t就是无符号型的ssize_t
+{
+    //这里参考借鉴了官方nginx函数ngx_unix_send()的写法
+    ssize_t   n;
+
+    for ( ;; )
+    {
+
+        n = send(c->fd, buff, size, 0); //send()系统函数， 最后一个参数flag，一般为0；
+        if(n > 0) //成功发送了一些数据
+        {
+            //发送成功一些数据，但发送了多少，我们这里不关心，也不需要再次send
+            //这里有两种情况
+            //(1) n == size也就是想发送多少都发送成功了，这表示完全发完毕了
+            //(2) n < size 没法送完毕，那肯定是发送缓冲区满了，所以也不必要重试发送，直接返回吧
+            return n; //返回本次发送的字节数
+        }
+
+        if(n == 0)
+        {
+            //send()返回0？ 一般recv()返回0表示断开,send()返回0，当做正常处理吧；我个人认为send()返回0，要么你发送的字节是0，要么对端可能断开。
+            //网上找资料：send=0表示超时，对方主动关闭了连接过程
+            //遵循一个原则，连接断开，我们并不在send动作里处理，集中到recv那里处理，否则send,recv都处理都处理连接断开会乱套
+            //连接断开epoll会通知并且 recvproc()里会处理，不在这里处理
+            return 0;
+        }
+
+        if(errno == EAGAIN)  //这东西应该等于EWOULDBLOCK
+        {
+            //内核缓冲区满，这个不算错误
+            return -1;  //表示发送缓冲区满了
+        }
+
+        if(errno == EINTR)
+        {
+            //这个应该也不算错误 ，收到某个信号导致send产生这个错误？
+            //参考官方的写法，打印个日志，其他啥也没干，那就是等下次for循环重新send试一次了
+            ngx_log_stderr(errno,"CSocekt::sendproc()中send()失败.");  //打印个日志看看啥时候出这个错误
+            //其他不需要做什么，等下次for循环吧
+        }
+        else
+        {
+            //走到这里表示是其他错误码，都表示错误，错误我也不断开socket，我也依然等待recv()来统一处理断开，因为我是多线程，send()也处理断开，recv()也处理断开，很难处理好
+            return -2;
+        }
+    } //end for
 }
 
 void CSocekt::threadRecvProcFunc(char *pMsgBuf)

@@ -68,4 +68,5 @@ public:
     unsigned int crc32_table[256]; // Lookup table arrays
 };
 
+
 #endif //NGINX_NGX_C_CONF_H
