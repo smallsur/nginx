@@ -51,9 +51,6 @@ CSocekt::~CSocekt()
     }//end for
     m_ListenSocketList.clear();
 
-//    if(m_pconnections != nullptr)//释放连接池
-//        delete [] m_pconnections;
-
 }
 
 //初始化函数【fork()子进程之前干这个事】

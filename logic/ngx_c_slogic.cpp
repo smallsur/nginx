@@ -8,6 +8,7 @@
 #include "ngx_logiccomm.h"
 #include "ngx_func.h"
 #include "ngx_c_conf.h"
+#include "ngx_c_lockmutex.h"
 
 //定义成员函数指针
 typedef bool (CLogicSocket::*handler)(  lpngx_connection_t pConn,      //连接池中连接的指针
@@ -35,7 +36,7 @@ static const handler statusHandler[] =
 #define AUTH_TOTAL_COMMANDS sizeof(statusHandler)/sizeof(handler) //整个命令有多少个，编译时即可知道
 
 //构造函数
-CLogicSocket::CLogicSocket():CSocekt()
+CLogicSocket::CLogicSocket()
 {
 
 }
@@ -51,7 +52,6 @@ bool CLogicSocket::Initialize()
 {
     //做一些和本类相关的初始化工作
     //....日后根据需要扩展
-
     bool bParentInit = CSocekt::Initialize();  //调用父类的同名函数
     return bParentInit;
 }

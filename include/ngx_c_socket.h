@@ -7,6 +7,7 @@
 #include <list>
 #include <pthread.h>
 #include <semaphore.h>
+#include <atomic>
 
 #include "ngx_comm.h"
 
@@ -93,7 +94,7 @@ class CSocekt
 public:
     CSocekt();                                                         //构造函数
     virtual ~CSocekt();                                                //释放函数
-public:
+
     virtual bool Initialize();//初始化函数
 
     virtual bool Initialize_subproc();                                    //初始化函数[子进程中执行]
@@ -145,7 +146,6 @@ private:
     void ngx_close_connection(lpngx_connection_t c);          //用户连入，我们accept4()时，得到的socket在处理中产生失败，则资源用这个函数释放【因为这里涉及到好几个要释放的资源，所以写成函数】
     void inRecyConnectQueue(lpngx_connection_t pConn);                    //将要回收的连接放到一个队列中来
 
-
     ///线程相关函数
     static void* ServerRecyConnectionThread(void *threadData);            //专门用来回收连接的线程
 
@@ -154,6 +154,7 @@ private:
 
     ///辅助读取配置文件
     void ReadConf();                                                   //专门用于读各种配置项
+
 private:
     struct ThreadItem
     {
@@ -169,10 +170,6 @@ private:
     ///基本配置
     int                            m_worker_connections;               //epoll连接的最大项数
     int                            m_ListenPortCount;                  //所监听的端口数量
-
-    ///连接池
-//    lpngx_connection_t             m_pconnections;                     //注意这里可是个指针，其实这是个连接池的首地址
-//    lpngx_connection_t             m_pfree_connections;                //空闲连接链表头，连接池中总是有某些连接被占用，为了快速在池中找到一个空闲的连接，我把空闲的连接专门用该成员记录;
 
     int                            m_connection_n;                     //当前进程中所有连接对象的总数【连接池大小】
 
