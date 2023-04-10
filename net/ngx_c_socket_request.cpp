@@ -275,6 +275,62 @@ ssize_t CSocekt::sendproc(lpngx_connection_t c,char *buff,ssize_t size)  //ssize
     } //end for
 }
 
+
+//设置数据发送时的写处理函数,当数据可写时epoll通知我们，我们在 int CSocekt::ngx_epoll_process_events(int timer)  中调用此函数
+//能走到这里，数据就是没法送完毕，要继续发送
+void CSocekt::ngx_write_request_handler(lpngx_connection_t pConn)
+{
+    CMemory &p_memory = CMemory::get_instance();
+
+    //这些代码的书写可以参照 void* CSocekt::ServerSendQueueThread(void* threadData)
+    ssize_t sendsize = sendproc(pConn,pConn->psendbuf,pConn->isendlen);
+
+    if(sendsize > 0 && sendsize != pConn->isendlen)
+    {
+        //没有全部发送完毕，数据只发出去了一部分，那么发送到了哪里，剩余多少，继续记录，方便下次sendproc()时使用
+        pConn->psendbuf = pConn->psendbuf + sendsize;
+        pConn->isendlen = pConn->isendlen - sendsize;
+        return;
+    }
+    else if(sendsize == -1)
+    {
+        //这不太可能，可以发送数据时通知我发送数据，我发送时你却通知我发送缓冲区满？
+        ngx_log_stderr(errno,"CSocekt::ngx_write_request_handler()时if(sendsize == -1)成立，这很怪异。"); //打印个日志，别的先不干啥
+        return;
+    }
+
+    if(sendsize > 0 && sendsize == pConn->isendlen) //成功发送完毕，做个通知是可以的；
+    {
+        //如果是成功的发送完毕数据，则把写事件通知从epoll中干掉吧；其他情况，那就是断线了，等着系统内核把连接从红黑树中干掉即可；
+        if(ngx_epoll_oper_event(
+                pConn->fd,          //socket句柄
+                EPOLL_CTL_MOD,      //事件类型，这里是修改【因为我们准备减去写通知】
+                EPOLLOUT,           //标志，这里代表要减去的标志,EPOLLOUT：可写【可写的时候通知我】
+                1,                  //对于事件类型为增加的，EPOLL_CTL_MOD需要这个参数, 0：增加   1：去掉 2：完全覆盖
+                pConn               //连接池中的连接
+        ) == -1)
+        {
+            //有这情况发生？这可比较麻烦，不过先do nothing
+            ngx_log_stderr(errno,"CSocekt::ngx_write_request_handler()中ngx_epoll_oper_event()失败。");
+        }
+
+        ngx_log_stderr(0,"CSocekt::ngx_write_request_handler()中数据发送完毕，很好。"); //做个提示吧，商用时可以干掉
+
+    }
+
+    //能走下来的，要么数据发送完毕了，要么对端断开了，那么执行收尾工作吧；
+
+    //数据发送完毕，或者把需要发送的数据干掉，都说明发送缓冲区可能有地方了，让发送线程往下走判断能否发送新数据
+    if(sem_post(&m_semEventSendQueue)==-1)
+        ngx_log_stderr(0,"CSocekt::ngx_write_request_handler()中sem_post(&m_semEventSendQueue)失败.");
+
+
+    p_memory.FreeMemory(pConn->psendMemPointer);  //释放内存
+    pConn->psendMemPointer = NULL;
+    --pConn->iThrowsendCount;  //建议放在最后执行
+    return;
+}
+
 void CSocekt::threadRecvProcFunc(char *pMsgBuf)
 {
     return;

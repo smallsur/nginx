@@ -125,6 +125,7 @@ private:
     void ngx_event_accept(lpngx_connection_t oldc);                    //建立新连接
     void ngx_wait_request_handler(lpngx_connection_t c);               //设置数据来时的读处理函数
 
+    void ngx_write_request_handler(lpngx_connection_t pConn);
     //获取对端信息相关
     size_t ngx_sock_ntop(struct sockaddr *sa,int port,u_char *text,size_t len);  //根据参数1给定的信息，获取地址端口字符串，返回这个字符串的长度
 
@@ -148,6 +149,8 @@ private:
 
     ///线程相关函数
     static void* ServerRecyConnectionThread(void *threadData);            //专门用来回收连接的线程
+
+    static void *ServerSendQueueThread(void *threadData);
 
     ///辅助设置非阻塞套接字
     bool setnonblocking(int sockfd);                                   //设置非阻塞套接字
@@ -205,6 +208,7 @@ private:
 protected:
     size_t                         m_iLenPkgHeader;                    //sizeof(COMM_PKG_HEADER);
     size_t                         m_iLenMsgHeader;                    //sizeof(STRUC_MSG_HEADER);
+
 
 };
 
