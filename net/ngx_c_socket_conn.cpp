@@ -3,6 +3,7 @@
 //
 #include <string.h>
 #include <errno.h>
+#include <time.h>
 
 #include "ngx_c_conf.h"
 #include "ngx_macro.h"
@@ -27,7 +28,7 @@ void ngx_connection_s::GetOneToUse()
 {
     events = 0;
     ++iCurrsequence;
-
+    fd = -1;
     ///receive option reset
     curStat = _PKG_HD_INIT;                           //收包状态处于 初始状态，准备接收数据包头【状态机】
     precvbuf = dataHeadInfo;                          //收包我要先收到这里来，因为我要先收包头，所以收数据的buff直接就是dataHeadInfo
@@ -39,20 +40,21 @@ void ngx_connection_s::GetOneToUse()
     psendbuf = nullptr;
     isendlen = 0;
     psendMemPointer = nullptr;                           //发送数据头指针记录
+    lastPingTime = time(nullptr);
 }
 
 void ngx_connection_s::PutOneToFree()
 {
     ++iCurrsequence;
-    if(precvMemPointer != NULL)//我们曾经给这个连接分配过接收数据的内存，则要释放内存
+    if(precvMemPointer != nullptr)//我们曾经给这个连接分配过接收数据的内存，则要释放内存
     {
         CMemory::get_instance().FreeMemory(precvMemPointer);
-        precvMemPointer = NULL;
+        precvMemPointer = nullptr;
     }
-    if(psendMemPointer != NULL) //如果发送数据的缓冲区里有内容，则要释放内存
+    if(psendMemPointer != nullptr) //如果发送数据的缓冲区里有内容，则要释放内存
     {
         CMemory::get_instance().FreeMemory(psendMemPointer);
-        psendMemPointer = NULL;
+        psendMemPointer = nullptr;
     }
     iThrowsendCount = 0;                              //设置不设置感觉都行
 }
@@ -133,14 +135,30 @@ void CSocekt::ngx_free_connection(lpngx_connection_t pConn)
 void CSocekt::inRecyConnectQueue(lpngx_connection_t pConn)
 {
     ngx_log_stderr(0,"CSocekt::inRecyConnectQueue()执行，连接入到回收队列中.");
+    std::list<lpngx_connection_t>::iterator pos;
+    bool iffind = false;
 
     CLock lock(&m_recyconnqueueMutex); //针对连接回收列表的互斥量，因为线程ServerRecyConnectionThread()也有要用到这个回收列表；
+
+    //如下判断防止连接被多次扔到回收站中来
+    for(pos = m_recyconnectionList.begin(); pos != m_recyconnectionList.end(); ++pos)
+    {
+        if((*pos) == pConn)
+        {
+            iffind = true;
+            break;
+        }
+    }
+    if(iffind == true) //找到了，不必再入了
+    {
+        //我有义务保证这个只入一次嘛
+        return;
+    }
 
     pConn->inRecyTime = time(nullptr);        //记录回收时间
     ++pConn->iCurrsequence;
     m_recyconnectionList.push_back(pConn); //等待ServerRecyConnectionThread线程自会处理
     ++m_totol_recyconnection_n;            //待释放连接队列大小+1
-    return;
 }
 
 

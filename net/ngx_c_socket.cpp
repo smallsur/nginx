@@ -37,6 +37,8 @@ CSocekt::CSocekt()
     ///queue
     m_iSendMsgQueueCount = 0;     //发消息队列大小
     m_totol_recyconnection_n = 0; //待释放连接队列大小
+    m_cur_size_              = 0;     //当前计时队列尺寸
+    m_timer_value_           = 0;     //当前计时队列头部的时间值
     return;
 }
 
@@ -109,6 +111,17 @@ bool CSocekt::Initialize_subproc()
     {
         return false;
     }
+    if(m_ifkickTimeCount == 1)  //是否开启踢人时钟，1：开启   0：不开启
+    {
+        ThreadItem *pTimemonitor;    //专门用来处理到期不发心跳包的用户踢出的线程
+        m_threadVector.push_back(pTimemonitor = new ThreadItem(this));
+        err = pthread_create(&pTimemonitor->_Handle, NULL, ServerTimerQueueMonitorThread,pTimemonitor);
+        if(err != 0)
+        {
+            ngx_log_stderr(0,"CSocekt::Initialize_subproc()中pthread_create(ServerTimerQueueMonitorThread)失败.");
+            return false;
+        }
+    }
     return true;
 }
 
@@ -132,11 +145,13 @@ void CSocekt::Shutdown_subproc()
     //(3)队列相关
     clearMsgSendQueue();
     clearconnection();
+    clearAllFromTimerQueue();
 
     //(4)多线程相关
     pthread_mutex_destroy(&m_connectionMutex);          //连接相关互斥量释放
     pthread_mutex_destroy(&m_sendMessageQueueMutex);    //发消息互斥量释放
     pthread_mutex_destroy(&m_recyconnqueueMutex);       //连接回收队列相关的互斥量释放
+    pthread_mutex_destroy(&m_timequeueMutex);           //时间处理队列相关的互斥量释放
     sem_destroy(&m_semEventSendQueue);                  //发消息相关线程信号量释放
 }
 
@@ -159,6 +174,10 @@ void CSocekt::ReadConf() {
     m_ListenPortCount = p_config.GetIntDefault("ListenPortCount", m_ListenPortCount);       //取得要监听的端口数量
     m_RecyConnectionWaitTime = p_config.GetIntDefault("Sock_RecyConnectionWaitTime",
                                                       m_RecyConnectionWaitTime); //等待这么些秒后才回收连接
+    m_ifkickTimeCount         = p_config.GetIntDefault("Sock_WaitTimeEnable",0);                                //是否开启踢人时钟，1：开启   0：不开启
+    m_iWaitTime               = p_config.GetIntDefault("Sock_MaxWaitTime",m_iWaitTime);                         //多少秒检测一次是否 心跳超时，只有当Sock_WaitTimeEnable = 1时，本项才有用
+    m_iWaitTime               = (m_iWaitTime > 5)?m_iWaitTime:5;                                                 //不建议低于5秒钟，因为无需太频繁
+
 }
 
 ////子进程初始化监听
@@ -261,6 +280,25 @@ void CSocekt::msgSend(char *psendbuf)
     }
 }
 
+//主动关闭一个连接时的要做些善后的处理函数
+void CSocekt::zdClosesocketProc(lpngx_connection_t p_Conn)
+{
+    if(m_ifkickTimeCount == 1)
+    {
+        DeleteFromTimerQueue(p_Conn); //从时间队列中把连接干掉
+    }
+    if(p_Conn->fd != -1)
+    {
+        close(p_Conn->fd); //这个socket关闭，关闭后epoll就会被从红黑树中删除，所以这之后无法收到任何epoll事件
+        p_Conn->fd = -1;
+    }
+
+    if(p_Conn->iThrowsendCount > 0)
+        --p_Conn->iThrowsendCount;   //归0
+
+    inRecyConnectQueue(p_Conn);
+    return;
+}
 
 ////初始化epoll，并将监听的socket添加进链接，同时互相关注
 int CSocekt::ngx_epoll_init() {
@@ -410,11 +448,6 @@ int CSocekt::ngx_epoll_process_events(int timer) {
             ngx_log_error_core(NGX_LOG_DEBUG,0,"CSocekt::ngx_epoll_process_events()中遇到了fd=-1的过期事件:%p.",c);
             continue; //这种事件就不处理即可
         }
-//        if(c->instance != instance)
-//        {
-//            ngx_log_error_core(NGX_LOG_DEBUG,0,"CSocekt::ngx_epoll_process_events()中遇到了instance值改变的过期事件:%p.",c);
-//            continue; //这种事件就不处理即可
-//        }
 
         revents = m_events[i].events;//取出事件类型
 
@@ -429,14 +462,6 @@ int CSocekt::ngx_epoll_process_events(int timer) {
         {
             if(revents & (EPOLLERR | EPOLLHUP | EPOLLRDHUP)) //客户端关闭，如果服务器端挂着一个写通知事件，则这里个条件是可能成立的
             {
-                //EPOLLERR：对应的连接发生错误                     8     = 1000
-                //EPOLLHUP：对应的连接被挂起                       16    = 0001 0000
-                //EPOLLRDHUP：表示TCP连接的远端关闭或者半关闭连接   8192   = 0010  0000   0000   0000
-                //我想打印一下日志看一下是否会出现这种情况
-                //8221 = ‭0010 0000 0001 1101‬  ：包括 EPOLLRDHUP ，EPOLLHUP， EPOLLERR
-                //ngx_log_stderr(errno,"CSocekt::ngx_epoll_process_events()中revents&EPOLLOUT成立并且revents & (EPOLLERR|EPOLLHUP|EPOLLRDHUP)成立,event=%ud。",revents);
-
-                //我们只有投递了 写事件，但对端断开时，程序流程才走到这里，投递了写事件意味着 iThrowsendCount标记肯定被+1了，这里我们减回阿里
                 --c->iThrowsendCount;
             }
             else
@@ -625,3 +650,8 @@ void* CSocekt::ServerSendQueueThread(void* threadData)
 
     return (void*)0;
 }
+
+
+
+
+
