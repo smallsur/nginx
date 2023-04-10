@@ -153,14 +153,12 @@ void CSocekt::clearMsgSendQueue()
     }
 }
 
-void CSocekt::ReadConf()
-{
+void CSocekt::ReadConf() {
     Config_Nginx &p_config = Config_Nginx::get_instance();
-    m_worker_connections = p_config.GetIntDefault("worker_connections",m_worker_connections); //epoll连接的最大项数
-    m_ListenPortCount    = p_config.GetIntDefault("ListenPortCount",m_ListenPortCount);       //取得要监听的端口数量
-    m_RecyConnectionWaitTime  = p_config.GetIntDefault("Sock_RecyConnectionWaitTime",m_RecyConnectionWaitTime); //等待这么些秒后才回收连接
-
-    return;
+    m_worker_connections = p_config.GetIntDefault("worker_connections", m_worker_connections); //epoll连接的最大项数
+    m_ListenPortCount = p_config.GetIntDefault("ListenPortCount", m_ListenPortCount);       //取得要监听的端口数量
+    m_RecyConnectionWaitTime = p_config.GetIntDefault("Sock_RecyConnectionWaitTime",
+                                                      m_RecyConnectionWaitTime); //等待这么些秒后才回收连接
 }
 
 ////子进程初始化监听
@@ -290,6 +288,7 @@ int CSocekt::ngx_epoll_init() {
         (*pos)->connection = p_Conn;  //监听对象 和连接对象关联，方便通过监听对象找连接对象
 
         p_Conn->rhandler = &CSocekt::ngx_event_accept;
+//        p_Conn->whandler = &CSocekt::ngx_write_request_handler;
 
         if(ngx_epoll_oper_event(
                 (*pos)->fd,         //socekt句柄
@@ -364,33 +363,6 @@ int CSocekt::ngx_epoll_oper_event(
     return 1;
 }
 
-
-//int CSocekt::ngx_epoll_add_event(int fd, int readevent, int writeevent, uint32_t otherflag, uint32_t eventtype,
-//                                 lpngx_connection_t c) {
-//    struct epoll_event ev;
-//    //int op;
-//    memset(&ev, 0, sizeof(ev));
-//
-//    if(readevent==1){
-//        ev.events = EPOLLIN|EPOLLRDHUP;
-//    } else{
-//
-//    }
-//    if(otherflag!=0){
-//        ev.events |= otherflag;
-//    }
-//    //以下这段代码抄自nginx官方,因为指针的最后一位【二进制位】肯定不是1，所以 和 c->instance做 |运算；到时候通过一些编码，既可以取得c的真实地址，又可以把此时此刻的c->instance值取到
-//    //比如c是个地址，可能的值是 0x00af0578，对应的二进制是‭101011110000010101111000‬，而 | 1后是0x00af0579
-//    ev.data.ptr = (void *)((uintptr_t)c | c->instance);
-//    if (epoll_ctl(m_epollhandle,eventtype,fd,&ev)==-1){
-//        ngx_log_stderr(errno,"CSocekt::ngx_epoll_add_event()中epoll_ctl(%d,%d,%d,%u,%u)失败.",fd,readevent,writeevent,otherflag,eventtype);
-//        return -1;
-//    }
-//    return 1;
-//}
-//
-
-
 int CSocekt::ngx_epoll_process_events(int timer) {
     int events = epoll_wait(m_epollhandle,m_events,NGX_MAX_EVENTS, timer);
 
@@ -446,20 +418,15 @@ int CSocekt::ngx_epoll_process_events(int timer) {
 
         revents = m_events[i].events;//取出事件类型
 
-//        if(revents & (EPOLLERR|EPOLLHUP)) //例如对方close掉套接字，这里会感应到【换句话说：如果发生了错误或者客户端断连】
-//        {
-//            revents |= EPOLLIN|EPOLLOUT;   //EPOLLIN：表示对应的链接上有数据可以读出（TCP链接的远端主动关闭连接，也相当于可读事件，因为本服务器小处理发送来的FIN包）
-//        }
-
         if(revents & EPOLLIN)  //如果是读事件
         {
             //一个客户端新连入，这个会成立
             //c->r_ready = 1;               //标记可以读；【从连接池拿出一个连接时这个连接的所有成员都是0】
             (this->* (c->rhandler) )(c);    //注意括号的运用来正确设置优先级，防止编译出错；【如果是个新客户连入
         }
+
         if(revents & EPOLLOUT) //如果是写事件【对方关闭连接也触发这个，再研究。。。。。。】，注意上边的 if(revents & (EPOLLERR|EPOLLHUP))  revents |= EPOLLIN|EPOLLOUT; 读写标记都给加上了
         {
-            //ngx_log_stderr(errno,"22222222222222222222.");
             if(revents & (EPOLLERR | EPOLLHUP | EPOLLRDHUP)) //客户端关闭，如果服务器端挂着一个写通知事件，则这里个条件是可能成立的
             {
                 //EPOLLERR：对应的连接发生错误                     8     = 1000
@@ -540,7 +507,7 @@ void* CSocekt::ServerSendQueueThread(void* threadData)
                     pos++;
                     pSocketObj->m_MsgSendQueue.erase(pos2);
                     --pSocketObj->m_iSendMsgQueueCount; //发送消息队列容量少1
-                    p_memory->FreeMemory(pMsgBuf);
+                    p_memory.FreeMemory(pMsgBuf);
                     continue;
                 } //end if
 
@@ -577,7 +544,7 @@ void* CSocekt::ServerSendQueueThread(void* threadData)
                     {
                         //成功发送的和要求发送的数据相等，说明全部发送成功了 发送缓冲区去了【数据全部发完】
                         p_memory.FreeMemory(p_Conn->psendMemPointer);  //释放内存
-                        p_Conn->psendMemPointer = NULL;
+                        p_Conn->psendMemPointer = nullptr;
                         p_Conn->iThrowsendCount = 0;  //这行其实可以没有，因此此时此刻这东西就是=0的
                         ngx_log_stderr(0,"CSocekt::ServerSendQueueThread()中数据发送完毕，很好。"); //做个提示吧，商用时可以干掉
                     }

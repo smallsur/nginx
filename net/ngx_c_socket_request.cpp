@@ -328,12 +328,12 @@ void CSocekt::ngx_write_request_handler(lpngx_connection_t pConn)
     p_memory.FreeMemory(pConn->psendMemPointer);  //释放内存
     pConn->psendMemPointer = NULL;
     --pConn->iThrowsendCount;  //建议放在最后执行
-    return;
+
 }
 
 void CSocekt::threadRecvProcFunc(char *pMsgBuf)
 {
-    return;
+
 }
 
 
