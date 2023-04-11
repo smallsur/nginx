@@ -81,6 +81,13 @@ void CSocekt::ngx_event_accept(lpngx_connection_t oldc) {
             }
             return;
         }  //end if(s == -1)
+        //走到这里的，表示accept4()/accept()成功了
+        if(m_onlineUserCount >= m_worker_connections)  //用户连接数过多，要关闭该用户socket，因为现在也没分配连接，所以直接关闭即可
+        {
+            ngx_log_stderr(0,"超出系统允许的最大连入用户数(最大允许连入数%d)，关闭连入请求(%d)。",m_worker_connections,s);
+            close(s);
+            return ;
+        }
         newc = ngx_get_connection(s);
         if(newc == nullptr)
         {
@@ -130,6 +137,11 @@ void CSocekt::ngx_event_accept(lpngx_connection_t oldc) {
             ngx_close_connection(newc);//关闭socket,这种可以立即回收这个连接，无需延迟，因为其上还没有数据收发，谈不到业务逻辑因此无需延迟；
             return; //直接返回
         }
+        if(m_ifkickTimeCount == 1)
+        {
+            AddToTimerQueue(newc);
+        }
+        ++m_onlineUserCount;  //连入用户数量+1
         break;  //一般就是循环一次就跳出去
     } while (true);
 

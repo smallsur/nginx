@@ -41,6 +41,9 @@ void ngx_connection_s::GetOneToUse()
     isendlen = 0;
     psendMemPointer = nullptr;                           //发送数据头指针记录
     lastPingTime = time(nullptr);
+
+    FloodkickLastTime = 0;                            //Flood攻击上次收到包的时间
+    FloodAttackCount  = 0;	                          //Flood攻击在该时间内收到包的次数统计
 }
 
 void ngx_connection_s::PutOneToFree()
@@ -159,6 +162,7 @@ void CSocekt::inRecyConnectQueue(lpngx_connection_t pConn)
     ++pConn->iCurrsequence;
     m_recyconnectionList.push_back(pConn); //等待ServerRecyConnectionThread线程自会处理
     ++m_totol_recyconnection_n;            //待释放连接队列大小+1
+    --m_onlineUserCount;                   //连入用户数量-1
 }
 
 

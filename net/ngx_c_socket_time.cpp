@@ -73,13 +73,18 @@ LPSTRUC_MSG_HEADER CSocekt::GetOverTimeTimer(time_t cur_time)
         //这回确实是有到时间的了【超时的节点】
         ptmp = RemoveFirstTimer();    //把这个超时的节点从 m_timerQueuemap 删掉，并把这个节点的第二项返回来；
 
-        //因为下次超时的时间我们也依然要判断，所以还要把这个节点加回来
-        time_t newinqueutime = cur_time+(m_iWaitTime);
-        LPSTRUC_MSG_HEADER tmpMsgHeader = (LPSTRUC_MSG_HEADER)p_memory.AllocMemory(sizeof(STRUC_MSG_HEADER),false);
-        tmpMsgHeader->pConn = ptmp->pConn;
-        tmpMsgHeader->iCurrsequence = ptmp->iCurrsequence;
-        m_timerQueuemap.insert(std::make_pair(newinqueutime,tmpMsgHeader)); //自动排序 小->大
-        m_cur_size_++;
+        if(/*m_ifkickTimeCount == 1 && */m_ifTimeOutKick != 1)  //能调用到本函数第一个条件肯定成立，所以第一个条件加不加无所谓，主要是第二个条件
+        {
+            //如果不是要求超时就提出，则才做这里的事：
+
+            //因为下次超时的时间我们也依然要判断，所以还要把这个节点加回来
+            time_t newinqueutime = cur_time+(m_iWaitTime);
+            LPSTRUC_MSG_HEADER tmpMsgHeader = (LPSTRUC_MSG_HEADER)p_memory.AllocMemory(sizeof(STRUC_MSG_HEADER),false);
+            tmpMsgHeader->pConn = ptmp->pConn;
+            tmpMsgHeader->iCurrsequence = ptmp->iCurrsequence;
+            m_timerQueuemap.insert(std::make_pair(newinqueutime,tmpMsgHeader)); //自动排序 小->大
+            m_cur_size_++;
+        }
 
         if(m_cur_size_ > 0) //这个判断条件必要，因为以后我们可能在这里扩充别的代码
         {
@@ -87,9 +92,8 @@ LPSTRUC_MSG_HEADER CSocekt::GetOverTimeTimer(time_t cur_time)
         }
         return ptmp;
     }
-    return nullptr;
+    return NULL;
 }
-
 //把指定用户tcp连接从timer表中抠出去
 void CSocekt::DeleteFromTimerQueue(lpngx_connection_t pConn)
 {
@@ -151,7 +155,7 @@ void* CSocekt::ServerTimerQueueMonitorThread(void* threadData)
         {
             //时间队列中最近发生事情的时间放到 absolute_time里；
             absolute_time = pSocketObj->m_timer_value_; //这个可是省了个互斥，十分划算
-            cur_time = time(NULL);
+            cur_time = time(nullptr);
             if(absolute_time < cur_time)
             {
                 //时间到了，可以处理了
@@ -160,7 +164,7 @@ void* CSocekt::ServerTimerQueueMonitorThread(void* threadData)
 
                 err = pthread_mutex_lock(&pSocketObj->m_timequeueMutex);
                 if(err != 0) ngx_log_stderr(err,"CSocekt::ServerTimerQueueMonitorThread()中pthread_mutex_lock()失败，返回的错误码为%d!",err);//有问题，要及时报告
-                while ((result = pSocketObj->GetOverTimeTimer(cur_time)) != NULL) //一次性的把所有超时节点都拿过来
+                while ((result = pSocketObj->GetOverTimeTimer(cur_time)) != nullptr) //一次性的把所有超时节点都拿过来
                 {
                     m_lsIdleList.push_back(result);
                 }//end while
@@ -172,12 +176,12 @@ void* CSocekt::ServerTimerQueueMonitorThread(void* threadData)
                     tmpmsg = m_lsIdleList.front();
                     m_lsIdleList.pop_front();
                     pSocketObj->procPingTimeOutChecking(tmpmsg,cur_time); //这里需要检查心跳超时问题
-                } //end while(!m_lsIdleList.empty())
+                }
             }
-        } //end if(pSocketObj->m_cur_size_ > 0)
+        }
 
         usleep(500 * 1000); //为简化问题，我们直接每次休息500毫秒
-    } //end while
+    }
 
     return (void*)0;
 }

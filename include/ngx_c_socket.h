@@ -81,6 +81,10 @@ struct ngx_connection_s
     ///多线程锁
     pthread_mutex_t           logicPorcMutex;                 //逻辑处理相关的互斥量
 
+    ///和网络安全有关
+    uint64_t                  FloodkickLastTime;              //Flood攻击上次收到包的时间
+    int                       FloodAttackCount;               //Flood攻击在该时间内收到包的次数统计
+
 };
 
 //消息头，引入的目的是当收到数据包时，额外记录一些内容以备将来使用
@@ -137,8 +141,8 @@ private:
 
     ///收包，处理包
     ssize_t recvproc(lpngx_connection_t c,char *buff,ssize_t buflen);  //接收从客户端来的数据专用函数
-    void ngx_wait_request_handler_proc_p1(lpngx_connection_t c);       //包头收完整后的处理，我们称为包处理阶段1：写成函数，方便复用
-    void ngx_wait_request_handler_proc_plast(lpngx_connection_t c);    //收到一个完整包后的处理，放到一个函数中，方便调用
+    void ngx_wait_request_handler_proc_p1(lpngx_connection_t c,bool &isflood);       //包头收完整后的处理，我们称为包处理阶段1：写成函数，方便复用
+    void ngx_wait_request_handler_proc_plast(lpngx_connection_t ,bool &isfloodc);    //收到一个完整包后的处理，放到一个函数中，方便调用
 
     void clearMsgSendQueue();                                             //处理发送消息队列
 
@@ -173,6 +177,10 @@ private:
 
     ///辅助读取配置文件
     void ReadConf();                                                   //专门用于读各种配置项
+
+
+    //和网络安全有关
+    bool TestFlood(lpngx_connection_t pConn);                             //测试是否flood攻击成立，成立则返回true，否则返回false
 
 private:
     struct ThreadItem
@@ -226,11 +234,20 @@ private:
     std::multimap<time_t, LPSTRUC_MSG_HEADER>   m_timerQueuemap;          //时间队列
     size_t                         m_cur_size_;                           //时间队列的尺寸
     time_t                         m_timer_value_;                        //当前计时队列头部时间值
+    //在线用户相关
+    std::atomic<int>               m_onlineUserCount;                     //当前在线用户数统计
+
+    //网络安全相关
+    int                            m_floodAkEnable;                       //Flood攻击检测是否开启,1：开启   0：不开启
+    unsigned int                   m_floodTimeInterval;                   //表示每次收到数据包的时间间隔是100(毫秒)
+    int                            m_floodKickCount;                      //累积多少次踢出此人
+
 protected:
     size_t                         m_iLenPkgHeader;                    //sizeof(COMM_PKG_HEADER);
     size_t                         m_iLenMsgHeader;                    //sizeof(STRUC_MSG_HEADER);
 
     int                            m_iWaitTime;                           //多少秒检测一次是否 心跳超时，只有当Sock_WaitTimeEnable = 1时，本项才有用
+    int                            m_ifTimeOutKick;
 };
 
 #endif

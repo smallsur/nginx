@@ -9,6 +9,7 @@
 #include <string.h>
 #include <errno.h>
 #include <sys/epoll.h>
+#include <sys/time.h>
 
 #include "ngx_c_socket.h"
 #include "ngx_global.h"
@@ -39,7 +40,10 @@ CSocekt::CSocekt()
     m_totol_recyconnection_n = 0; //待释放连接队列大小
     m_cur_size_              = 0;     //当前计时队列尺寸
     m_timer_value_           = 0;     //当前计时队列头部的时间值
-    return;
+
+
+    ///在线用户相关
+    m_onlineUserCount        = 0;     //在线用户数量统计，先给0
 }
 
 //释放函数
@@ -177,7 +181,11 @@ void CSocekt::ReadConf() {
     m_ifkickTimeCount         = p_config.GetIntDefault("Sock_WaitTimeEnable",0);                                //是否开启踢人时钟，1：开启   0：不开启
     m_iWaitTime               = p_config.GetIntDefault("Sock_MaxWaitTime",m_iWaitTime);                         //多少秒检测一次是否 心跳超时，只有当Sock_WaitTimeEnable = 1时，本项才有用
     m_iWaitTime               = (m_iWaitTime > 5)?m_iWaitTime:5;                                                 //不建议低于5秒钟，因为无需太频繁
+    m_ifTimeOutKick           = p_config.GetIntDefault("Sock_TimeOutKick",0);                                   //当时间到达Sock_MaxWaitTime指定的时间时，直接把客户端踢出去，只有当Sock_WaitTimeEnable = 1时，本项才有用
 
+    m_floodAkEnable          = p_config.GetIntDefault("Sock_FloodAttackKickEnable",0);                          //Flood攻击检测是否开启,1：开启   0：不开启
+    m_floodTimeInterval      = p_config.GetIntDefault("Sock_FloodTimeInterval",100);                            //表示每次收到数据包的时间间隔是100(毫秒)
+    m_floodKickCount         = p_config.GetIntDefault("Sock_FloodKickCounter",10);                              //累积多少次踢出此人
 }
 
 ////子进程初始化监听
@@ -297,7 +305,6 @@ void CSocekt::zdClosesocketProc(lpngx_connection_t p_Conn)
         --p_Conn->iThrowsendCount;   //归0
 
     inRecyConnectQueue(p_Conn);
-    return;
 }
 
 ////初始化epoll，并将监听的socket添加进链接，同时互相关注
@@ -649,6 +656,39 @@ void* CSocekt::ServerSendQueueThread(void* threadData)
     } //end while
 
     return (void*)0;
+}
+
+
+//测试是否flood攻击成立，成立则返回true，否则返回false
+bool CSocekt::TestFlood(lpngx_connection_t pConn)
+{
+    struct  timeval sCurrTime;   //当前时间结构
+    uint64_t        iCurrTime;   //当前时间（单位：毫秒）
+    bool  reco      = false;
+
+    gettimeofday(&sCurrTime, NULL); //取得当前时间
+    iCurrTime =  (sCurrTime.tv_sec * 1000 + sCurrTime.tv_usec / 1000);  //毫秒
+    if((iCurrTime - pConn->FloodkickLastTime) < m_floodTimeInterval)   //两次收到包的时间 < 100毫秒
+    {
+        //发包太频繁记录
+        pConn->FloodAttackCount++;
+        pConn->FloodkickLastTime = iCurrTime;
+    }
+    else
+    {
+        //既然发包不这么频繁，则恢复计数值
+        pConn->FloodAttackCount = 0;
+        pConn->FloodkickLastTime = iCurrTime;
+    }
+
+    //ngx_log_stderr(0,"pConn->FloodAttackCount=%d,m_floodKickCount=%d.",pConn->FloodAttackCount,m_floodKickCount);
+
+    if(pConn->FloodAttackCount >= m_floodKickCount)
+    {
+        //可以踢此人的标志
+        reco = true;
+    }
+    return reco;
 }
 
 

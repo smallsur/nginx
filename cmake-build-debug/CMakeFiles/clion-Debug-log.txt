@@ -1,4 +1,4 @@
-/snap/clion/234/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /home/awen/workstation/nginx -B /home/awen/workstation/nginx/cmake-build-debug
+/snap/clion/234/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/234/bin/ninja/linux/x64/ninja -G Ninja -S /home/awen/workstation/nginx -B /home/awen/workstation/nginx/cmake-build-debug
 -- The CXX compiler identification is GNU 11.3.0
 -- The C compiler identification is GNU 11.3.0
 -- Detecting CXX compiler ABI info

@@ -130,11 +130,15 @@ void CLogicSocket::procPingTimeOutChecking(LPSTRUC_MSG_HEADER tmpmsg,time_t cur_
     {
         lpngx_connection_t p_Conn = tmpmsg->pConn;
 
-        //超时踢的判断标准就是 每次检查的时间间隔*3，超过这个时间没发送心跳包，就踢【大家可以根据实际情况自由设定】
-        if( (cur_time - p_Conn->lastPingTime ) > (m_iWaitTime*3+10) )
+        if(/*m_ifkickTimeCount == 1 && */m_ifTimeOutKick == 1)  //能调用到本函数第一个条件肯定成立，所以第一个条件加不加无所谓，主要是第二个条件
+        {
+            //到时间直接踢出去的需求
+            zdClosesocketProc(p_Conn);
+        }
+        else if( (cur_time - p_Conn->lastPingTime ) > (m_iWaitTime*3+10) ) //超时踢的判断标准就是 每次检查的时间间隔*3，超过这个时间没发送心跳包，就踢【大家可以根据实际情况自由设定】
         {
             //踢出去【如果此时此刻该用户正好断线，则这个socket可能立即被后续上来的连接复用  如果真有人这么倒霉，赶上这个点了，那么可能错踢，错踢就错踢】
-            ngx_log_stderr(0,"时间到不发心跳包，踢出去!");   //感觉OK
+            //ngx_log_stderr(0,"时间到不发心跳包，踢出去!");   //感觉OK
             zdClosesocketProc(p_Conn);
         }
 
@@ -146,6 +150,7 @@ void CLogicSocket::procPingTimeOutChecking(LPSTRUC_MSG_HEADER tmpmsg,time_t cur_
     }
     return;
 }
+
 
 //发送没有包体的数据包给客户端
 void CLogicSocket::SendNoBodyPkgToClient(LPSTRUC_MSG_HEADER pMsgHeader,unsigned short iMsgCode)

@@ -16,6 +16,7 @@
 
 void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
 {
+    bool isflood = false; //是否flood攻击；
     //收包，注意我们用的第二个和第三个参数，我们用的始终是这两个参数，因此我们必须保证 c->precvbuf指向正确的收包位置，保证c->irecvlen指向正确的收包宽度
     ssize_t reco = recvproc(c,c->precvbuf,c->irecvlen);
     if(reco <= 0)
@@ -28,7 +29,7 @@ void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
     {
         if(reco == m_iLenPkgHeader)//正好收到完整包头，这里拆解包头
         {
-            ngx_wait_request_handler_proc_p1(c); //那就调用专门针对包头处理完整的函数去处理把。
+            ngx_wait_request_handler_proc_p1(c,isflood); //那就调用专门针对包头处理完整的函数去处理把。
         }
         else
         {
@@ -43,7 +44,7 @@ void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
         if(c->irecvlen == reco) //要求收到的宽度和我实际收到的宽度相等
         {
             //包头收完整了
-            ngx_wait_request_handler_proc_p1(c); //那就调用专门针对包头处理完整的函数去处理把。
+            ngx_wait_request_handler_proc_p1(c, isflood); //那就调用专门针对包头处理完整的函数去处理把。
         }
         else
         {
@@ -59,7 +60,7 @@ void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
         if(reco == c->irecvlen)
         {
             //收到的宽度等于要收的宽度，包体也收完整了
-            ngx_wait_request_handler_proc_plast(c);
+            ngx_wait_request_handler_proc_plast(c,isflood);
         }
         else
         {
@@ -75,7 +76,7 @@ void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
         if(c->irecvlen == reco)
         {
             //包体收完整了
-            ngx_wait_request_handler_proc_plast(c);
+            ngx_wait_request_handler_proc_plast(c, isflood);
         }
         else
         {
@@ -84,7 +85,12 @@ void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
             c->irecvlen = c->irecvlen - reco;
         }
     }  //end if(c->curStat == _PKG_HD_INIT)
-    return;
+    if(isflood == true)
+    {
+        //客户端flood服务器，则直接把客户端踢掉
+        ngx_log_stderr(errno,"发现客户端flood，干掉该客户端!");
+        zdClosesocketProc(c);
+    }
 }
 
 ssize_t CSocekt::recvproc(lpngx_connection_t c,char *buff,ssize_t buflen)  //ssize_t是有符号整型，在32位机器上等同与int，在64位机器上等同与long int，size_t就是无符号型的ssize_t
@@ -148,7 +154,7 @@ ssize_t CSocekt::recvproc(lpngx_connection_t c,char *buff,ssize_t buflen)  //ssi
     return n; //返回收到的字节数
 }
 
-void CSocekt::ngx_wait_request_handler_proc_p1(lpngx_connection_t c)
+void CSocekt::ngx_wait_request_handler_proc_p1(lpngx_connection_t c,bool &isflood)
 {
     CMemory &p_memory = CMemory::get_instance();
 
@@ -196,7 +202,12 @@ void CSocekt::ngx_wait_request_handler_proc_p1(lpngx_connection_t c)
         {
             //该报文只有包头无包体【我们允许一个包只有包头，没有包体】
             //这相当于收完整了，则直接入消息队列待后续业务逻辑线程去处理吧
-            ngx_wait_request_handler_proc_plast(c);
+            if(m_floodAkEnable == 1)
+            {
+                //Flood攻击检测是否开启
+                isflood = TestFlood(c);
+            }
+            ngx_wait_request_handler_proc_plast(c isflood);
         }
         else
         {
@@ -211,15 +222,21 @@ void CSocekt::ngx_wait_request_handler_proc_p1(lpngx_connection_t c)
 
 
 //收到一个完整包后的处理【plast表示最后阶段】，放到一个函数中，方便调用
-void CSocekt::ngx_wait_request_handler_proc_plast(lpngx_connection_t c)
+void CSocekt::ngx_wait_request_handler_proc_plast(lpngx_connection_t c,bool &isflood)
 {
-    g_threadpool.inMsgRecvQueueAndSignal(c->precvMemPointer);
-//    c->ifnewrecvMem    = false;            //内存不再需要释放，因为你收完整了包，这个包被上边调用inMsgRecvQueue()移入消息队列，那么释放内存就属于业务逻辑去干，不需要回收连接到连接池中干了
+    if(isflood == false) {
+        g_threadpool.inMsgRecvQueueAndSignal(c->precvMemPointer);
+    } else{
+        //对于有攻击倾向的恶人，先把他的包丢掉
+        CMemory &p_memory = CMemory::get_instance();
+        p_memory.FreeMemory(c->precvMemPointer); //直接释放掉内存，根本不往消息队列入
+
+    }
+    //    c->ifnewrecvMem    = false;            //内存不再需要释放，因为你收完整了包，这个包被上边调用inMsgRecvQueue()移入消息队列，那么释放内存就属于业务逻辑去干，不需要回收连接到连接池中干了
     c->precvMemPointer  = nullptr;
     c->curStat         = _PKG_HD_INIT;     //收包状态机的状态恢复为原始态，为收下一个包做准备
     c->precvbuf        = c->dataHeadInfo;  //设置好收包的位置
     c->irecvlen        = m_iLenPkgHeader;  //设置好要接收数据的大小
-    return;
 }
 
 //发送数据专用函数，返回本次发送的字节数
