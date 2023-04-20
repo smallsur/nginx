@@ -7,9 +7,7 @@
 //    std::cout<<type_id_with_cvr<decltype(tmp)>().pretty_name()<<std::endl;
 //}
 #include <iostream>
-#include <stdlib.h>
 #include <string.h>
-#include <errno.h>
 #include <unistd.h>
 
 
@@ -20,7 +18,7 @@
 #include "ngx_c_socket.h"
 
 static void freeresource();
-//和设置标题有关的全局量
+
 char **g_os_argv = nullptr;            //原始命令行参数数组,在main中会被赋值
 char *gp_envmem = nullptr;      //指向自己分配的env环境变量的内存
 size_t  g_environlen = 0;       //环境变量所占内存大小
@@ -44,11 +42,16 @@ int main(int argc, char* argv[]){
 
     int exitcode = 0;
 
+
+    g_stopEvent = 0 ;
+
+
     ngx_pid = getpid();
     ngx_ppid = getppid();
 
     g_os_argv = (char **) argv;
     g_os_argc = argc;
+
     g_argvneedmem = 0;
     for (int i = 0; argv[i] ; ++i) {
         g_argvneedmem += strlen(argv[i]) + 1;

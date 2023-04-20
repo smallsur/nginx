@@ -108,6 +108,8 @@ public:
     }
 };
 
+int add(int a,int b);
 
+void address();
 
 #endif //NGINX_SOLUTION_H

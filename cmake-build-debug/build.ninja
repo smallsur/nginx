@@ -125,8 +125,6 @@ build misc/CMakeFiles/memory_pool.dir/memory_pool.cpp.o: CXX_COMPILER__memory_po
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = misc/CMakeFiles/memory_pool.dir
   OBJECT_FILE_DIR = misc/CMakeFiles/memory_pool.dir
-  TARGET_COMPILE_PDB = misc/CMakeFiles/memory_pool.dir/memory_pool.pdb
-  TARGET_PDB = misc/libmemory_pool.pdb
 
 
 # =============================================================================
@@ -141,9 +139,8 @@ build misc/libmemory_pool.a: CXX_STATIC_LIBRARY_LINKER__memory_pool_Debug misc/C
   OBJECT_DIR = misc/CMakeFiles/memory_pool.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = misc/CMakeFiles/memory_pool.dir/memory_pool.pdb
   TARGET_FILE = misc/libmemory_pool.a
-  TARGET_PDB = misc/libmemory_pool.pdb
+  TARGET_PDB = memory_pool.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target ngx_c_conf
@@ -160,8 +157,6 @@ build misc/CMakeFiles/ngx_c_conf.dir/ngx_c_conf.cpp.o: CXX_COMPILER__ngx_c_conf_
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = misc/CMakeFiles/ngx_c_conf.dir
   OBJECT_FILE_DIR = misc/CMakeFiles/ngx_c_conf.dir
-  TARGET_COMPILE_PDB = misc/CMakeFiles/ngx_c_conf.dir/ngx_c_conf.pdb
-  TARGET_PDB = misc/libngx_c_conf.pdb
 
 
 # =============================================================================
@@ -176,9 +171,8 @@ build misc/libngx_c_conf.a: CXX_STATIC_LIBRARY_LINKER__ngx_c_conf_Debug misc/CMa
   OBJECT_DIR = misc/CMakeFiles/ngx_c_conf.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = misc/CMakeFiles/ngx_c_conf.dir/ngx_c_conf.pdb
   TARGET_FILE = misc/libngx_c_conf.a
-  TARGET_PDB = misc/libngx_c_conf.pdb
+  TARGET_PDB = ngx_c_conf.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target ngx_c_memory
@@ -195,8 +189,6 @@ build misc/CMakeFiles/ngx_c_memory.dir/ngx_c_memory.cpp.o: CXX_COMPILER__ngx_c_m
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = misc/CMakeFiles/ngx_c_memory.dir
   OBJECT_FILE_DIR = misc/CMakeFiles/ngx_c_memory.dir
-  TARGET_COMPILE_PDB = misc/CMakeFiles/ngx_c_memory.dir/ngx_c_memory.pdb
-  TARGET_PDB = misc/libngx_c_memory.pdb
 
 
 # =============================================================================
@@ -211,9 +203,8 @@ build misc/libngx_c_memory.a: CXX_STATIC_LIBRARY_LINKER__ngx_c_memory_Debug misc
   OBJECT_DIR = misc/CMakeFiles/ngx_c_memory.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = misc/CMakeFiles/ngx_c_memory.dir/ngx_c_memory.pdb
   TARGET_FILE = misc/libngx_c_memory.a
-  TARGET_PDB = misc/libngx_c_memory.pdb
+  TARGET_PDB = ngx_c_memory.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target ngx_c_threadpool
@@ -230,8 +221,6 @@ build misc/CMakeFiles/ngx_c_threadpool.dir/ngx_c_threadpool.cpp.o: CXX_COMPILER_
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = misc/CMakeFiles/ngx_c_threadpool.dir
   OBJECT_FILE_DIR = misc/CMakeFiles/ngx_c_threadpool.dir
-  TARGET_COMPILE_PDB = misc/CMakeFiles/ngx_c_threadpool.dir/ngx_c_threadpool.pdb
-  TARGET_PDB = misc/libngx_c_threadpool.pdb
 
 
 # =============================================================================
@@ -246,9 +235,8 @@ build misc/libngx_c_threadpool.a: CXX_STATIC_LIBRARY_LINKER__ngx_c_threadpool_De
   OBJECT_DIR = misc/CMakeFiles/ngx_c_threadpool.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = misc/CMakeFiles/ngx_c_threadpool.dir/ngx_c_threadpool.pdb
   TARGET_FILE = misc/libngx_c_threadpool.a
-  TARGET_PDB = misc/libngx_c_threadpool.pdb
+  TARGET_PDB = ngx_c_threadpool.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target ngx_c_crc32
@@ -265,8 +253,6 @@ build misc/CMakeFiles/ngx_c_crc32.dir/ngx_c_crc32.cpp.o: CXX_COMPILER__ngx_c_crc
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = misc/CMakeFiles/ngx_c_crc32.dir
   OBJECT_FILE_DIR = misc/CMakeFiles/ngx_c_crc32.dir
-  TARGET_COMPILE_PDB = misc/CMakeFiles/ngx_c_crc32.dir/ngx_c_crc32.pdb
-  TARGET_PDB = misc/libngx_c_crc32.pdb
 
 
 # =============================================================================
@@ -281,9 +267,8 @@ build misc/libngx_c_crc32.a: CXX_STATIC_LIBRARY_LINKER__ngx_c_crc32_Debug misc/C
   OBJECT_DIR = misc/CMakeFiles/ngx_c_crc32.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = misc/CMakeFiles/ngx_c_crc32.dir/ngx_c_crc32.pdb
   TARGET_FILE = misc/libngx_c_crc32.a
-  TARGET_PDB = misc/libngx_c_crc32.pdb
+  TARGET_PDB = ngx_c_crc32.a.dbg
 
 
 #############################################
@@ -440,8 +425,6 @@ build lib/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o: CXX_COM
   INCLUDES = -I/home/awen/workstation/nginx/lib/googletest/googlemock/include -I/home/awen/workstation/nginx/lib/googletest/googlemock -isystem /home/awen/workstation/nginx/lib/googletest/googletest/include -isystem /home/awen/workstation/nginx/lib/googletest/googletest
   OBJECT_DIR = lib/googletest/googlemock/CMakeFiles/gmock.dir
   OBJECT_FILE_DIR = lib/googletest/googlemock/CMakeFiles/gmock.dir/src
-  TARGET_COMPILE_PDB = lib/libgmockpdb_debug_postfix-NOTFOUND.pdb
-  TARGET_PDB = bin/libgmockpdb_debug_postfix-NOTFOUND.pdb
 
 
 # =============================================================================
@@ -456,9 +439,8 @@ build lib/libgmock.a: CXX_STATIC_LIBRARY_LINKER__gmock_Debug lib/googletest/goog
   OBJECT_DIR = lib/googletest/googlemock/CMakeFiles/gmock.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = lib/libgmockpdb_debug_postfix-NOTFOUND.pdb
   TARGET_FILE = lib/libgmock.a
-  TARGET_PDB = bin/libgmockpdb_debug_postfix-NOTFOUND.pdb
+  TARGET_PDB = gmock.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target gmock_main
@@ -475,8 +457,6 @@ build lib/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: C
   INCLUDES = -isystem /home/awen/workstation/nginx/lib/googletest/googlemock/include -isystem /home/awen/workstation/nginx/lib/googletest/googlemock -isystem /home/awen/workstation/nginx/lib/googletest/googletest/include -isystem /home/awen/workstation/nginx/lib/googletest/googletest
   OBJECT_DIR = lib/googletest/googlemock/CMakeFiles/gmock_main.dir
   OBJECT_FILE_DIR = lib/googletest/googlemock/CMakeFiles/gmock_main.dir/src
-  TARGET_COMPILE_PDB = lib/libgmock_mainpdb_debug_postfix-NOTFOUND.pdb
-  TARGET_PDB = bin/libgmock_mainpdb_debug_postfix-NOTFOUND.pdb
 
 
 # =============================================================================
@@ -491,9 +471,8 @@ build lib/libgmock_main.a: CXX_STATIC_LIBRARY_LINKER__gmock_main_Debug lib/googl
   OBJECT_DIR = lib/googletest/googlemock/CMakeFiles/gmock_main.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = lib/libgmock_mainpdb_debug_postfix-NOTFOUND.pdb
   TARGET_FILE = lib/libgmock_main.a
-  TARGET_PDB = bin/libgmock_mainpdb_debug_postfix-NOTFOUND.pdb
+  TARGET_PDB = gmock_main.a.dbg
 
 
 #############################################
@@ -580,8 +559,6 @@ build lib/googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o: CXX_COM
   INCLUDES = -I/home/awen/workstation/nginx/lib/googletest/googletest/include -I/home/awen/workstation/nginx/lib/googletest/googletest
   OBJECT_DIR = lib/googletest/googletest/CMakeFiles/gtest.dir
   OBJECT_FILE_DIR = lib/googletest/googletest/CMakeFiles/gtest.dir/src
-  TARGET_COMPILE_PDB = lib/libgtestpdb_debug_postfix-NOTFOUND.pdb
-  TARGET_PDB = bin/libgtestpdb_debug_postfix-NOTFOUND.pdb
 
 
 # =============================================================================
@@ -596,9 +573,8 @@ build lib/libgtest.a: CXX_STATIC_LIBRARY_LINKER__gtest_Debug lib/googletest/goog
   OBJECT_DIR = lib/googletest/googletest/CMakeFiles/gtest.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = lib/libgtestpdb_debug_postfix-NOTFOUND.pdb
   TARGET_FILE = lib/libgtest.a
-  TARGET_PDB = bin/libgtestpdb_debug_postfix-NOTFOUND.pdb
+  TARGET_PDB = gtest.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target gtest_main
@@ -615,8 +591,6 @@ build lib/googletest/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o: C
   INCLUDES = -isystem /home/awen/workstation/nginx/lib/googletest/googletest/include -isystem /home/awen/workstation/nginx/lib/googletest/googletest
   OBJECT_DIR = lib/googletest/googletest/CMakeFiles/gtest_main.dir
   OBJECT_FILE_DIR = lib/googletest/googletest/CMakeFiles/gtest_main.dir/src
-  TARGET_COMPILE_PDB = lib/libgtest_mainpdb_debug_postfix-NOTFOUND.pdb
-  TARGET_PDB = bin/libgtest_mainpdb_debug_postfix-NOTFOUND.pdb
 
 
 # =============================================================================
@@ -631,9 +605,8 @@ build lib/libgtest_main.a: CXX_STATIC_LIBRARY_LINKER__gtest_main_Debug lib/googl
   OBJECT_DIR = lib/googletest/googletest/CMakeFiles/gtest_main.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = lib/libgtest_mainpdb_debug_postfix-NOTFOUND.pdb
   TARGET_FILE = lib/libgtest_main.a
-  TARGET_PDB = bin/libgtest_mainpdb_debug_postfix-NOTFOUND.pdb
+  TARGET_PDB = gtest_main.a.dbg
 
 
 #############################################
@@ -720,8 +693,6 @@ build test/CMakeFiles/test_conf.dir/test_conf.cpp.o: CXX_COMPILER__test_conf_Deb
   INCLUDES = -I/home/awen/workstation/nginx/include -isystem /home/awen/workstation/nginx/lib/googletest/googletest/include -isystem /home/awen/workstation/nginx/lib/googletest/googletest
   OBJECT_DIR = test/CMakeFiles/test_conf.dir
   OBJECT_FILE_DIR = test/CMakeFiles/test_conf.dir
-  TARGET_COMPILE_PDB = test/CMakeFiles/test_conf.dir/
-  TARGET_PDB = test/test_conf.pdb
 
 
 # =============================================================================
@@ -737,9 +708,8 @@ build test/test_conf: CXX_EXECUTABLE_LINKER__test_conf_Debug test/CMakeFiles/tes
   OBJECT_DIR = test/CMakeFiles/test_conf.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = test/CMakeFiles/test_conf.dir/
   TARGET_FILE = test/test_conf
-  TARGET_PDB = test/test_conf.pdb
+  TARGET_PDB = test_conf.dbg
 
 
 #############################################
@@ -826,8 +796,6 @@ build proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.cpp.o: CXX_COMPILE
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = proc/CMakeFiles/ngx_process_cycle.dir
   OBJECT_FILE_DIR = proc/CMakeFiles/ngx_process_cycle.dir
-  TARGET_COMPILE_PDB = proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.pdb
-  TARGET_PDB = proc/libngx_process_cycle.pdb
 
 
 # =============================================================================
@@ -842,9 +810,8 @@ build proc/libngx_process_cycle.a: CXX_STATIC_LIBRARY_LINKER__ngx_process_cycle_
   OBJECT_DIR = proc/CMakeFiles/ngx_process_cycle.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = proc/CMakeFiles/ngx_process_cycle.dir/ngx_process_cycle.pdb
   TARGET_FILE = proc/libngx_process_cycle.a
-  TARGET_PDB = proc/libngx_process_cycle.pdb
+  TARGET_PDB = ngx_process_cycle.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target ngx_daemon
@@ -861,8 +828,6 @@ build proc/CMakeFiles/ngx_daemon.dir/ngx_daemon.cpp.o: CXX_COMPILER__ngx_daemon_
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = proc/CMakeFiles/ngx_daemon.dir
   OBJECT_FILE_DIR = proc/CMakeFiles/ngx_daemon.dir
-  TARGET_COMPILE_PDB = proc/CMakeFiles/ngx_daemon.dir/ngx_daemon.pdb
-  TARGET_PDB = proc/libngx_daemon.pdb
 
 
 # =============================================================================
@@ -877,9 +842,8 @@ build proc/libngx_daemon.a: CXX_STATIC_LIBRARY_LINKER__ngx_daemon_Debug proc/CMa
   OBJECT_DIR = proc/CMakeFiles/ngx_daemon.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = proc/CMakeFiles/ngx_daemon.dir/ngx_daemon.pdb
   TARGET_FILE = proc/libngx_daemon.a
-  TARGET_PDB = proc/libngx_daemon.pdb
+  TARGET_PDB = ngx_daemon.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target ngx_event
@@ -896,8 +860,6 @@ build proc/CMakeFiles/ngx_event.dir/ngx_event.cpp.o: CXX_COMPILER__ngx_event_Deb
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = proc/CMakeFiles/ngx_event.dir
   OBJECT_FILE_DIR = proc/CMakeFiles/ngx_event.dir
-  TARGET_COMPILE_PDB = proc/CMakeFiles/ngx_event.dir/ngx_event.pdb
-  TARGET_PDB = proc/libngx_event.pdb
 
 
 # =============================================================================
@@ -912,9 +874,8 @@ build proc/libngx_event.a: CXX_STATIC_LIBRARY_LINKER__ngx_event_Debug proc/CMake
   OBJECT_DIR = proc/CMakeFiles/ngx_event.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = proc/CMakeFiles/ngx_event.dir/ngx_event.pdb
   TARGET_FILE = proc/libngx_event.a
-  TARGET_PDB = proc/libngx_event.pdb
+  TARGET_PDB = ngx_event.a.dbg
 
 
 #############################################
@@ -1001,8 +962,6 @@ build signal/CMakeFiles/ngx_signal.dir/ngx_signal.cpp.o: CXX_COMPILER__ngx_signa
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = signal/CMakeFiles/ngx_signal.dir
   OBJECT_FILE_DIR = signal/CMakeFiles/ngx_signal.dir
-  TARGET_COMPILE_PDB = signal/CMakeFiles/ngx_signal.dir/ngx_signal.pdb
-  TARGET_PDB = signal/libngx_signal.pdb
 
 
 # =============================================================================
@@ -1017,9 +976,8 @@ build signal/libngx_signal.a: CXX_STATIC_LIBRARY_LINKER__ngx_signal_Debug signal
   OBJECT_DIR = signal/CMakeFiles/ngx_signal.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = signal/CMakeFiles/ngx_signal.dir/ngx_signal.pdb
   TARGET_FILE = signal/libngx_signal.a
-  TARGET_PDB = signal/libngx_signal.pdb
+  TARGET_PDB = ngx_signal.a.dbg
 
 
 #############################################
@@ -1106,8 +1064,6 @@ build app/CMakeFiles/solution.dir/Solution.cpp.o: CXX_COMPILER__solution_Debug /
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = app/CMakeFiles/solution.dir
   OBJECT_FILE_DIR = app/CMakeFiles/solution.dir
-  TARGET_COMPILE_PDB = app/CMakeFiles/solution.dir/solution.pdb
-  TARGET_PDB = app/libsolution.pdb
 
 
 # =============================================================================
@@ -1122,9 +1078,8 @@ build app/libsolution.a: CXX_STATIC_LIBRARY_LINKER__solution_Debug app/CMakeFile
   OBJECT_DIR = app/CMakeFiles/solution.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = app/CMakeFiles/solution.dir/solution.pdb
   TARGET_FILE = app/libsolution.a
-  TARGET_PDB = app/libsolution.pdb
+  TARGET_PDB = solution.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target ngx_init_setprotitle
@@ -1141,8 +1096,6 @@ build app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.cpp.o: CXX_CO
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
   OBJECT_FILE_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
-  TARGET_COMPILE_PDB = app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.pdb
-  TARGET_PDB = app/libngx_init_setprotitle.pdb
 
 
 # =============================================================================
@@ -1157,9 +1110,8 @@ build app/libngx_init_setprotitle.a: CXX_STATIC_LIBRARY_LINKER__ngx_init_setprot
   OBJECT_DIR = app/CMakeFiles/ngx_init_setprotitle.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = app/CMakeFiles/ngx_init_setprotitle.dir/ngx_init_setprotitle.pdb
   TARGET_FILE = app/libngx_init_setprotitle.a
-  TARGET_PDB = app/libngx_init_setprotitle.pdb
+  TARGET_PDB = ngx_init_setprotitle.a.dbg
 
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target ngx_log
@@ -1176,8 +1128,6 @@ build app/CMakeFiles/ngx_log.dir/ngx_log.cpp.o: CXX_COMPILER__ngx_log_Debug /hom
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = app/CMakeFiles/ngx_log.dir
   OBJECT_FILE_DIR = app/CMakeFiles/ngx_log.dir
-  TARGET_COMPILE_PDB = app/CMakeFiles/ngx_log.dir/ngx_log.pdb
-  TARGET_PDB = app/libngx_log.pdb
 
 build app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o: CXX_COMPILER__ngx_log_Debug /home/awen/workstation/nginx/app/ngx_printf.cpp || cmake_object_order_depends_target_ngx_log
   DEP_FILE = app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o.d
@@ -1185,8 +1135,6 @@ build app/CMakeFiles/ngx_log.dir/ngx_printf.cpp.o: CXX_COMPILER__ngx_log_Debug /
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = app/CMakeFiles/ngx_log.dir
   OBJECT_FILE_DIR = app/CMakeFiles/ngx_log.dir
-  TARGET_COMPILE_PDB = app/CMakeFiles/ngx_log.dir/ngx_log.pdb
-  TARGET_PDB = app/libngx_log.pdb
 
 
 # =============================================================================
@@ -1201,9 +1149,8 @@ build app/libngx_log.a: CXX_STATIC_LIBRARY_LINKER__ngx_log_Debug app/CMakeFiles/
   OBJECT_DIR = app/CMakeFiles/ngx_log.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = app/CMakeFiles/ngx_log.dir/ngx_log.pdb
   TARGET_FILE = app/libngx_log.a
-  TARGET_PDB = app/libngx_log.pdb
+  TARGET_PDB = ngx_log.a.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target nginx
@@ -1220,8 +1167,6 @@ build app/CMakeFiles/nginx.dir/nginx.cpp.o: CXX_COMPILER__nginx_Debug /home/awen
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = app/CMakeFiles/nginx.dir
   OBJECT_FILE_DIR = app/CMakeFiles/nginx.dir
-  TARGET_COMPILE_PDB = app/CMakeFiles/nginx.dir/
-  TARGET_PDB = app/nginx.pdb
 
 
 # =============================================================================
@@ -1237,9 +1182,8 @@ build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/ngi
   OBJECT_DIR = app/CMakeFiles/nginx.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = app/CMakeFiles/nginx.dir/
   TARGET_FILE = app/nginx
-  TARGET_PDB = app/nginx.pdb
+  TARGET_PDB = nginx.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target test
@@ -1248,7 +1192,7 @@ build app/nginx: CXX_EXECUTABLE_LINKER__nginx_Debug app/CMakeFiles/nginx.dir/ngi
 #############################################
 # Order-only phony target for test
 
-build cmake_object_order_depends_target_test: phony || app/CMakeFiles/test.dir
+build cmake_object_order_depends_target_test: phony || cmake_object_order_depends_target_solution
 
 build app/CMakeFiles/test.dir/test.cpp.o: CXX_COMPILER__test_Debug /home/awen/workstation/nginx/app/test.cpp || cmake_object_order_depends_target_test
   DEP_FILE = app/CMakeFiles/test.dir/test.cpp.o.d
@@ -1256,8 +1200,6 @@ build app/CMakeFiles/test.dir/test.cpp.o: CXX_COMPILER__test_Debug /home/awen/wo
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = app/CMakeFiles/test.dir
   OBJECT_FILE_DIR = app/CMakeFiles/test.dir
-  TARGET_COMPILE_PDB = app/CMakeFiles/test.dir/
-  TARGET_PDB = app/test.pdb
 
 
 # =============================================================================
@@ -1267,14 +1209,14 @@ build app/CMakeFiles/test.dir/test.cpp.o: CXX_COMPILER__test_Debug /home/awen/wo
 #############################################
 # Link the executable app/test
 
-build app/test: CXX_EXECUTABLE_LINKER__test_Debug app/CMakeFiles/test.dir/test.cpp.o
+build app/test: CXX_EXECUTABLE_LINKER__test_Debug app/CMakeFiles/test.dir/test.cpp.o | app/libsolution.a || app/libsolution.a
   FLAGS = -g
+  LINK_LIBRARIES = app/libsolution.a
   OBJECT_DIR = app/CMakeFiles/test.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = app/CMakeFiles/test.dir/
   TARGET_FILE = app/test
-  TARGET_PDB = app/test.pdb
+  TARGET_PDB = test.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target clientTest
@@ -1291,8 +1233,6 @@ build app/CMakeFiles/clientTest.dir/clientTest.cpp.o: CXX_COMPILER__clientTest_D
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = app/CMakeFiles/clientTest.dir
   OBJECT_FILE_DIR = app/CMakeFiles/clientTest.dir
-  TARGET_COMPILE_PDB = app/CMakeFiles/clientTest.dir/
-  TARGET_PDB = app/clientTest.pdb
 
 
 # =============================================================================
@@ -1308,9 +1248,8 @@ build app/clientTest: CXX_EXECUTABLE_LINKER__clientTest_Debug app/CMakeFiles/cli
   OBJECT_DIR = app/CMakeFiles/clientTest.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = app/CMakeFiles/clientTest.dir/
   TARGET_FILE = app/clientTest
-  TARGET_PDB = app/clientTest.pdb
+  TARGET_PDB = clientTest.dbg
 
 
 #############################################
@@ -1397,8 +1336,6 @@ build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.cpp.o: CXX_COMPILER__ngx_c_so
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   OBJECT_FILE_DIR = net/CMakeFiles/ngx_c_socket.dir
-  TARGET_COMPILE_PDB = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.pdb
-  TARGET_PDB = net/libngx_c_socket.pdb
 
 build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_accept.cpp.o: CXX_COMPILER__ngx_c_socket_Debug /home/awen/workstation/nginx/net/ngx_c_socket_accept.cpp || cmake_object_order_depends_target_ngx_c_socket
   DEP_FILE = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_accept.cpp.o.d
@@ -1406,8 +1343,6 @@ build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_accept.cpp.o: CXX_COMPILER__n
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   OBJECT_FILE_DIR = net/CMakeFiles/ngx_c_socket.dir
-  TARGET_COMPILE_PDB = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.pdb
-  TARGET_PDB = net/libngx_c_socket.pdb
 
 build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_conn.cpp.o: CXX_COMPILER__ngx_c_socket_Debug /home/awen/workstation/nginx/net/ngx_c_socket_conn.cpp || cmake_object_order_depends_target_ngx_c_socket
   DEP_FILE = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_conn.cpp.o.d
@@ -1415,8 +1350,6 @@ build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_conn.cpp.o: CXX_COMPILER__ngx
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   OBJECT_FILE_DIR = net/CMakeFiles/ngx_c_socket.dir
-  TARGET_COMPILE_PDB = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.pdb
-  TARGET_PDB = net/libngx_c_socket.pdb
 
 build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_inet.cpp.o: CXX_COMPILER__ngx_c_socket_Debug /home/awen/workstation/nginx/net/ngx_c_socket_inet.cpp || cmake_object_order_depends_target_ngx_c_socket
   DEP_FILE = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_inet.cpp.o.d
@@ -1424,8 +1357,6 @@ build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_inet.cpp.o: CXX_COMPILER__ngx
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   OBJECT_FILE_DIR = net/CMakeFiles/ngx_c_socket.dir
-  TARGET_COMPILE_PDB = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.pdb
-  TARGET_PDB = net/libngx_c_socket.pdb
 
 build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_request.cpp.o: CXX_COMPILER__ngx_c_socket_Debug /home/awen/workstation/nginx/net/ngx_c_socket_request.cpp || cmake_object_order_depends_target_ngx_c_socket
   DEP_FILE = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_request.cpp.o.d
@@ -1433,8 +1364,6 @@ build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_request.cpp.o: CXX_COMPILER__
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   OBJECT_FILE_DIR = net/CMakeFiles/ngx_c_socket.dir
-  TARGET_COMPILE_PDB = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.pdb
-  TARGET_PDB = net/libngx_c_socket.pdb
 
 build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_time.cpp.o: CXX_COMPILER__ngx_c_socket_Debug /home/awen/workstation/nginx/net/ngx_c_socket_time.cpp || cmake_object_order_depends_target_ngx_c_socket
   DEP_FILE = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_time.cpp.o.d
@@ -1442,8 +1371,6 @@ build net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket_time.cpp.o: CXX_COMPILER__ngx
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   OBJECT_FILE_DIR = net/CMakeFiles/ngx_c_socket.dir
-  TARGET_COMPILE_PDB = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.pdb
-  TARGET_PDB = net/libngx_c_socket.pdb
 
 
 # =============================================================================
@@ -1458,9 +1385,8 @@ build net/libngx_c_socket.a: CXX_STATIC_LIBRARY_LINKER__ngx_c_socket_Debug net/C
   OBJECT_DIR = net/CMakeFiles/ngx_c_socket.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = net/CMakeFiles/ngx_c_socket.dir/ngx_c_socket.pdb
   TARGET_FILE = net/libngx_c_socket.a
-  TARGET_PDB = net/libngx_c_socket.pdb
+  TARGET_PDB = ngx_c_socket.a.dbg
 
 
 #############################################
@@ -1547,8 +1473,6 @@ build logic/CMakeFiles/ngx_c_slogic.dir/ngx_c_slogic.cpp.o: CXX_COMPILER__ngx_c_
   INCLUDES = -I/home/awen/workstation/nginx/include
   OBJECT_DIR = logic/CMakeFiles/ngx_c_slogic.dir
   OBJECT_FILE_DIR = logic/CMakeFiles/ngx_c_slogic.dir
-  TARGET_COMPILE_PDB = logic/CMakeFiles/ngx_c_slogic.dir/ngx_c_slogic.pdb
-  TARGET_PDB = logic/libngx_c_slogic.pdb
 
 
 # =============================================================================
@@ -1563,9 +1487,8 @@ build logic/libngx_c_slogic.a: CXX_STATIC_LIBRARY_LINKER__ngx_c_slogic_Debug log
   OBJECT_DIR = logic/CMakeFiles/ngx_c_slogic.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = logic/CMakeFiles/ngx_c_slogic.dir/ngx_c_slogic.pdb
   TARGET_FILE = logic/libngx_c_slogic.a
-  TARGET_PDB = logic/libngx_c_slogic.pdb
+  TARGET_PDB = ngx_c_slogic.a.dbg
 
 
 #############################################
@@ -1802,14 +1725,14 @@ build test/all: phony test/test_conf
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/logic/CMakeLists.txt /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/net/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCCompiler.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCCompilerABI.c /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXCompiler.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCompilerIdDetection.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCXXCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCompileFeatures.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCompilerABI.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCompilerId.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineSystem.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeFindBinUtils.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeParseImplicitIncludeInfo.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeParseImplicitLinkInfo.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeParseLibraryArchitecture.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystem.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeTestCCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeTestCXXCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeTestCompilerCommon.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/ADSP-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/ARMCC-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/ARMClang-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/AppleClang-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Borland-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Cray-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GHS-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-FindBinUtils.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/HP-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IAR-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Intel-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/LCC-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/MSVC-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/NVHPC-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/PGI-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/PathScale-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/SCO-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/TI-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Tasking-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Watcom-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/XL-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/zOS-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/FeatureTesting.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-Determine-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/logic/CMakeLists.txt /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/net/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/logic/CMakeLists.txt /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/net/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCCompiler.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCCompilerABI.c /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXCompiler.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCompilerIdDetection.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCXXCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCompileFeatures.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCompilerABI.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineCompilerId.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDetermineSystem.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeFindBinUtils.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeParseImplicitIncludeInfo.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeParseImplicitLinkInfo.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeParseLibraryArchitecture.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystem.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeTestCCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeTestCXXCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeTestCompilerCommon.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/ADSP-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/ARMCC-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/ARMClang-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/AppleClang-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Borland-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Cray-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GHS-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-FindBinUtils.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/HP-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IAR-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Intel-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/LCC-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/MSVC-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/NVHPC-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/PGI-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/PathScale-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/SCO-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/TI-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Tasking-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/Watcom-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/XL-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/zOS-C-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/FeatureTesting.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-Determine-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
+build /home/awen/workstation/nginx/CMakeLists.txt /home/awen/workstation/nginx/app/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock.pc.in /home/awen/workstation/nginx/lib/googletest/googlemock/cmake/gmock_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/CMakeLists.txt /home/awen/workstation/nginx/lib/googletest/googletest/cmake/Config.cmake.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/gtest_main.pc.in /home/awen/workstation/nginx/lib/googletest/googletest/cmake/internal_utils.cmake /home/awen/workstation/nginx/logic/CMakeLists.txt /home/awen/workstation/nginx/misc/CMakeLists.txt /home/awen/workstation/nginx/net/CMakeLists.txt /home/awen/workstation/nginx/proc/CMakeLists.txt /home/awen/workstation/nginx/signal/CMakeLists.txt /home/awen/workstation/nginx/test/CMakeLists.txt /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeDependentOption.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindPython/Support.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/FindThreads.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/GNUInstallDirs.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-C.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux-GNU.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/Linux.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/Platform/UnixPaths.cmake /snap/clion/234/bin/cmake/linux/x64/share/cmake-3.25/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.25.2/CMakeCCompiler.cmake CMakeFiles/3.25.2/CMakeCXXCompiler.cmake CMakeFiles/3.25.2/CMakeSystem.cmake: phony
 
 
 #############################################

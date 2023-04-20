@@ -41,7 +41,6 @@ CSocekt::CSocekt()
     m_cur_size_              = 0;     //当前计时队列尺寸
     m_timer_value_           = 0;     //当前计时队列头部的时间值
 
-
     ///在线用户相关
     m_onlineUserCount        = 0;     //在线用户数量统计，先给0
 }
@@ -193,7 +192,7 @@ bool CSocekt::ngx_open_listening_sockets()
 {
     Config_Nginx& conf = Config_Nginx::get_instance();
 
-    struct sockaddr_in serv_addr;
+    struct sockaddr_in serv_addr{};
     char               strinfo[100];
 
     memset(&serv_addr,0, sizeof(serv_addr));
@@ -205,7 +204,6 @@ bool CSocekt::ngx_open_listening_sockets()
         if(isock == -1)
         {
             ngx_log_stderr(errno,"CSocekt::Initialize()中socket()失败,i=%d.",i);
-            //其实这里直接退出，那如果以往有成功创建的socket呢？就没得到释放吧，当然走到这里表示程序不正常，应该整个退出，也没必要释放了
             return false;
         }
         int reuseaddr = 1;  //1:打开对应的设置项
@@ -239,14 +237,14 @@ bool CSocekt::ngx_open_listening_sockets()
             return false;
         }
         //可以，放到列表里来
-        lpngx_listening_t p_listensocketitem = new ngx_listening_t; //千万不要写错，注意前边类型是指针，后边类型是一个结构体
-        memset(p_listensocketitem,0,sizeof(ngx_listening_t));      //注意后边用的是 ngx_listening_t而不是lpngx_listening_t
-        p_listensocketitem->port = iport;                          //记录下所监听的端口号
-        p_listensocketitem->fd   = isock;                          //套接字木柄保存下来
-        ngx_log_error_core(NGX_LOG_INFO,0,"监听%d端口成功!",iport); //显示一些信息到日志中
+        auto p_listensocketitem = new ngx_listening_t;
+        memset(p_listensocketitem,0,sizeof(ngx_listening_t));
+        p_listensocketitem->port = iport;
+        p_listensocketitem->fd   = isock;
+        ngx_log_error_core(NGX_LOG_INFO,0,"监听%d端口成功!",iport);
         m_ListenSocketList.push_back(p_listensocketitem);
     }
-    if(m_ListenSocketList.size()<=0){
+    if(m_ListenSocketList.empty()){
         return false;
     }
     return true;
@@ -258,8 +256,9 @@ void CSocekt::ngx_close_listening_sockets()
     {
         close(m_ListenSocketList[i]->fd);
         ngx_log_error_core(NGX_LOG_INFO,0,"关闭监听端口%d!",m_ListenSocketList[i]->port); //显示一些信息到日志中
+
     }
-    return;
+    ///关闭释放问题
 }
 
 ////设置socket非阻塞
@@ -271,7 +270,6 @@ bool CSocekt::setnonblocking(int sockfd)
         return false;
     }
     return true;
-
 }
 
 //将一个待发送消息入到发消息队列中

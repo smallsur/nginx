@@ -29,3 +29,17 @@ target_link_libraries(clientTest PUBLIC ngx_c_socket)
 target_include_directories(clientTest PUBLIC ${INCLUDE_DIR})
 
 
+#find_path(HIREDIS_HEADER hiredis)
+#find_library(HIREDIS_LIB hiredis)
+#target_link_libraries(test ${HIREDIS_LIB})
+#target_include_directories(test PUBLIC ${HIREDIS_HEADER})
+#
+#find_path(REDIS_PLUS_PLUS_HEADER sw)
+#target_include_directories(test PUBLIC ${REDIS_PLUS_PLUS_HEADER})
+#
+#find_library(REDIS_PLUS_PLUS_LIB redis++)
+#target_link_libraries(test ${REDIS_PLUS_PLUS_LIB})
+
+target_link_libraries(test PUBLIC solution)
+
+

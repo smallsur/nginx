@@ -173,7 +173,7 @@ private:
 
     static void* ServerTimerQueueMonitorThread(void *threadData);         //时间队列监视线程，处理到期不发心跳包的用户踢出的线程
     ///辅助设置非阻塞套接字
-    bool setnonblocking(int sockfd);                                   //设置非阻塞套接字
+    static bool setnonblocking(int sockfd);                                   //设置非阻塞套接字
 
     ///辅助读取配置文件
     void ReadConf();                                                   //专门用于读各种配置项

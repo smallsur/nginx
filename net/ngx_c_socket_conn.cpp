@@ -40,6 +40,7 @@ void ngx_connection_s::GetOneToUse()
     psendbuf = nullptr;
     isendlen = 0;
     psendMemPointer = nullptr;                           //发送数据头指针记录
+
     lastPingTime = time(nullptr);
 
     FloodkickLastTime = 0;                            //Flood攻击上次收到包的时间
@@ -71,12 +72,11 @@ void CSocekt::initconnection()
     for(int i = 0; i < m_worker_connections; ++i) //先创建这么多个连接，后续不够再增加
     {
         p_Conn = (lpngx_connection_t)p_memory.AllocMemory(ilenconnpool,true); //清理内存 , 因为这里分配内存new char，无法执行构造函数，所以如下：
-        //手工调用构造函数，因为AllocMemory里无法调用构造函数
         p_Conn = new(p_Conn) ngx_connection_t();  //定位new【不懂请百度】，释放则显式调用p_Conn->~ngx_connection_t();
         p_Conn->GetOneToUse();
         m_connectionList.push_back(p_Conn);     //所有链接【不管是否空闲】都放在这个list
         m_freeconnectionList.push_back(p_Conn); //空闲连接会放在这个list
-    } //end for
+    }
     m_free_connection_n = m_total_connection_n = m_connectionList.size(); //开始这两个列表一样大
 }
 //最终回收连接池，释放内存
@@ -94,6 +94,7 @@ void CSocekt::clearconnection()
     }
 }
 
+///是否存在多个线程调用，单独互斥
 lpngx_connection_t CSocekt::ngx_get_connection(int isock)
 {
     CLock lock(&m_connectionMutex);
@@ -118,6 +119,7 @@ lpngx_connection_t CSocekt::ngx_get_connection(int isock)
     return p_Conn;
 }
 
+///是否存在多个线程调用，单独互斥
 void CSocekt::ngx_free_connection(lpngx_connection_t pConn)
 {
     //因为有线程可能要动连接池中连接，所以在合理互斥也是必要的
@@ -133,8 +135,7 @@ void CSocekt::ngx_free_connection(lpngx_connection_t pConn)
     ++m_free_connection_n;
 }
 
-//将要回收的连接放到一个队列中来，后续有专门的线程会处理这个队列中的连接的回收
-//有些连接，我们不希望马上释放，要隔一段时间后再释放以确保服务器的稳定，所以，我们把这种隔一段时间才释放的连接先放到一个队列中来
+
 void CSocekt::inRecyConnectQueue(lpngx_connection_t pConn)
 {
     ngx_log_stderr(0,"CSocekt::inRecyConnectQueue()执行，连接入到回收队列中.");
@@ -152,7 +153,7 @@ void CSocekt::inRecyConnectQueue(lpngx_connection_t pConn)
             break;
         }
     }
-    if(iffind == true) //找到了，不必再入了
+    if(iffind) //找到了，不必再入了
     {
         //我有义务保证这个只入一次嘛
         return;
@@ -237,14 +238,13 @@ void* CSocekt::ServerRecyConnectionThread(void* threadData)
                     pSocketObj->m_recyconnectionList.erase(pos);   //迭代器已经失效，但pos所指内容在p_Conn里保存着呢
                     pSocketObj->ngx_free_connection(p_Conn);	   //归还参数pConn所代表的连接到到连接池中
                     goto lblRRTD2;
-                } //end for
+                }
                 err = pthread_mutex_unlock(&pSocketObj->m_recyconnqueueMutex);
                 if(err != 0)  ngx_log_stderr(err,"CSocekt::ServerRecyConnectionThread()pthread_mutex_unlock2()失败，返回的错误码为%d!",err);
-            } //end if
-            break; //整个程序要退出了，所以break;
-        }  //end if
-    } //end while
-
+            }
+            break;
+        }
+    }
     return (void*)0;
 }
 
@@ -258,3 +258,5 @@ void CSocekt::ngx_close_connection(lpngx_connection_t c) {
     }
     c->fd = -1;
 }
+
+
