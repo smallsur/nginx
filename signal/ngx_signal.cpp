@@ -11,7 +11,7 @@
 
 
 //声明一个信号处理函数
-static void ngx_signal_handler(int signo, siginfo_t *siginfo, void *ucontext); //static表示该函数只在当前文件内可见
+static void ngx_signal_handler(int signo, siginfo_t *siginfo, void *ucontext);
 static void ngx_process_get_status(void);
 
 
@@ -24,8 +24,6 @@ ngx_signal_t  signals[] = {
         { SIGQUIT,   "SIGQUIT",          ngx_signal_handler },        //标识3
         { SIGIO,     "SIGIO",            ngx_signal_handler },        //指示一个异步I/O事件【通用异步I/O信号】
         { SIGSYS,    "SIGSYS, SIG_IGN", nullptr               },        //我们想忽略这个信号，SIGSYS表示收到了一个无效系统调用，如果我们不忽略，进程会被操作系统杀死，--标识31
-        //所以我们把handler设置为NULL，代表 我要求忽略这个信号，请求操作系统不要执行缺省的该信号处理动作（杀掉我）
-        //...日后根据需要再继续增加
         { 0, nullptr, nullptr               }         //信号对应的数字至少是1，所以可以用0作为一个特殊标记
 };
 

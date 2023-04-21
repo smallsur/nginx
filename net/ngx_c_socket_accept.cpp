@@ -80,7 +80,7 @@ void CSocekt::ngx_event_accept(lpngx_connection_t oldc) {
                 //我这里目前先不处理吧【因为上边已经写这个日志了】；
             }
             return;
-        }  //end if(s == -1)
+        }
         //走到这里的，表示accept4()/accept()成功了
         if(m_onlineUserCount >= m_worker_connections)  //用户连接数过多，要关闭该用户socket，因为现在也没分配连接，所以直接关闭即可
         {
@@ -102,7 +102,7 @@ void CSocekt::ngx_event_accept(lpngx_connection_t oldc) {
         if(!use_accept4)
         {
             //如果不是用accept4()取得的socket，那么就要设置为非阻塞【因为用accept4()的已经被accept4()设置为非阻塞了】
-            if(setnonblocking(s) == false)
+            if(!setnonblocking(s))
             {
                 //设置非阻塞居然失败
                 ngx_close_connection(newc);
@@ -113,18 +113,7 @@ void CSocekt::ngx_event_accept(lpngx_connection_t oldc) {
 //        newc->w_ready = 1;                                    //标记可以写，新连接写事件肯定是ready的；【从连接池拿出一个连接时这个连接的所有成员都是0】
         newc->rhandler = &CSocekt::ngx_wait_request_handler;
         newc->whandler = &CSocekt::ngx_write_request_handler;  //设置数据发送时的写处理函数。
-        //客户端应该主动发送第一次的数据，这里将读事件加入epoll监控
-//        if(ngx_epoll_add_event(s,                 //socket句柄
-//                               1,0,              //读，写
-//                               0,          //其他补充标记【EPOLLET(高速模式，边缘触发ET)】
-//                               EPOLL_CTL_ADD,    //事件类型【增加，还有删除/修改】
-//                               newc              //连接池中的连接
-//        ) == -1)
-//        {
-//            //增加事件失败，失败日志在ngx_epoll_add_event中写过了，因此这里不多写啥；
-//            ngx_close_connection(newc);
-//            return; //直接返回
-//        }
+
         if(ngx_epoll_oper_event(
                 s,                  //socekt句柄
                 EPOLL_CTL_ADD,      //事件类型，这里是增加

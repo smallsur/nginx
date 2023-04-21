@@ -23,7 +23,13 @@ typedef class  CSocekt           CSocekt;
 
 typedef void (CSocekt::*ngx_event_handler_pt)(lpngx_connection_t c); //定义成员函数指针
 
-//一些专用结构定义放在这里，暂时不考虑放ngx_global.h里了-------------------------
+typedef struct _STRUC_MSG_HEADER
+{
+    lpngx_connection_t pConn;         //记录对应的链接，注意这是个指针
+    uint64_t           iCurrsequence; //收到数据包时记录对应连接的序号，将来能用于比较是否连接已经作废用
+    //......其他以后扩展
+}STRUC_MSG_HEADER,*LPSTRUC_MSG_HEADER;
+
 struct ngx_listening_s  //和监听端口有关的结构
 {
     int                       port;        //监听的端口号
@@ -31,8 +37,6 @@ struct ngx_listening_s  //和监听端口有关的结构
     lpngx_connection_t        connection;  //连接池中的一个连接，注意这是个指针
 };
 
-//以下三个结构是非常重要的三个结构，我们遵从官方nginx的写法；
-//(1)该结构表示一个TCP连接【客户端主动发起的、Nginx服务器被动接受的TCP连接】
 struct ngx_connection_s
 {
     ngx_connection_s();                                      //构造函数
@@ -53,14 +57,13 @@ struct ngx_connection_s
     ///事件相关，读事件，写事件
     ngx_event_handler_pt      rhandler;       //读事件的相关处理方法
     ngx_event_handler_pt      whandler;       //写事件的相关处理方法
-//    uint8_t                   w_ready;        //写准备好标记
 
     ///和收包有关
     unsigned char             curStat;                        //当前收包的状态
     char                      dataHeadInfo[_DATA_BUFSIZE_];   //用于保存收到的数据的包头信息
     char                      *precvbuf;                      //接收数据的缓冲区的头指针，对收到不全的包非常有用，看具体应用的代码
     unsigned int              irecvlen;                     //要收到多少数据，由这个变量指定，和precvbuf配套使用，看具体应用的代码
-    bool                      ifnewrecvMem;                   //如果我们成功的收到了包头，那么我们就要分配内存开始保存 包头+消息头+包体内容，这个标记用来标记是否我们new过内存，因为new过是需要释放的
+//    bool                      ifnewrecvMem;                   //如果我们成功的收到了包头，那么我们就要分配内存开始保存 包头+消息头+包体内容，这个标记用来标记是否我们new过内存，因为new过是需要释放的
     char                      *precvMemPointer;               //new出来的用于收包的内存首地址，和ifnewrecvMem配对使用
 
     ///和发包有关
@@ -84,19 +87,8 @@ struct ngx_connection_s
     ///和网络安全有关
     uint64_t                  FloodkickLastTime;              //Flood攻击上次收到包的时间
     int                       FloodAttackCount;               //Flood攻击在该时间内收到包的次数统计
-
 };
 
-//消息头，引入的目的是当收到数据包时，额外记录一些内容以备将来使用
-typedef struct _STRUC_MSG_HEADER
-{
-    lpngx_connection_t pConn;         //记录对应的链接，注意这是个指针
-    uint64_t           iCurrsequence; //收到数据包时记录对应连接的序号，将来能用于比较是否连接已经作废用
-    //......其他以后扩展
-}STRUC_MSG_HEADER,*LPSTRUC_MSG_HEADER;
-
-//------------------------------------
-//socket相关类
 class CSocekt
 {
 public:
@@ -172,6 +164,7 @@ private:
     static void *ServerSendQueueThread(void *threadData);
 
     static void* ServerTimerQueueMonitorThread(void *threadData);         //时间队列监视线程，处理到期不发心跳包的用户踢出的线程
+
     ///辅助设置非阻塞套接字
     static bool setnonblocking(int sockfd);                                   //设置非阻塞套接字
 
@@ -203,15 +196,17 @@ private:
     ///和连接池有关的
     std::list<lpngx_connection_t>  m_connectionList;                      //连接列表【连接池】
     std::list<lpngx_connection_t>  m_freeconnectionList;                  //空闲连接列表【这里边装的全是空闲的连接】
+    std::list<lpngx_connection_t>  m_recyconnectionList;                  //将要释放的连接放这里
+
     std::atomic<int>               m_total_connection_n;                  //连接池总连接数
-    pthread_mutex_t                m_connectionMutex;                     //连接相关互斥量，互
+    std::atomic<int>               m_totol_recyconnection_n;              //待释放连接队列大小
     int                            m_free_connection_n;                //连接池中可用连接总数
 
+    pthread_mutex_t                m_connectionMutex;                     //连接相关互斥量，互
     pthread_mutex_t                m_recyconnqueueMutex;                  //连接回收队列相关的互斥量
-    std::list<lpngx_connection_t>  m_recyconnectionList;                  //将要释放的连接放这里
-    std::atomic<int>               m_totol_recyconnection_n;              //待释放连接队列大小
-    int                            m_RecyConnectionWaitTime;              //等待这么些秒后才回收连接
 
+    ///conf
+    int                            m_RecyConnectionWaitTime;              //等待这么些秒后才回收连接
 
     ///监听套接字
     std::vector<lpngx_listening_t> m_ListenSocketList;                 //监听套接字队列
@@ -228,7 +223,9 @@ private:
     std::vector<ThreadItem *>      m_threadVector;                        //线程 容器，容器里就是各个线程了
     pthread_mutex_t                m_sendMessageQueueMutex;               //发消息队列互斥量
     sem_t                          m_semEventSendQueue;                   //处理发消息线程相关的信号量
+
     //时间相关
+    ///conf
     int                            m_ifkickTimeCount;                     //是否开启踢人时钟，1：开启   0：不开启
     pthread_mutex_t                m_timequeueMutex;                      //和时间队列有关的互斥量
     std::multimap<time_t, LPSTRUC_MSG_HEADER>   m_timerQueuemap;          //时间队列

@@ -174,6 +174,8 @@ void CLogicSocket::SendNoBodyPkgToClient(LPSTRUC_MSG_HEADER pMsgHeader,unsigned 
 //处理各种业务逻辑
 bool CLogicSocket::_HandleRegister(lpngx_connection_t pConn,LPSTRUC_MSG_HEADER pMsgHeader,char *pPkgBody,unsigned short iBodyLength)
 {
+    //ngx_log_stderr(0,"执行了CLogicSocket::_HandleRegister()!");
+
     //(1)首先判断包体的合法性
     if(pPkgBody == NULL) //具体看客户端服务器约定，如果约定这个命令[msgCode]必须带包体，那么如果不带包体，就认为是恶意包，直接不处理
     {
@@ -193,6 +195,10 @@ bool CLogicSocket::_HandleRegister(lpngx_connection_t pConn,LPSTRUC_MSG_HEADER p
 
     //(3)取得了整个发送过来的数据
     LPSTRUCT_REGISTER p_RecvInfo = (LPSTRUCT_REGISTER)pPkgBody;
+    p_RecvInfo->iType = ntohl(p_RecvInfo->iType);          //所有数值型,short,int,long,uint64_t,int64_t这种大家都不要忘记传输之前主机网络序，收到后网络转主机序
+    p_RecvInfo->username[sizeof(p_RecvInfo->username)-1]=0;//这非常关键，防止客户端发送过来畸形包，导致服务器直接使用这个数据出现错误。
+    p_RecvInfo->password[sizeof(p_RecvInfo->password)-1]=0;//这非常关键，防止客户端发送过来畸形包，导致服务器直接使用这个数据出现错误。
+
 
     //(4)这里可能要考虑 根据业务逻辑，进一步判断收到的数据的合法性，
     //当前该玩家的状态是否适合收到这个数据等等【比如如果用户没登陆，它就不适合购买物品等等】
@@ -206,6 +212,8 @@ bool CLogicSocket::_HandleRegister(lpngx_connection_t pConn,LPSTRUC_MSG_HEADER p
     CCRC32   &p_crc32 = CCRC32::get_instance();
     int iSendLen = sizeof(STRUCT_REGISTER);
     //a)分配要发送出去的包的内存
+
+    //iSendLen = 65000; //unsigned最大也就是这个值
     char *p_sendbuf = (char *)p_memory.AllocMemory(m_iLenMsgHeader+m_iLenPkgHeader+iSendLen,false);//准备发送的格式，这里是 消息头+包头+包体
     //b)填充消息头
     memcpy(p_sendbuf,pMsgHeader,m_iLenMsgHeader);                   //消息头直接拷贝到这里来
@@ -223,26 +231,68 @@ bool CLogicSocket::_HandleRegister(lpngx_connection_t pConn,LPSTRUC_MSG_HEADER p
     pPkgHeader->crc32   = htonl(pPkgHeader->crc32);
 
     //f)发送数据包
-    /*msgSend(p_sendbuf);*/
-    if(ngx_epoll_oper_event(
-            pConn->fd,          //socekt句柄
-            EPOLL_CTL_MOD,      //事件类型，这里是增加
-            EPOLLOUT,           //标志，这里代表要增加的标志,EPOLLOUT：可写
-            0,                  //对于事件类型为增加的，EPOLL_CTL_MOD需要这个参数, 0：增加   1：去掉 2：完全覆盖
-            pConn               //连接池中的连接
-    ) == -1)
+    msgSend(p_sendbuf);
+    /*if(ngx_epoll_oper_event(
+                                pConn->fd,          //socekt句柄
+                                EPOLL_CTL_MOD,      //事件类型，这里是增加
+                                EPOLLOUT,           //标志，这里代表要增加的标志,EPOLLOUT：可写
+                                0,                  //对于事件类型为增加的，EPOLL_CTL_MOD需要这个参数, 0：增加   1：去掉 2：完全覆盖
+                                pConn               //连接池中的连接
+                                ) == -1)
     {
         ngx_log_stderr(0,"1111111111111111111111111111111111111111111111111111111111111!");
+    } */
+
+    /*
+    sleep(100);  //休息这么长时间
+    //如果连接回收了，则肯定是iCurrsequence不等了
+    if(pMsgHeader->iCurrsequence != pConn->iCurrsequence)
+    {
+        //应该是不等，因为这个插座已经被回收了
+        ngx_log_stderr(0,"插座不等,%L--%L",pMsgHeader->iCurrsequence,pConn->iCurrsequence);
     }
-    msgSend(p_sendbuf);
-//    ngx_log_stderr(0,"执行了CLogicSocket::_HandleRegister()!");
+    else
+    {
+        ngx_log_stderr(0,"插座相等哦,%L--%L",pMsgHeader->iCurrsequence,pConn->iCurrsequence);
+    }
+
+    */
+    //ngx_log_stderr(0,"执行了CLogicSocket::_HandleRegister()并返回结果!");
     return true;
 }
-
-
 bool CLogicSocket::_HandleLogIn(lpngx_connection_t pConn,LPSTRUC_MSG_HEADER pMsgHeader,char *pPkgBody,unsigned short iBodyLength)
 {
-    ngx_log_stderr(0,"执行了CLogicSocket::_HandleLogIn()!");
+    if(pPkgBody == NULL)
+    {
+        return false;
+    }
+    int iRecvLen = sizeof(STRUCT_LOGIN);
+    if(iRecvLen != iBodyLength)
+    {
+        return false;
+    }
+    CLock lock(&pConn->logicPorcMutex);
+
+    LPSTRUCT_LOGIN p_RecvInfo = (LPSTRUCT_LOGIN)pPkgBody;
+    p_RecvInfo->username[sizeof(p_RecvInfo->username)-1]=0;
+    p_RecvInfo->password[sizeof(p_RecvInfo->password)-1]=0;
+
+    LPCOMM_PKG_HEADER pPkgHeader;
+    CMemory  &p_memory = CMemory::get_instance();
+    CCRC32   &p_crc32 = CCRC32::get_instance();
+
+    int iSendLen = sizeof(STRUCT_LOGIN);
+    char *p_sendbuf = (char *)p_memory.AllocMemory(m_iLenMsgHeader+m_iLenPkgHeader+iSendLen,false);
+    memcpy(p_sendbuf,pMsgHeader,m_iLenMsgHeader);
+    pPkgHeader = (LPCOMM_PKG_HEADER)(p_sendbuf+m_iLenMsgHeader);
+    pPkgHeader->msgCode = _CMD_LOGIN;
+    pPkgHeader->msgCode = htons(pPkgHeader->msgCode);
+    pPkgHeader->pkgLen  = htons(m_iLenPkgHeader + iSendLen);
+    LPSTRUCT_LOGIN p_sendInfo = (LPSTRUCT_LOGIN)(p_sendbuf+m_iLenMsgHeader+m_iLenPkgHeader);
+    pPkgHeader->crc32   = p_crc32.Get_CRC((unsigned char *)p_sendInfo,iSendLen);
+    pPkgHeader->crc32   = htonl(pPkgHeader->crc32);
+    //ngx_log_stderr(0,"成功收到了登录并返回结果！");
+    msgSend(p_sendbuf);
     return true;
 }
 
@@ -254,11 +304,11 @@ bool CLogicSocket::_HandlePing(lpngx_connection_t pConn,LPSTRUC_MSG_HEADER pMsgH
         return false;
 
     CLock lock(&pConn->logicPorcMutex); //凡是和本用户有关的访问都考虑用互斥，以免该用户同时发送过来两个命令达到各种作弊目的
-    pConn->lastPingTime = time(nullptr);   //更新该变量
+    pConn->lastPingTime = time(NULL);   //更新该变量
 
     //服务器也发送 一个只有包头的数据包给客户端，作为返回的数据
     SendNoBodyPkgToClient(pMsgHeader,_CMD_PING);
 
-    ngx_log_stderr(0,"成功收到了心跳包并返回结果！");
+    //ngx_log_stderr(0,"成功收到了心跳包并返回结果！");
     return true;
 }

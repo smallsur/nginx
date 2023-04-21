@@ -65,7 +65,7 @@ LPSTRUC_MSG_HEADER CSocekt::GetOverTimeTimer(time_t cur_time)
     LPSTRUC_MSG_HEADER ptmp;
 
     if (m_cur_size_ == 0 || m_timerQueuemap.empty())
-        return NULL; //队列为空
+        return nullptr; //队列为空
 
     time_t earliesttime = GetEarliestTime(); //到multimap中去查询
     if (earliesttime <= cur_time)

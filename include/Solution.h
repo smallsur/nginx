@@ -103,8 +103,89 @@ public:
             }
         }
     }
-    int cuttingRope(int n) {
+    int maxEnvelopes(vector<vector<int>>& envelopes) {
+        int n = envelopes.size();
+        int ans = 0;
+//        quick(envelopes,0,n-1);
+        sort(envelopes.begin(),envelopes.end(),[](vector<int>& a, vector<int>& b) {
+            return a[0] == b[0] ?
+                   b[1] - a[1] : a[0] - b[0];
+        });
+        vector<int> dp(n+1,1);
+        for (int i = 1; i < n+1; ++i) {
+            for (int j = 1; j < i; ++j) {
+                if(envelopes[i-1][1]>=envelopes[j-1][1]){
+                    dp[i] = max(dp[i],dp[j]+1);
+                }
+            }
+        }
+        for (int i = 1; i < n+1; ++i) {
+            ans = max(ans,dp[i]);
+        }
+        return ans;
+    }
 
+    void quick(vector<vector<int>>& envelopes,int left,int right){
+        if(left>=right){
+            return;
+        }
+        int l = left,r = right;
+        int temp = left;
+        while (left<right){
+            while (envelopes[right][0]>envelopes[temp][0]&&left<right){
+                right--;
+            }
+            if(left<right) {
+                swap(envelopes[temp], envelopes[right]);
+                temp = right;
+                left++;
+            }
+
+            while (envelopes[left][0]<envelopes[temp][0]&&left<right){
+                left++;
+            }
+            if(left<right) {
+                swap(envelopes[temp], envelopes[left]);
+                temp = left;
+                right--;
+            }
+        }
+        quick(envelopes,l,temp-1);
+        quick(envelopes,temp+1,r);
+    }
+
+    vector<int> sortArray(vector<int>& nums) {
+        quick1(nums,0,nums.size()-1);
+        return nums;
+    }
+
+    void quick1(vector<int>& envelopes,int left,int right){
+        if(left>=right){
+            return;
+        }
+        int l = left,r = right;
+        int temp = left;
+        while (left<right){
+            while (envelopes[right]>envelopes[temp]&&left<right){
+                right--;
+            }
+            if(left<right) {
+                swap(envelopes[temp], envelopes[right]);
+                temp = right;
+                left++;
+            }
+
+            while (envelopes[left]<envelopes[temp]&&left<right){
+                left++;
+            }
+            if(left<right) {
+                swap(envelopes[temp], envelopes[left]);
+                temp = left;
+                right--;
+            }
+        }
+        quick1(envelopes,l,temp-1);
+        quick1(envelopes,temp+1,r);
     }
 };
 

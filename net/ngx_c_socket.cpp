@@ -100,14 +100,14 @@ bool CSocekt::Initialize_subproc()
 
     //创建线程
     int err;
-    ThreadItem *pRecyconn;
+    ThreadItem *pRecyconn;///回收
     m_threadVector.push_back(pRecyconn = new ThreadItem(this));
     err = pthread_create(&pRecyconn->_Handle, nullptr, ServerRecyConnectionThread,pRecyconn);
     if(err != 0)
     {
         return false;
     }
-    ThreadItem *pSendQueue;    //专门用来发送数据的线程
+    ThreadItem *pSendQueue;    ///专门用来发送数据的线程
     m_threadVector.push_back(pSendQueue = new ThreadItem(this));                         //创建 一个新线程对象 并入到容器中
     err = pthread_create(&pSendQueue->_Handle, nullptr, ServerSendQueueThread,pSendQueue); //创建线程，错误不返回到errno，一般返回错误码
     if(err != 0)
@@ -148,7 +148,8 @@ void CSocekt::Shutdown_subproc()
     //(3)队列相关
     clearMsgSendQueue();
     clearconnection();
-    clearAllFromTimerQueue();
+    clearAllFromTimerQueue();///
+    ngx_close_listening_sockets();
 
     //(4)多线程相关
     pthread_mutex_destroy(&m_connectionMutex);          //连接相关互斥量释放

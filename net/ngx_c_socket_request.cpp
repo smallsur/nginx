@@ -60,6 +60,12 @@ void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
         if(reco == c->irecvlen)
         {
             //收到的宽度等于要收的宽度，包体也收完整了
+            if(m_floodAkEnable == 1)
+            {
+                //Flood攻击检测是否开启
+                isflood = TestFlood(c);
+            }
+            //收到的宽度等于要收的宽度，包体也收完整了
             ngx_wait_request_handler_proc_plast(c,isflood);
         }
         else
@@ -75,6 +81,12 @@ void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
         //接收包体中，包体不完整，继续接收中
         if(c->irecvlen == reco)
         {
+            //收到的宽度等于要收的宽度，包体也收完整了
+            if(m_floodAkEnable == 1)
+            {
+                //Flood攻击检测是否开启
+                isflood = TestFlood(c);
+            }
             //包体收完整了
             ngx_wait_request_handler_proc_plast(c, isflood);
         }
@@ -84,8 +96,8 @@ void CSocekt::ngx_wait_request_handler(lpngx_connection_t c)
             c->precvbuf = c->precvbuf + reco;
             c->irecvlen = c->irecvlen - reco;
         }
-    }  //end if(c->curStat == _PKG_HD_INIT)
-    if(isflood == true)
+    }
+    if(isflood)
     {
         //客户端flood服务器，则直接把客户端踢掉
         ngx_log_stderr(errno,"发现客户端flood，干掉该客户端!");
@@ -103,7 +115,8 @@ ssize_t CSocekt::recvproc(lpngx_connection_t c,char *buff,ssize_t buflen)  //ssi
         //客户端关闭【应该是正常完成了4次挥手】，我这边就直接回收连接连接，关闭socket即可
         //    ngx_log_stderr(0,"连接被客户端正常关闭[4路挥手关闭]！");
 //        ngx_close_connection(c);
-        inRecyConnectQueue(c);
+//        inRecyConnectQueue(c);
+        zdClosesocketProc(c);
         return -1;
     }
     //客户端没断，走这里
@@ -140,7 +153,14 @@ ssize_t CSocekt::recvproc(lpngx_connection_t c,char *buff,ssize_t buflen)  //ssi
         else
         {
             //能走到这里的，都表示错误，我打印一下日志，希望知道一下是啥错误，我准备打印到屏幕上
-            ngx_log_stderr(errno,"CSocekt::recvproc()中发生错误，我打印出来看看是啥错误！");  //正式运营时可以考虑这些日志打印去掉
+            if(errno == EBADF)  // #define EBADF   9 /* Bad file descriptor */
+            {
+                //因为多线程，偶尔会干掉socket，所以不排除产生这个错误的可能性
+            }
+            else
+            {
+                ngx_log_stderr(errno,"CSocekt::recvproc()中发生错误，我打印出来看看是啥错误！");  //正式运营时可以考虑这些日志打印去掉
+            }
         }
 
         //    ngx_log_stderr(0,"连接被客户端 非 正常关闭！");
@@ -207,7 +227,7 @@ void CSocekt::ngx_wait_request_handler_proc_p1(lpngx_connection_t c,bool &isfloo
                 //Flood攻击检测是否开启
                 isflood = TestFlood(c);
             }
-            ngx_wait_request_handler_proc_plast(c isflood);
+            ngx_wait_request_handler_proc_plast(c,isflood);
         }
         else
         {
@@ -343,7 +363,7 @@ void CSocekt::ngx_write_request_handler(lpngx_connection_t pConn)
 
 
     p_memory.FreeMemory(pConn->psendMemPointer);  //释放内存
-    pConn->psendMemPointer = NULL;
+    pConn->psendMemPointer = nullptr;
     --pConn->iThrowsendCount;  //建议放在最后执行
 
 }
